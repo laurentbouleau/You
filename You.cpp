@@ -147,6 +147,7 @@ extern const vector<wstring> AZERTYUIOP;
 HANDLE hOut = GetStdHandle(STD_OUTPUT_HANDLE);
 DWORD dwMode = 0;
 CONSOLE_SCREEN_BUFFER_INFO csbiInfo;
+//_wsetlocale(LC_ALL, L"fr-FR");
 int X;
 
 /* www.developpez.net : kaitlyn

@@ -47,6 +47,8 @@ extern const std::wstring lire_fichierTxt(std::wstring const& nomFichier);
 extern const void Console_Lire_txt(std::wstring);
 //extern const int Console_Lire_txt(std::wstring, int, int);
 extern const void Console_Lire(std::wstring, int, int);
+extern HANDLE hOut;
+extern void Console_Lire(HANDLE hOut, const std::wstring& wstr, int x);
 
 extern std::tm ParseDate(std::wstring& str);
 
@@ -1030,7 +1032,8 @@ const int Cinema::afficher()
 			    Textes += keyColor[1] + L" (" + valuesColor + L"petit à petit" + keyColor[1] + L')' + valuesColor;
 			if (Date_1_t[I] != L"")
 				Textes += keyColor[1] + L" : " + valuesColor + Date_1_t[I];
-			Console_Lire(Textes, 4, 4);
+			//Console_Lire(Textes, 4, 4);
+			Console_Lire(hOut, Textes + L"\r\n", 4);
 		}
 		else if (D_J[I] > 0)
 		{
@@ -1132,7 +1135,8 @@ const int Cinema::afficher()
 			if (Date_1_t[I] != L"")
 				Textes += keyColor[1] + L" : " + valuesColor + Date_1_t[I];
 
-			Console_Lire(Textes, 4, 8);
+			//Console_Lire(Textes, 4, 8);
+			Console_Lire(hOut, Textes + L"\r\n", 4);
 		}
 		else
 		{
@@ -1240,7 +1244,8 @@ const void Cinema::PrintAvec(std::vector<std::pair<std::wstring, std::wstring>>&
 				break;
 			avec_str += keyColor[0] + L", " + valuesColor;
 		}
-		Console_Lire(avec_str, 0, 0);
+		//Console_Lire(avec_str, 0, 0);
+		Console_Lire(hOut, avec_str + L"\r\n", 0);
 	}
 }
 
@@ -1255,7 +1260,8 @@ const void Cinema::PrintAvec()
 {
 	if (affichage_avec_actif && avec.size())
 	{
-		Console_Lire(keyColor[0] + L"Avec :" + valuesColor + L"\r\n", 0, 0);
+		//Console_Lire(keyColor[0] + L"Avec :" + valuesColor + L"\r\n", 0, 0);
+		Console_Lire(hOut, keyColor[0] + L"Avec :" + valuesColor + L"\r\n", 0);// , 0);
 
 		std::wstring avec_str;
 		bool found = false;
@@ -1285,7 +1291,8 @@ const void Cinema::PrintAvec()
 		}
 		if(found)
 		    avec_str += L"...";
-		Console_Lire(avec_str + L"\r\n", 4, 0);
+		//Console_Lire(avec_str + L"\r\n", 4, 0);
+		Console_Lire(hOut, avec_str + L"\r\n", 4);// , 0);
 	}
 }
 
@@ -1304,7 +1311,8 @@ const void  Cinema::PrintDatedeReprise()
 		std::wstring wstr;
 		wcsftime(date_string, 18, L"%d/%m/%Y", &date_de_reprise);
 		wstr = date_string;
-		Console_Lire(keyColor[0] + L"Date de reprise : " + valuesColor + wstr.substr(0, 2) + keyColor[0] + L'/' + valuesColor + wstr.substr(3, 2) + keyColor[0] + L'/' + valuesColor + wstr.substr(6, 4), 0, 19);
+		//Console_Lire(keyColor[0] + L"Date de reprise : " + valuesColor + wstr.substr(0, 2) + keyColor[0] + L'/' + valuesColor + wstr.substr(3, 2) + keyColor[0] + L'/' + valuesColor + wstr.substr(6, 4), 0, 19);
+		Console_Lire(hOut, keyColor[0] + L"Date de reprise : " + valuesColor + wstr.substr(0, 2) + keyColor[0] + L'/' + valuesColor + wstr.substr(3, 2) + keyColor[0] + L'/' + valuesColor + wstr.substr(6, 4) + L"\r\n", 0);// , 19);
 	}
 }
 
@@ -1323,7 +1331,8 @@ const void Cinema::PrintDatedeSortie()
 		std::wstring wstr;
 		wcsftime(date_string, 14, L"%d/%m/%Y", &date_de_sortie);
 		wstr = date_string;
-		Console_Lire(keyColor[0] + L"Date de sortie : " + valuesColor + wstr.substr(0, 2) + keyColor[0] + L'/' + valuesColor + wstr.substr(3, 2) + keyColor[0] + L'/' + valuesColor + wstr.substr(6, 4), 0, 18);
+		//Console_Lire(keyColor[0] + L"Date de sortie : " + valuesColor + wstr.substr(0, 2) + keyColor[0] + L'/' + valuesColor + wstr.substr(3, 2) + keyColor[0] + L'/' + valuesColor + wstr.substr(6, 4), 0, 18);
+		Console_Lire(hOut, keyColor[0] + L"Date de sortie : " + valuesColor + wstr.substr(0, 2) + keyColor[0] + L'/' + valuesColor + wstr.substr(3, 2) + keyColor[0] + L'/' + valuesColor + wstr.substr(6, 4) + L"\r\n", 0);// , 18);
 	}
 }
 
@@ -1353,7 +1362,8 @@ const void Cinema::PrintDe(const std::vector<std::wstring>&de)
 
 		//PrintStringW(m_hOut, creee_par_str, 0);
 		//PrintStringW(HANDLE hOut, creee_par_str);
-		Console_Lire(de_str, 0, 0);
+		//Console_Lire(de_str, 0, 0);
+		Console_Lire(hOut, de_str, 0);
 	}
 }
 
@@ -1371,7 +1381,8 @@ const void Cinema::PrintDistributeur()
 		std::wstring distributeur_str = keyColor[0] + L"Distributeur : " + valuesColor + distributeur + L"\r\n";
 		//PrintStringW(m_hOut, creee_par_str, 0);
 		//PrintStringW(HANDLE hOut, creee_par_str);
-		Console_Lire(distributeur_str, 0, 0);
+		//Console_Lire(distributeur_str, 0, 0);
+		Console_Lire(hOut, distributeur_str, 0);
 	}
 }
 
@@ -1401,7 +1412,8 @@ const void Cinema::PrintPar(const std::vector<std::wstring>&par)
 
 		//PrintStringW(m_hOut, creee_par_str, 0);
 		//PrintStringW(HANDLE hOut, creee_par_str);
-		Console_Lire(par_str, 0, 0);
+		//Console_Lire(par_str, 0, 0);
+		Console_Lire(hOut, par_str, 0);
 	}
 }
 
@@ -1464,12 +1476,14 @@ const void Cinema::PrintSoundtracks()
 		}
 
 		//PrintTmp(keyColor + L"Soundtrack :" + valuesColor + L"\r\n");
-		Console_Lire(keyColor[0] + L"Soundtrack :" + valuesColor + L"\r\n", 0, 0);
+		//Console_Lire(keyColor[0] + L"Soundtrack :" + valuesColor + L"\r\n", 0, 0);
+		Console_Lire(hOut, keyColor[0] + L"Soundtrack :" + valuesColor + L"\r\n", 0);
 
 		for (auto&& [role, nom] : m_soundtrack)
 		{
 			//PrintTmp(keyColor2 + role + std::wstring(maxKeyLength - role.size(), L' ') + L" : " + valuesColor2 + nom + L"\r\n");
-		    Console_Lire(role + keyColor[1] + std::wstring(maxKeyLength - role.size(), L' ') + L" : " + valuesColor + nom + L"\r\n", 4, 0);
+		    //Console_Lire(role + keyColor[1] + std::wstring(maxKeyLength - role.size(), L' ') + L" : " + valuesColor + nom + L"\r\n", 4, 0);
+			Console_Lire(hOut, role + keyColor[1] + std::wstring(maxKeyLength - role.size(), L' ') + L" : " + valuesColor + nom + L"\r\n", 4);// , 0);
 		}
 	}
 }
@@ -1522,7 +1536,8 @@ const void Cinema::PrintTitre()
 		}
 		// Note
 		wstr = PrintNote();
-		Console_Lire(titre_str + wstr, 0, 0);
+		//Console_Lire(titre_str + wstr, 0, 0);
+		Console_Lire(hOut, titre_str + wstr + L"\r\n", 0);
 	}
 }
 
@@ -1540,7 +1555,8 @@ const void Cinema::PrintTitre_sur_4()
 	{
 		if (titre.size() == 5)
 		{ // Titre[4]
-			int i = Console_Lire_txt(titre[4], 4, 0);
+			//int i = Console_Lire_txt(titre[4], 4, 0);
+			Console_Lire(hOut, titre[4] + L"\r\n", 4);
 			Console_Lire_txt(L"-~- ");
 		}
 	}

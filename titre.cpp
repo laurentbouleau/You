@@ -202,7 +202,7 @@ const std::vector<std::wstring> Soundtrack
 const std::vector<std::wstring> Sur
 {
     L"Apple TV+",
-    L"Amazon Prime",
+    L"Amazon Prime Video",
     L"Disney+",
     L"DVD",
     L"Netflix",

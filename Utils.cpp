@@ -33,6 +33,8 @@ extern const std::vector<std::wstring> AZERTYUIOP;
 extern class Erreur E;
 extern class Bug B;
 
+extern HANDLE hOut;
+
 //extern const std::vector<std::wstring> Audiodescription;
 
 // ######################################################################################################################################################
@@ -1910,8 +1912,29 @@ const int Console_Lire_txt2(std::wstring Textes, int x1, int x2)
     return EXIT_SUCCESS;
 }
 
+/*void Console_Lire(const std::wstring& wstr, int x1)
+{
+    HANDLE hOut;
+    DWORD dwMode = 0;
+    BOOL res = WriteFile(hOut, &wstr[0], (DWORD)(wstr.size() * sizeof(wchar_t)), &dwMode, x1);
+    assert(res == TRUE);
 
+}*/
+void Console_Lire(HANDLE hOut, const std::wstring& wstr, int x)
+{
+    DWORD numberOfBytesWritten = 0;
 
+#if Console_Lire_txt_ == 1
+    std::wstring ind(x, L'_');
+#else
+    std::wstring ind(x, L' ');
+#endif
+    BOOL res = WriteFile(hOut, &ind[0], (DWORD)(ind.size() * sizeof(wchar_t)), &numberOfBytesWritten, NULL);
+    assert(res == TRUE);
+
+    res = WriteFile(hOut, &wstr[0], (DWORD)(wstr.size() * sizeof(wchar_t)), &numberOfBytesWritten, NULL);
+    assert(res == TRUE);
+}
 // ######################################################################################################################################################
 // #                                                                                                                                                    #
 // # PrintStringW                                                                                                                                       #
@@ -2138,7 +2161,8 @@ void PrintAudiodescription(const std::wstring& audiodescription, bool affichage_
         std::wstring audiodescription_str = keyColor + L"Audiodescription : " + valuesColor + audiodescription + L"\r\n";
         //PrintStringW(m_hOut, creee_par_str, 0);
         //PrintStringW(HANDLE hOut, creee_par_str);
-        Console_Lire(audiodescription_str, 0, 0);
+        //Console_Lire(audiodescription_str, 0, 0);
+        Console_Lire(hOut, audiodescription_str, 0);// , 0);
     }
 }
 
@@ -2193,11 +2217,13 @@ void PrintGenres(const std::vector<std::wstring>& genres, bool affichage_genres_
         }
         genre_str += L"\r\n";
         //int i = Console_Lire_txt(genre_str, 0, 0);
-        Console_Lire(genre_str, 0, 0);
+        //Console_Lire(genre_str, 0, 0);
+        Console_Lire(hOut, genre_str, 0);// , 0);
         if (affichage_sous_genre_actif && sous_genre.size() != 0)
         {
             genre_str = keyColor + L"Sous-genre : " +  valuesColor + sous_genre + L"\r\n";
-            Console_Lire(genre_str, 0, 0);
+            //Console_Lire(genre_str, 0, 0);
+            Console_Lire(hOut, genre_str, 0);// , 0);
         }
         //PrintStringW(m_hOut, genre_str, 0);
     }
@@ -2227,7 +2253,8 @@ void PrintImages(const std::vector<std::wstring>& images, bool affichage_image_a
         }
         image_str += keyColor + L']' + valuesColor + L"\r\n";
         //PrintStringW(m_hOut, image_str, x1);
-        Console_Lire(image_str, x1, 0);
+        //Console_Lire(image_str, x1, 0);
+        Console_Lire(hOut, image_str, 0);// , 0);
     }
 }
 
@@ -2258,7 +2285,8 @@ void PrintNationalites(const std::vector<std::wstring>& nationalites, bool affic
         nationalite_str += L"\r\n";
 
         //PrintStringW(m_hOut, genre_str, 0);
-        Console_Lire(nationalite_str, 0, 0);
+        //Console_Lire(nationalite_str, 0, 0);
+        Console_Lire(hOut, nationalite_str, 0);// , 0);
     }
 }
 
@@ -2273,7 +2301,8 @@ void PrintNetflixokounon(bool netflix_ok_ou_non, bool affichage_sur_actif, std::
 {
     if (affichage_sur_actif)
         if (!netflix_ok_ou_non)
-            Console_Lire(keyColor + L"Netflix : " + valuesColor + L"Oui" + keyColor + L" !" + valuesColor, 0, 10);
+            //Console_Lire(keyColor + L"Netflix : " + valuesColor + L"Oui" + keyColor + L" !" + valuesColor, 0, 10);
+            Console_Lire(hOut, keyColor + L"Netflix : " + valuesColor + L"Oui" + keyColor + L" !" + valuesColor + L"\r\n", 0);// , 0);
 }
 
 // ######################################################################################################################################################
@@ -2295,7 +2324,8 @@ void PrintTitreOriginal(const std::vector<std::wstring>& titre_original, bool af
             titre_original_str += keyColor2 + titre_original[1] + valuesColor2;
             titre_original_str += titre_original[2];
         }
-        Console_Lire(titre_original_str, 0, 17);
+        //Console_Lire(titre_original_str, 0, 17);
+        Console_Lire(hOut, titre_original_str + L"\r\n", 0);// , 0);
     }
 }
 
