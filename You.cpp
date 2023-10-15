@@ -40,8 +40,9 @@ extern class Bug B;
 
 extern const bool afficher_Path_Exists(std::wstring& t);
 extern const int Compare_Path(int rc, path p1, path p2);
-extern const int Console_Lire_txt(std::wstring, int, int);
-extern void PrintStringW(HANDLE hOut, const std::wstring& str);
+//extern const int Console_Lire_txt(std::wstring, int, int);
+extern void Console_Lire(HANDLE hOut, const std::wstring& wstr, int taille_indentation, wchar_t caractere_indentation = L' ');
+//extern void PrintStringW(HANDLE hOut, const std::wstring& str);
 
 struct Person
 {
@@ -238,32 +239,32 @@ const int You_txt_ok(void)
 void usage(std::wstring t = L"")
 {
     int const y1 = 4, y2 = 8;
-    int i;
+    //int i;
     //
     std::wstring Textes;
     Textes = L"";
     //
     Textes += L"You :";
-    i = Console_Lire_txt(Textes, 0, 0);
+    Console_Lire(hOut, Textes, 0, L' ');
     std::wcout << L"\n";
     //
     Textes = L"azereezrttertretrtert";
-    Console_Lire_txt(Textes, 0, 0);
+    Console_Lire(hOut, Textes, 0, L' ');
     std::wcout << L"\n";
     //
     Textes = L"/t c {dossier}\n";
     Textes += L"/t s {dossier}";
-    Console_Lire_txt(Textes, y1, y1);
+    Console_Lire(hOut, Textes, y1, L' ');
     std::wcout << L"\n";
 
     //::Console_Lire_txt(Textes, textes, y1, y2, Y, in, out);
     //wcout << L"\n";
     Textes = L"aa bbb cccc ddddddd eee fffffff gggg hh ii jjjjjj kkkkkkkkkk ll mmmmmm nnn oooooo, pp.  qqqqqq rrrrr ss ttt uuu vvv wwwwww xxx yy ";
-    Console_Lire_txt(Textes, y1, 0);
+    Console_Lire(hOut, Textes, y1, L' ');
     std::wcout << L"\n";
     //
     Textes = L"/Gense gense c {dossier}";
-    Console_Lire_txt(Textes, y1, 0);
+    Console_Lire(hOut, Textes, y1, L' ');
     std::wcout << L"\n";
 }
 

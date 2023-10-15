@@ -28,7 +28,9 @@ using namespace std::experimental::filesystem::v1;*/
 
 extern int Y;
 
-extern const int Console_Lire_txt(std::wstring, int, int);
+//extern const int Console_Lire_txt(std::wstring, int, int);
+extern HANDLE hOut;
+extern void Console_Lire(HANDLE hOut, const std::wstring& wstr, int taille_indentation, wchar_t);
 
 Bug B;
 
@@ -47,11 +49,13 @@ Bug::~Bug()
 
 /*const*/ void Bug::Ok_T(std::wstring t)
 {
-    int i = Console_Lire_txt(B_T + t + B_t, x1, x2);
+    //int i = Console_Lire_txt(B_T + t + B_t, x1, x2);
+    Console_Lire(hOut, B_T + t + B_t + L"\r\n", x1, L'_');
 }
 
 /*const*/ void Bug::Ok_W(std::wstring t)
 {
-    int i = Console_Lire_txt(B_W + t + B_w, x3, x4);
+    //int i = Console_Lire_txt(B_W + t + B_w, x3, x4);
+    Console_Lire(hOut, B_W + t + B_w + L"\r\n", x3, L'_');
 }
 

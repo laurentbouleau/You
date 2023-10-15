@@ -59,11 +59,10 @@ extern const std::wstring lire_fichierTxt(std::wstring const& nomFichier);
 
 extern const void Console_Lire_txt(std::wstring);
 //extern const int Console_Lire_txt(std::wstring, int, int);
-//extern const int Console_Lire_txt2(std::wstring, int, int);
-extern const void Console_Lire(std::wstring, int, int);
+//extern const void Console_Lire(std::wstring, int, int);
 //extern const int Console_Lire_txt3(std::wstring, int, int);
 extern HANDLE hOut;
-extern void Console_Lire(HANDLE hOut, const std::wstring& wstr, int x);
+extern void Console_Lire(HANDLE hOut, const std::wstring& wstr, int taille_indentation, wchar_t);
 
 extern std::wstring replace_all(std::wstring subject, const std::wstring& search, const std::wstring& replace);
 
@@ -2041,7 +2040,7 @@ const int Serie::afficher()
         //iter = Titre.begin();
         //iter += 3;
         //i = Console_Lire_txt(titre[4], 4, 0);
-        Console_Lire(hOut, titre[4], 4);// , 0);
+        Console_Lire(hOut, titre[4], 4, L' ');// , 0);
         Console_Lire_txt(L"-~- ");
     }
     // Avec et Avec_role
@@ -2114,7 +2113,7 @@ const int Serie::afficher()
             Textes += keyColor[1] + L" (" + valuesColor;
         Textes += wstr + keyColor[1] + L')' + valuesColor;
         //Console_Lire(Textes, 0, x);
-        Console_Lire(hOut, Textes + L"\r\n", 0);// , x);
+        Console_Lire(hOut, Textes + L"\r\n", 0, L' ');// , x);
         //
         std::size_t k;
         for (j = 0; j < D_J[I]; j++)
@@ -2266,7 +2265,7 @@ const int Serie::afficher()
             }
             else if (D_K[I][j] > 0)
                 //Console_Lire(wstr, x + c + 5, x + c + 5);
-                Console_Lire(hOut, wstr + L"\r\n", x + c + 5);// , x + c + 5);
+                Console_Lire(hOut, wstr + L"\r\n", x + c + 5, L' ');// , x + c + 5);
             else
             {
                 E.afficher_X(-1, L"", L"Erreur D_t[][] !!!");
@@ -2284,7 +2283,7 @@ const int Serie::afficher()
         {
             wstr = L"DVD";
             //i = Console_Lire_txt(keyColor[1] + L'(' + valuesColor + wstr + keyColor[1] + L')' + valuesColor, x, x);
-            Console_Lire(hOut, keyColor[1] + L'(' + valuesColor + wstr + keyColor[1] + L')' + valuesColor + L"\r\n", x);// , x);
+            Console_Lire(hOut, keyColor[1] + L'(' + valuesColor + wstr + keyColor[1] + L')' + valuesColor + L"\r\n", x, L' ');// , x);
         }
         // Note
         PrintNote(I, x);
@@ -2293,7 +2292,7 @@ const int Serie::afficher()
         // Chaîne
         if (d_chaine[I] != L"" && d_chaine_[I] == true)
             //i = Console_Lire_txt(keyColor[1] + L"Chaîne d'origine : " + valuesColor + d_chaine[I] + L"\r\n", x, x + 9);
-            Console_Lire(hOut, keyColor[1] + L"Chaîne d'origine : " + valuesColor + d_chaine[I] + L"\r\n", x);// , x + 9);
+            Console_Lire(hOut, keyColor[1] + L"Chaîne d'origine : " + valuesColor + d_chaine[I] + L"\r\n", x, L' ');// , x + 9);
         // Image
         PrintImages(d_image[I], d_affichage_image_actif, keyColor[1], valuesColor, 4, 0, 8, 1);
         Console_Lire_txt(L"-~- ");
@@ -2401,7 +2400,7 @@ const int Serie::afficher_OK_T(std::vector <std::wstring>& I, std::wstring& Text
         if (w_s != L"")
             Textes += keyColor[1] + L" (" + valuesColor + w_s + keyColor[1] + L')' + valuesColor;
         //Console_Lire(Textes, x0, x2);
-        Console_Lire(hOut, Textes + L"\r\n", x0);// , x2);
+        Console_Lire(hOut, Textes + L"\r\n", x0, L' ');// , x2);
     }
     else if (w_p != L"" && w_t1 == L"" && w_t2 == L"" && w_t3 == L"" && w_temps == L"" && w_P == L"")
     {
@@ -2412,7 +2411,7 @@ const int Serie::afficher_OK_T(std::vector <std::wstring>& I, std::wstring& Text
         if (w_s != L"")
             Textes += keyColor[1] + L" (" + valuesColor + w_s + keyColor[1] + L')' + valuesColor;
         //Console_Lire(Textes, x0, x2);
-        Console_Lire(hOut, Textes + L"\r\n", x0);// , x2);
+        Console_Lire(hOut, Textes + L"\r\n", x0, L' ');// , x2);
     }
     else
     {
@@ -2468,8 +2467,8 @@ const int Serie::afficher_OK_T(std::vector <std::wstring>& I, std::wstring& Text
         }
         //Console_Lire(Textes, x0, x2);
         //Console_Lire (w_P, x1, x2);
-        Console_Lire(hOut, Textes + L"\r\n", x0);// , x2);
-        Console_Lire(hOut, w_P + L"\r\n", x1);// , x2);
+        Console_Lire(hOut, Textes + L"\r\n", x0, L' ');// , x2);
+        Console_Lire(hOut, w_P + L"\r\n", x1, L' ');// , x2);
     }
     return EXIT_SUCCESS;
 }
@@ -2586,7 +2585,7 @@ const void Serie::PrintAvec(const std::vector<std::pair<std::wstring, std::wstri
         //int i = Console_Lire_txt(avec_str + L"\r\n", 4, 7);
         //Console_Lire(avec_str + L"\n", 4, 7);
         //HANDLE hOut = GetStdHandle(STD_OUTPUT_HANDLE);
-        Console_Lire(hOut, avec_str + L"\r\n", 4);
+        Console_Lire(hOut, avec_str + L"\r\n", 4, L' ');
         //i = Console_Lire_txt(avec_str + L"\r\n", 4, 7);
 
 
@@ -2603,13 +2602,13 @@ const void Serie::PrintAvec(const std::vector<std::pair<std::wstring, std::wstri
 
 const void Serie::PrintChaine(const std::wstring& chaine)
 {
-    if (chaine_ == true && chaine.size() > 0)
+    if (affichage_chaine_actif && chaine.size() > 0)
     {
         std::wstring chaine_str = keyColor[0] + L"Chaîne d'origine : " + valuesColor + chaine + L"\r\n";
         //PrintStringW(m_hOut, creee_par_str, 0);
         //PrintStringW(HANDLE hOut, creee_par_str);
         //Console_Lire(chaine_str, 0, 0);
-        Console_Lire(hOut, chaine_str, 0);
+        Console_Lire(hOut, chaine_str, 0, L' ');
     }
 }
 
@@ -2640,7 +2639,7 @@ const void Serie::PrintCreee_par(const std::vector<std::wstring>& creee_par)
         //PrintStringW(m_hOut, creee_par_str, 0);
         //PrintStringW(HANDLE hOut, creee_par_str);
         //Console_Lire(creee_par_str, 0, 0);
-        Console_Lire(hOut, creee_par_str, 0);
+        Console_Lire(hOut, creee_par_str, 0, L' ');
         //Console::PrintStringW(creee_par_str, 0);
     }
 }
@@ -2672,7 +2671,7 @@ const void Serie::PrintEn_relation_avec(const std::vector<std::wstring>&en_relat
         //PrintStringW(m_hOut, creee_par_str, 0);
         //PrintStringW(HANDLE hOut, creee_par_str);
         //Console_Lire(en_relation_avec_str, 0, 0);
-        Console_Lire(hOut,en_relation_avec_str, 0);
+        Console_Lire(hOut,en_relation_avec_str, 0, L' ');
     }
 }
 
@@ -2712,13 +2711,13 @@ const void Serie::PrintNote(int I, int x)
                 }
                 m_note_str += keyColor[1] + L"/5" + valuesColor;
                 //Console_Lire(m_note_str, x, x);
-                Console_Lire(hOut, m_note_str + L"\r\n", x);
+                Console_Lire(hOut, m_note_str + L"\r\n", x, L' ');
                 break;
             }
         }
         if (!found)
             //Console_Lire(keyColor[1] + L'(' + valuesColor + L"Pas de note !" + keyColor[1] + L')' + valuesColor, x, x);
-            Console_Lire(hOut, keyColor[1] + L'(' + valuesColor + L"Pas de note !" + keyColor[1] + L')' + valuesColor + L"\r\n", x);
+            Console_Lire(hOut, keyColor[1] + L'(' + valuesColor + L"Pas de note !" + keyColor[1] + L')' + valuesColor + L"\r\n", x, L' ');
     }
     return;
 }
@@ -2770,6 +2769,6 @@ const void Serie::PrintTitre()
         titre_str += wstr;
         //int i = Console_Lire_txt(titre_str + wstr, 0, 0);
         //Console_Lire(titre_str, 0, 0);
-        Console_Lire(hOut, titre_str + L"\r\n", 0);
+        Console_Lire(hOut, titre_str + L"\r\n", 0, L' ');
     }
 }

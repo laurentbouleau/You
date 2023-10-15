@@ -145,11 +145,11 @@ private:
 	double note = 0.0;
 	std::vector<std::wstring> image;
 
-	bool chaine_ = true;
 	bool Date_ = false, Temps_ = false;
 	
 	bool affichage_avec_actif = true;
 	bool affichage_audiodescription_actif = true;
+	bool affichage_chaine_actif = true;
 	bool affichage_creee_par_actif = true;// false;
 	bool affichage_image_actif = true;
 	bool affichage_genres_actif = true;

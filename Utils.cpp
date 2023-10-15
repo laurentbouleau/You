@@ -1321,596 +1321,20 @@ const void Console_Lire_txt(std::wstring lire)
 // #                                                                                                                                                    #
 // ######################################################################################################################################################
 
-inline std::wstring space(int i, wchar_t espace)
-{
-    std::wstring wstr = L"";
+//inline std::wstring space(int i, wchar_t espace)
+//{
+//    std::wstring wstr = L"";
     //for (auto ===> Pas trouvé !!!)
-    for(int j = 0; j < i; j++)
-        wstr += espace;
-    return wstr;
-}
+//    for(int j = 0; j < i; j++)
+//        wstr += espace;
+ //   return wstr;
+//}
 
-const int Console_Lire_txt(std::wstring Textes, int x1, int x2)
-{
-#if Console_Lire_txt_OK_ == 1
-    std::wcout << L"const int Console_Lire_txt(" << Textes << L", " << x1 << L", " << x2 << L") : " << std::endl;
-#endif
-
-    if (Textes == L"" && X == 0)
-        return 0;
-    rtrim(Textes);
-    //
-    bool ligne_vide = false;
-    bool retrait = false;
-    wchar_t entree = L'\n';
-
-    int I, x;
-    int i, j, k, n = 0;
-    int l, m;
-    std::size_t N;
-    // // // //  //
-    Textes += entree;
-    // // // //  //
-    int p = 0;
-    std::vector<std::wstring> P;
-    std::vector<int> PP;
-    std::wstring o;
-    int oo = 0;
-    N = Textes.length();
-    i = 0;
-    while (i < N)
-    {
-        if (Textes[i] == L'\x1b')
-        {
-            j = i;
-            o = L'\x1b';
-            j++;
-            while (Textes[j] != L'm' || j >= N)
-            {
-                o += Textes[j];
-                j++;
-            }
-            if (j >= N)
-            {
-                E.afficher_X(-1, L"::Console_Lire_txt()", L"j >= N !!!");
-                //return -1;
-                return EXIT_FAILURE;
-            }
-            o += L'm';
-            P.push_back(o);
-            PP.push_back(i);
-            Textes = Textes.replace(i, o.length(), L"");
-            p++;
-            N = Textes.length();
-        }
-        i++;
-    }
-    std::vector <std::wstring>::iterator iter;
-    std::wstring wstr;
-    x = x1;
-    I = X - x;
-    j = 0;
-    if (I < N)
-        n = I;
-    else
-        n = (int)N;
-    std::vector <int>::iterator iter2;
-    iter = P.begin();
-    iter2 = PP.begin();
-    oo = 0;
-    while (j < N)
-    {
-        // Ok
-        if (Textes[j] == entree && retrait)
-        {
-            ligne_vide = true;
-        }
-        else
-        {
-            // Ok
-#if Console_Lire_txt_ == 1
-            std::wcout << space(x, L'_');
-#else
-            std::wcout << space(x, L' ');
-#endif
-            // Ok
-            while (Textes[j] == L' ')
-            {
-                j++;
-                n++;
-                if (n > N)
-                    n = (int)N;
-            }
-            // Ok
-            k = j;
-            for (j = k; k < n; k++)
-            {
-                if (Textes[k] == entree)
-                {
-                    break;
-                }
-            }
-            if (k != n)
-            {
-                retrait = true;
-                n = k;
-            }
-            else
-            { // ???
-                ligne_vide = false;
-                retrait = false;
-                while (Textes[n] != L' ')
-                {
-                    n--;
-                }
-            }
-            // Ok
-            k = j;
-            l = 0;
-            for (j = k; k < n; k++)
-            {
-                if (p != 0 && k == *iter2)
-                {
-                    o = *iter;
-                    std::wcout << o;
-                    wstr = o;
-                    iter++;
-                    iter2++;
-                    oo++;
-                }
-                std::wcout << Textes[k];
-                l++;
-            }
-            // Ok
-            j = k;
-            m = X - (x + l);
-#if Console_Lire_txt_ == 1
-            std::wcout << space(m, L'¯');
-#else
-            std::wcout << space(m, L' ');
-#endif
-        }
-        // Ok
-        if (ligne_vide && retrait)
-        {
-            ligne_vide = false;
-            j++;
-            n++;
-            if (n > N)
-                n = (int)N;
-            x = x1;
-            continue;
-        }
-        else if (!ligne_vide && retrait)
-        {
-            retrait = false;
-            x = x1;
-        }
-        else
-        {
-            ligne_vide = false;
-            retrait = false;
-            x = x2;
-        }
-        j = n;
-        if (p != 0
-            &&
-            j == *iter2)
-        {
-            o = *iter;
-            std::wcout << o;
-            wstr = o;
-            iter++;
-            iter2++;
-            oo++;
-        }
-        j++;
-        // x ?
-        n += (X - x);
-        if (n > N)
-        {
-            n = (int)N;
-        }
-        }
-    if (p != 0 && PP.back() <= N)
-    {
-        std::wcout << P.back() << endl;
-        wstr = P.back();
-    }
-#if Console_Lire_txt_OK_ == 1
-    std::wcout << L"const int Console_Lire_txt() : Ok !" << std::endl;
-#endif
-    return EXIT_SUCCESS;
-}
-
-// ######################################################################################################################################################
-// #                                                                                                                                                    #
-// # const void Console_Lire(std::wstring wstr, int x1, int x2)                                                                                         #
-// #                                                                                                                                                    #
-// ######################################################################################################################################################
-
-const void Console_Lire(std::wstring wstr, int x1, int x2)
-{
-    rtrim(wstr);
-    //
-    bool ligne_vide = false;
-    bool retrait = false;
-    wchar_t entree = L'\n'; // windows = L"\r\n", Unix = L'\n' ??? 
-
-    int I, x;
-    int i, j, k, n = 0;
-    int l, m;
-    std::size_t N;
-    // // // //  //
-    wstr += entree;
-    // // // //  //
-    int p = 0;
-    std::vector<std::pair <std::wstring, int>> P;
-    std::wstring keycolor;
-    N = wstr.length();
-    i = 0;
-    while (i < N)
-    {
-        if (wstr[i] == L'\x1b')
-        {
-            j = i;
-            keycolor = L'\x1b';
-            j++;
-            while (wstr[j] != L'm' || j >= N)
-            {
-                keycolor += wstr[j];
-                j++;
-            }
-            keycolor += L'm';
-            P.push_back(make_pair(keycolor, i));
-            if (i != 0)
-                wstr = wstr.substr(0, i) + wstr.substr(j + 1);
-            else
-                wstr = wstr.substr(j + 1);
-            p++;
-            N = wstr.length();
-        }
-        i++;
-    }
-    std::vector<std::pair<std::wstring, int>>::iterator iter;
-    //std::wstring wstr2;
-    //i = 0;
-    //for (iter = P.begin(); iter != P.end(); iter++)
-    //{
-    //    wstr2 = L"\\x1b" + iter->first.substr(1);
-    //    std::wcout << i << L" P["
-    //        << iter->second << L"] [" << wstr2 << L"] = " << iter->first.length()
-    //        << L" " << iter->first[iter->first.length() - 1]
-    //        << std::endl;
-     //   i++;
-    //}
-
-    x = x1;
-    I = X - x;
-    j = 0;
-    if (I < N)
-        n = I;
-    else
-        n = (int)N;
-    iter = P.begin();
-    while (j < N)
-    {
-        // Ok
-        if (wstr[j] == entree && retrait)
-            ligne_vide = true;
-        else
-        {
-            // Ok
-#if Console_Lire_txt_ == 1
-            std::wcout << space(x, L'_');
-#else
-            std::wcout << space(x, L' ');
-#endif
-            // Ok
-            while (wstr[j] == L' ')
-            {
-                j++;
-                n++;
-                if (n > N)
-                    n = (int)N;
-            }
-            // Ok
-            k = j;
-            for (j = k; k < n; k++)
-            {
-                if (wstr[k] == entree)
-                    break;
-            }
-            if (k != n)
-            {
-                retrait = true;
-                n = k;
-            }
-            else
-            { // ???
-                ligne_vide = false;
-                retrait = false;
-                while (wstr[n] != L' ')
-                    n--;
-            }
-            // Ok
-            k = j;
-            l = 0;
-            for (j = k; k < n; k++)
-            {
-                if (p != 0 && k == iter->second)
-                {
-                    std::wcout << iter->first;
-                    iter++;
-                }
-                std::wcout << wstr[k];
-                l++;
-            }
-            // Ok
-            j = k;
-            m = X - (x + l);
-#if Console_Lire_txt_ == 1
-            std::wcout << space(m, L'¯');
-#else
-            std::wcout << space(m, L' ');
-#endif
-        }
-        // Ok
-        if (ligne_vide && retrait)
-        {
-            ligne_vide = false;
-            j++;
-            n++;
-            if (n > N)
-                n = (int)N;
-            x = x1;
-            continue;
-        }
-        else if (!ligne_vide && retrait)
-        {
-            retrait = false;
-            x = x1;
-        }
-        else
-        {
-            ligne_vide = false;
-            retrait = false;
-            x = x2;
-        }
-        j = n;
-        if (p != 0
-            &&
-            j == iter->second
-            )
-        {
-            std::wcout << iter->first;
-            iter++;
-        }
-        j++;
-        // x ?
-        n += (X - x);
-        if (n > N)
-            n = (int)N;
-    }
-    if (p != 0 && P.back().second <= N)
-    {
-        std::wcout << P.back().first;
-    }
-    return;
-}
 
 //DWORD dwMode = 0;
 //BOOL res = WriteFile(hOut, &str[0], (DWORD)(str.size() * sizeof(wchar_t)), &dwMode, NULL);
 //assert(res == TRUE);
 
-
-const int Console_Lire_txt2(std::wstring Textes, int x1, int x2)
-{
-#if Console_Lire_txt_OK_ == 1
-    std::wcout << L"const int Console_Lire_txt(" << Textes << L", " << x1 << L", " << x2 << L") : " << std::endl;
-#endif
-
-    if (Textes == L"" && X == 0)
-        return 0;
-    rtrim(Textes);
-    //
-    bool ligne_vide = false;
-    bool retrait = false;
-    std::wstring entree = L"\r\n";
-
-    int I, x;
-    int i, j, k, n = 0;
-    int l, m;
-    std::size_t N;
-    // // // //  //
-    Textes += entree;
-    // // // //  //
-    int p = 0;
-    std::vector<std::wstring> P;
-    std::vector<int> PP;
-    std::wstring o;
-    int oo = 0;
-    N = Textes.length();
-    i = 0;
-    while (i < N)
-    {
-        if (Textes[i] == L'\x1b')
-        {
-            j = i;
-            o = L'\x1b';
-            j++;
-            while (Textes[j] != L'm' || j >= N)
-            {
-                o += Textes[j];
-                j++;
-            }
-            if (j >= N)
-            {
-                E.afficher_X(-1, L"::Console_Lire_txt()", L"j >= N !!!");
-                //return -1;
-                return EXIT_FAILURE;
-            }
-            o += L'm';
-            P.push_back(o);
-            PP.push_back(i);
-            Textes = Textes.replace(i, o.length(), L"");
-            p++;
-            N = Textes.length();
-        }
-        i++;
-    }
-    std::vector <std::wstring>::iterator iter;
-    std::wstring wstr;
-    x = x1;
-    I = X - x;
-    j = 0;
-    if (I < N)
-        n = I;
-    else
-        n = (int)N;
-    std::vector <int>::iterator iter2;
-    iter = P.begin();
-    iter2 = PP.begin();
-    oo = 0;
-    while (j < N)
-    {
-        // Ok
-        if ((entree[0] == Textes[j] && entree[1] == Textes[j + 1]) && retrait == true)
-        {
-            ligne_vide = true;
-            //retrait = true;
-            goto _ok_;
-        }
-        // Ok
-        for (i = 0; i < x; i++)
-#if Console_Lire_txt_ == 1
-            std::wcout << L'_';
-#else
-            std::wcout << L' ';
-#endif
-        //converti = converti.substr(pos_found + sep_found.length());
-        // std::wcout << 
-
-
-
-
-        // Ok
-        while (Textes[j] == L' ')
-        {
-            j++;
-            n++;
-            if (n > N)
-                n = (int)N;
-        }
-        // Ok
-        k = j;
-        for (j = k; k < n; k++)
-        {
-            if (entree[0] == Textes[k] /* && entree[1] == Textes[k + 1]*/)
-            {
-                //if (j <= n - 1)
-                //{
-                //    E.afficher_X(-1, L"::Console_Lire_txt()", L"wwwwww !!!");
-                //    //return EXIT_FAILURE;
-                //}
-                break;
-            }
-        }
-        if (k != n)
-        {
-            retrait = true;
-            n = k;
-        }
-        else
-        { // ???
-            ligne_vide = false;
-            retrait = false;
-            while (Textes[n] != L' ')
-            {
-                n--;
-            }
-        }
-        // Ok
-        k = j;
-        l = 0;
-        for (j = k; k < n; k++)
-        {
-            if (p != 0 && k == *iter2)
-            {
-                o = *iter;
-                std::wcout << o;
-                wstr = o;
-                iter++;
-                iter2++;
-                oo++;
-            }
-            std::wcout << Textes[k];
-            l++;
-        }
-        // Ok
-        j = k;
-        m = X - (x + l);
-        for (i = 0; i < m; i++)
-        {
-#if Console_Lire_txt_ == 1
-            std::wcout << L'¯';
-#else
-            std::wcout << L' ';
-#endif
-        }
-        // Ok
-    _ok_:
-        if (ligne_vide && retrait)
-        {
-            ligne_vide = false;
-            j++;
-            n++;
-            if (n > N)
-                n = (int)N;
-            x = x1;
-            continue;
-        }
-        else if (!ligne_vide && retrait)
-        {
-            retrait = false;
-            x = x1;
-        }
-        else
-        {
-            ligne_vide = false;
-            retrait = false;
-            x = x2;
-        }
-        j = n;
-        if (p != 0
-            &&
-            j == *iter2)
-        {
-            o = *iter;
-            std::wcout << o;
-            wstr = o;
-            iter++;
-            iter2++;
-            oo++;
-        }
-        j++;
-        // x ?
-        n += (X - x);
-        if (n > N)
-        {
-            n = (int)N;
-        }
-    }
-    if (p != 0 && PP.back() <= N)
-    {
-        std::wcout << P.back() << endl;
-        wstr = P.back();
-    }
-#if Console_Lire_txt_OK_ == 1
-    std::wcout << L"const int Console_Lire_txt() : Ok !" << std::endl;
-#endif
-    return EXIT_SUCCESS;
-}
 
 /*void Console_Lire(const std::wstring& wstr, int x1)
 {
@@ -1935,6 +1359,25 @@ void Console_Lire(HANDLE hOut, const std::wstring& wstr, int x)
     res = WriteFile(hOut, &wstr[0], (DWORD)(wstr.size() * sizeof(wchar_t)), &numberOfBytesWritten, NULL);
     assert(res == TRUE);
 }
+
+void Console_Lire(HANDLE hOut, const std::wstring& wstr, int taille_indentation, wchar_t caractere_indentation = L' ')
+{
+    DWORD numberOfBytesWritten = 0;
+
+    std::wstring indentation(taille_indentation, caractere_indentation);
+
+    BOOL res;
+    
+    if (taille_indentation > 0)
+    {
+        res = WriteFile(hOut, &indentation[0], (DWORD)(indentation.size() * sizeof(wchar_t)), &numberOfBytesWritten, NULL);
+        assert(res == TRUE);
+    }
+
+    res = WriteFile(hOut, &wstr[0], (DWORD)(wstr.size() * sizeof(wchar_t)), &numberOfBytesWritten, NULL);
+    assert(res == TRUE);
+}
+
 // ######################################################################################################################################################
 // #                                                                                                                                                    #
 // # PrintStringW                                                                                                                                       #
@@ -2162,7 +1605,8 @@ void PrintAudiodescription(const std::wstring& audiodescription, bool affichage_
         //PrintStringW(m_hOut, creee_par_str, 0);
         //PrintStringW(HANDLE hOut, creee_par_str);
         //Console_Lire(audiodescription_str, 0, 0);
-        Console_Lire(hOut, audiodescription_str, 0);// , 0);
+        //Console_Lire(hOut, audiodescription_str, 0);// , 0);
+        Console_Lire(hOut, audiodescription_str, 0, L' ');
     }
 }
 
@@ -2218,12 +1662,14 @@ void PrintGenres(const std::vector<std::wstring>& genres, bool affichage_genres_
         genre_str += L"\r\n";
         //int i = Console_Lire_txt(genre_str, 0, 0);
         //Console_Lire(genre_str, 0, 0);
-        Console_Lire(hOut, genre_str, 0);// , 0);
+        //Console_Lire(hOut, genre_str, 0);// , 0);
+        Console_Lire(hOut, genre_str, 0, L' ');
         if (affichage_sous_genre_actif && sous_genre.size() != 0)
         {
             genre_str = keyColor + L"Sous-genre : " +  valuesColor + sous_genre + L"\r\n";
             //Console_Lire(genre_str, 0, 0);
-            Console_Lire(hOut, genre_str, 0);// , 0);
+            //Console_Lire(hOut, genre_str, 0);// , 0);
+            Console_Lire(hOut, genre_str, 0, L' ');
         }
         //PrintStringW(m_hOut, genre_str, 0);
     }
@@ -2254,7 +1700,8 @@ void PrintImages(const std::vector<std::wstring>& images, bool affichage_image_a
         image_str += keyColor + L']' + valuesColor + L"\r\n";
         //PrintStringW(m_hOut, image_str, x1);
         //Console_Lire(image_str, x1, 0);
-        Console_Lire(hOut, image_str, 0);// , 0);
+        //Console_Lire(hOut, image_str, 0);// , 0);
+        Console_Lire(hOut, image_str, x1, L' ');
     }
 }
 
@@ -2286,7 +1733,8 @@ void PrintNationalites(const std::vector<std::wstring>& nationalites, bool affic
 
         //PrintStringW(m_hOut, genre_str, 0);
         //Console_Lire(nationalite_str, 0, 0);
-        Console_Lire(hOut, nationalite_str, 0);// , 0);
+        //Console_Lire(hOut, nationalite_str, 0);// , 0);
+        Console_Lire(hOut, nationalite_str, 0, L' ');
     }
 }
 
@@ -2302,7 +1750,8 @@ void PrintNetflixokounon(bool netflix_ok_ou_non, bool affichage_sur_actif, std::
     if (affichage_sur_actif)
         if (!netflix_ok_ou_non)
             //Console_Lire(keyColor + L"Netflix : " + valuesColor + L"Oui" + keyColor + L" !" + valuesColor, 0, 10);
-            Console_Lire(hOut, keyColor + L"Netflix : " + valuesColor + L"Oui" + keyColor + L" !" + valuesColor + L"\r\n", 0);// , 0);
+            //Console_Lire(hOut, keyColor + L"Netflix : " + valuesColor + L"Oui" + keyColor + L" !" + valuesColor + L"\r\n", 0);// , 0);
+            Console_Lire(hOut, keyColor + L"Netflix : " + valuesColor + L"Oui" + keyColor + L" !" + valuesColor + L"\r\n", 0, L' ');
 }
 
 // ######################################################################################################################################################
@@ -2325,7 +1774,8 @@ void PrintTitreOriginal(const std::vector<std::wstring>& titre_original, bool af
             titre_original_str += titre_original[2];
         }
         //Console_Lire(titre_original_str, 0, 17);
-        Console_Lire(hOut, titre_original_str + L"\r\n", 0);// , 0);
+        //Console_Lire(hOut, titre_original_str + L"\r\n", 0);// , 0);
+        Console_Lire(hOut, titre_original_str + L"\r\n", 0, L' ');
     }
 }
 

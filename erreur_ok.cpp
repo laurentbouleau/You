@@ -24,7 +24,9 @@ extern int X;
 Erreur E;
 //extern const struct Person;// P;
 extern const void Console_Lire_txt(std::wstring lire);
-extern const int Console_Lire_txt(std::wstring, int, int);
+//extern const int Console_Lire_txt(std::wstring, int, int);
+extern HANDLE hOut;
+extern void Console_Lire(HANDLE hOut, const std::wstring& wstr, int taille_indentation, wchar_t);
 
 Erreur::Erreur()
 {
@@ -38,7 +40,8 @@ void Erreur::afficher_X(int i, std::wstring x, std::wstring t) //const{}
 {
 #if Erreur_afficher_X_ == 1
     //wcerr << E_T << L"void Erreur::afficher_X(" << i << L", " << x << L", " << t << L") :" << E_t << endl;
-    int j = Console_Lire_txt(E_T + L"void Erreur::afficher_X(" + E_t + std::to_wstring(i) + E_T + L", " + E_t + x + E_T + L", " + E_t + t + E_T + L") :" + E_t, x1, x2);
+    //int j = Console_Lire_txt(E_T + L"void Erreur::afficher_X(" + E_t + std::to_wstring(i) + E_T + L", " + E_t + x + E_T + L", " + E_t + t + E_T + L") :" + E_t, x1, x2);
+    Console_Lire(hOut, E_T + L"void Erreur::afficher_X(" + E_t + std::to_wstring(i) + E_T + L", " + E_t + x + E_T + L", " + E_t + t + E_T + L") :" + E_t + L"\r\n", x1, L'*');
 #endif
     X_i.push_back(i);
     X_X.push_back(x);
@@ -48,8 +51,10 @@ void Erreur::afficher_X(int i, std::wstring x, std::wstring t) //const{}
     X_I++;
 #if Erreur_afficher_X_ == 1
     //wcerr << E_T << L"void Erreur::afficher_X() : Ok !" << E_t << endl;
-    j = Console_Lire_txt(E_W + x + E_w + E_T + L" : " + E_t + E_W + t + E_w, x3, x4);
-    j = Console_Lire_txt(E_T + L"void Erreur::afficher_X() : Ok !" + E_t, x1, x2);
+    //j = Console_Lire_txt(E_W + x + E_w + E_T + L" : " + E_t + E_W + t + E_w, x3, x4);
+    Console_Lire(hOut, E_W + x + E_w + E_T + L" : " + E_t + E_W + t + E_w + L"\r\n", x3, L'*');
+    //j = Console_Lire_txt(E_T + L"void Erreur::afficher_X() : Ok !" + E_t, x1, x2);
+    Console_Lire(hOut, E_T + L"void Erreur::afficher_X() : Ok !" + E_t + L"\r\n", x1, L'*');
 #endif
     return;
 }
@@ -58,8 +63,10 @@ void Erreur::afficher_X(int i, std::wstring x, std::wstring t, std::wstring w) /
 {
 #if Erreur_afficher_X_ == 1
     //wcerr << E_T << L"void Erreur::afficher_X(" << i << L", " << x << L", " << t << L", " << w << L") :" << E_t << endl;
-    int j = Console_Lire_txt(E_T + L"void Erreur::afficher_X(" + std::to_wstring(i) + L", " + x + L", " + t + L"\n" + w + L") :" + E_t, x1, x2);
-    j = Console_Lire_txt(E_T + L"void Erreur::afficher_X(" + E_t + std::to_wstring(i) + E_T + L", " + E_t + x + E_T + L", " + E_t + t + E_T + L", " + E_t + w + E_T + L") :" + E_t, x1, x2);
+    //int j = Console_Lire_txt(E_T + L"void Erreur::afficher_X(" + std::to_wstring(i) + L", " + x + L", " + t + L"\n" + w + L") :" + E_t, x1, x2);
+    Console_Lire(hOut, E_T + L"void Erreur::afficher_X(" + std::to_wstring(i) + L", " + x + L", " + t + L"\r\n" + w + L") :" + E_t + L"\r\n", x1, L'*');
+    //j = Console_Lire_txt(E_T + L"void Erreur::afficher_X(" + E_t + std::to_wstring(i) + E_T + L", " + E_t + x + E_T + L", " + E_t + t + E_T + L", " + E_t + w + E_T + L") :" + E_t, x1, x2);
+    Console_Lire(hOut, E_T + L"void Erreur::afficher_X(" + E_t + std::to_wstring(i) + E_T + L", " + E_t + x + E_T + L", " + E_t + t + E_T + L", " + E_t + w + E_T + L") :" + E_t + L"\r\n", x1, L'*');
 #endif
     X_i.push_back(i);
     X_X.push_back(x);
@@ -71,19 +78,23 @@ void Erreur::afficher_X(int i, std::wstring x, std::wstring t, std::wstring w) /
     //   Ok_ = true;
 #if Erreur_afficher_X_ == 1
     //wcerr << E_T << L"void Erreur::afficher_X() : Ok !" << E_t << endl;
-    j = Console_Lire_txt(E_W + x + E_w + E_T + L" : " + E_t + E_W + t + E_w, x3, x4);
-    j = Console_Lire_txt(E_W + w + E_w, x3, x4);
-    j = Console_Lire_txt(E_T + L"void Erreur::afficher_X() : Ok !" + E_t, x1, x2);
+    //j = Console_Lire_txt(E_W + x + E_w + E_T + L" : " + E_t + E_W + t + E_w, x3, x4);
+    Console_Lire(hOut, E_W + x + E_w + E_T + L" : " + E_t + E_W + t + E_w + L"\r\n", x3, L'*');
+    //j = Console_Lire_txt(E_W + w + E_w, x3, x4);
+    Console_Lire(hOut, E_W + w + E_w + L"\r\n", x3, L'*');
+    //j = Console_Lire_txt(E_T + L"void Erreur::afficher_X() : Ok !" + E_t, x1, x2);
+    Console_Lire(hOut, E_T + L"void Erreur::afficher_X() : Ok !" + E_t + L"\r\n", x1, L'*');
 #endif
     return;
 }
 
 int Erreur::Ok()
 {
-    int j;
+    //int j;
 #if Erreur_Ok_ == 1
     if (X_I != -1)
-        j = Console_Lire_txt(E_T + L"int Erreur::Ok() :" + E_t, x1, x2);
+        //j = Console_Lire_txt(E_T + L"int Erreur::Ok() :" + E_t, x1, x2);
+        Console_Lire(hOut, E_T + L"int Erreur::Ok() :" + E_t + L"\r\n", x1, L'*');
 #endif
     std::wstring wstr;
     std::vector<int>::iterator iter_X_i;
@@ -102,12 +113,13 @@ int Erreur::Ok()
                 //wcerr.width(7);
                 x = x1;
             wstr = E_T + to_wstring(*iter_X_i) + L" : " + E_t + *iter_X + E_T + L" : " + E_t + *iter_T;
-            j = Console_Lire_txt(wstr, x, x2);
+            //j = Console_Lire_txt(wstr, x, x2);
+            Console_Lire(hOut, wstr + L"\r\n", x, L'*');
             if (*iter_W != L"")
             {
 
-                j = Console_Lire_txt(*iter_W, x3, x4);
-
+                //j = Console_Lire_txt(*iter_W, x3, x4);
+                Console_Lire(hOut, *iter_W + L"\r\n", x3, L'*');
             }
         }
         XX_i.push_back(*iter_X_i);
@@ -118,10 +130,11 @@ int Erreur::Ok()
 #if Erreur_Ok_ == 1
     if (X_I != -1)
         //wcerr << E_T << L"Erreur::Ok() : Fin !" << E_t << endl;
-        j = Console_Lire_txt(E_T + L"int Erreur::Ok() : Ok !" + E_t, x1, x2);
+        //j = Console_Lire_txt(E_T + L"int Erreur::Ok() : Ok !" + E_t, x1, x2);
+        Console_Lire(hOut, E_T + L"int Erreur::Ok() : Ok !" + E_t + L"\r\n", x1, L'*');
 #endif
     if (X_I != -1)
-        Console_Lire_txt(L"~~~~~~~~~~ ");
+        Console_Lire_txt(L"-~- ");
     X_i.clear();
     X_X.clear();
     X_T.clear();

@@ -45,10 +45,9 @@ extern const std::vector<std::pair<std::wstring, std::wstring>>lire_paireCleVale
 extern const std::wstring lire_fichierTxt(std::wstring const& nomFichier);
 
 extern const void Console_Lire_txt(std::wstring);
-//extern const int Console_Lire_txt(std::wstring, int, int);
-extern const void Console_Lire(std::wstring, int, int);
+//extern const void Console_Lire(std::wstring, int, int);
 extern HANDLE hOut;
-extern void Console_Lire(HANDLE hOut, const std::wstring& wstr, int x);
+extern void Console_Lire(HANDLE hOut, const std::wstring& wstr, int taille_indentation, wchar_t);
 
 extern std::tm ParseDate(std::wstring& str);
 
@@ -1029,11 +1028,11 @@ const int Cinema::afficher()
 			Textes += L' ' + wstr.substr(0, 2) + keyColor[1] + L'/' + valuesColor + wstr.substr(3, 2) + keyColor[1] + L'/' + valuesColor + wstr.substr(6, 4);
 			if (D_1_[I] == true)
 				//Textes += keyColor2 + L'(' + valuesColor2 + L'_' + keyColor2 + L')' + valuesColor2;
-			    Textes += keyColor[1] + L" (" + valuesColor + L"petit à petit" + keyColor[1] + L')' + valuesColor;
+			    Textes += keyColor[1] + L" (" + valuesColor + L"préquel" + keyColor[1] + L')' + valuesColor;
 			if (Date_1_t[I] != L"")
 				Textes += keyColor[1] + L" : " + valuesColor + Date_1_t[I];
 			//Console_Lire(Textes, 4, 4);
-			Console_Lire(hOut, Textes + L"\r\n", 4);
+			Console_Lire(hOut, Textes + L"\r\n", 4, L' ');
 		}
 		else if (D_J[I] > 0)
 		{
@@ -1130,13 +1129,13 @@ const int Cinema::afficher()
 			Textes += L' ' + keyColor[1] + L'[' + valuesColor + L"pas-à-pas" + keyColor[1] + L']' + valuesColor;
 
 			if (D_1_[I] == true)
-				Textes += keyColor[1] + L" (" + valuesColor + L" petit à petit" + keyColor[1] + L')' + valuesColor;
+				Textes += keyColor[1] + L" (" + valuesColor + L" préquel" + keyColor[1] + L')' + valuesColor;
 
 			if (Date_1_t[I] != L"")
 				Textes += keyColor[1] + L" : " + valuesColor + Date_1_t[I];
 
 			//Console_Lire(Textes, 4, 8);
-			Console_Lire(hOut, Textes + L"\r\n", 4);
+			Console_Lire(hOut, Textes + L"\r\n", 4, L' ');
 		}
 		else
 		{
@@ -1245,7 +1244,7 @@ const void Cinema::PrintAvec(std::vector<std::pair<std::wstring, std::wstring>>&
 			avec_str += keyColor[0] + L", " + valuesColor;
 		}
 		//Console_Lire(avec_str, 0, 0);
-		Console_Lire(hOut, avec_str + L"\r\n", 0);
+		Console_Lire(hOut, avec_str + L"\r\n", 0, L' ');
 	}
 }
 
@@ -1261,7 +1260,7 @@ const void Cinema::PrintAvec()
 	if (affichage_avec_actif && avec.size())
 	{
 		//Console_Lire(keyColor[0] + L"Avec :" + valuesColor + L"\r\n", 0, 0);
-		Console_Lire(hOut, keyColor[0] + L"Avec :" + valuesColor + L"\r\n", 0);// , 0);
+		Console_Lire(hOut, keyColor[0] + L"Avec :" + valuesColor + L"\r\n", 0, L' ');// , 0);
 
 		std::wstring avec_str;
 		bool found = false;
@@ -1292,7 +1291,7 @@ const void Cinema::PrintAvec()
 		if(found)
 		    avec_str += L"...";
 		//Console_Lire(avec_str + L"\r\n", 4, 0);
-		Console_Lire(hOut, avec_str + L"\r\n", 4);// , 0);
+		Console_Lire(hOut, avec_str + L"\r\n", 4, L' ');// , 0);
 	}
 }
 
@@ -1312,7 +1311,7 @@ const void  Cinema::PrintDatedeReprise()
 		wcsftime(date_string, 18, L"%d/%m/%Y", &date_de_reprise);
 		wstr = date_string;
 		//Console_Lire(keyColor[0] + L"Date de reprise : " + valuesColor + wstr.substr(0, 2) + keyColor[0] + L'/' + valuesColor + wstr.substr(3, 2) + keyColor[0] + L'/' + valuesColor + wstr.substr(6, 4), 0, 19);
-		Console_Lire(hOut, keyColor[0] + L"Date de reprise : " + valuesColor + wstr.substr(0, 2) + keyColor[0] + L'/' + valuesColor + wstr.substr(3, 2) + keyColor[0] + L'/' + valuesColor + wstr.substr(6, 4) + L"\r\n", 0);// , 19);
+		Console_Lire(hOut, keyColor[0] + L"Date de reprise : " + valuesColor + wstr.substr(0, 2) + keyColor[0] + L'/' + valuesColor + wstr.substr(3, 2) + keyColor[0] + L'/' + valuesColor + wstr.substr(6, 4) + L"\r\n", 0, L' ');// , 19);
 	}
 }
 
@@ -1332,7 +1331,7 @@ const void Cinema::PrintDatedeSortie()
 		wcsftime(date_string, 14, L"%d/%m/%Y", &date_de_sortie);
 		wstr = date_string;
 		//Console_Lire(keyColor[0] + L"Date de sortie : " + valuesColor + wstr.substr(0, 2) + keyColor[0] + L'/' + valuesColor + wstr.substr(3, 2) + keyColor[0] + L'/' + valuesColor + wstr.substr(6, 4), 0, 18);
-		Console_Lire(hOut, keyColor[0] + L"Date de sortie : " + valuesColor + wstr.substr(0, 2) + keyColor[0] + L'/' + valuesColor + wstr.substr(3, 2) + keyColor[0] + L'/' + valuesColor + wstr.substr(6, 4) + L"\r\n", 0);// , 18);
+		Console_Lire(hOut, keyColor[0] + L"Date de sortie : " + valuesColor + wstr.substr(0, 2) + keyColor[0] + L'/' + valuesColor + wstr.substr(3, 2) + keyColor[0] + L'/' + valuesColor + wstr.substr(6, 4) + L"\r\n", 0, L' ');// , 18);
 	}
 }
 
@@ -1363,7 +1362,7 @@ const void Cinema::PrintDe(const std::vector<std::wstring>&de)
 		//PrintStringW(m_hOut, creee_par_str, 0);
 		//PrintStringW(HANDLE hOut, creee_par_str);
 		//Console_Lire(de_str, 0, 0);
-		Console_Lire(hOut, de_str, 0);
+		Console_Lire(hOut, de_str, 0, L' ');
 	}
 }
 
@@ -1382,7 +1381,7 @@ const void Cinema::PrintDistributeur()
 		//PrintStringW(m_hOut, creee_par_str, 0);
 		//PrintStringW(HANDLE hOut, creee_par_str);
 		//Console_Lire(distributeur_str, 0, 0);
-		Console_Lire(hOut, distributeur_str, 0);
+		Console_Lire(hOut, distributeur_str, 0, L' ');
 	}
 }
 
@@ -1413,7 +1412,7 @@ const void Cinema::PrintPar(const std::vector<std::wstring>&par)
 		//PrintStringW(m_hOut, creee_par_str, 0);
 		//PrintStringW(HANDLE hOut, creee_par_str);
 		//Console_Lire(par_str, 0, 0);
-		Console_Lire(hOut, par_str, 0);
+		Console_Lire(hOut, par_str, 0, L' ');
 	}
 }
 
@@ -1477,13 +1476,13 @@ const void Cinema::PrintSoundtracks()
 
 		//PrintTmp(keyColor + L"Soundtrack :" + valuesColor + L"\r\n");
 		//Console_Lire(keyColor[0] + L"Soundtrack :" + valuesColor + L"\r\n", 0, 0);
-		Console_Lire(hOut, keyColor[0] + L"Soundtrack :" + valuesColor + L"\r\n", 0);
+		Console_Lire(hOut, keyColor[0] + L"Soundtrack :" + valuesColor + L"\r\n", 0, L' ');
 
 		for (auto&& [role, nom] : m_soundtrack)
 		{
 			//PrintTmp(keyColor2 + role + std::wstring(maxKeyLength - role.size(), L' ') + L" : " + valuesColor2 + nom + L"\r\n");
 		    //Console_Lire(role + keyColor[1] + std::wstring(maxKeyLength - role.size(), L' ') + L" : " + valuesColor + nom + L"\r\n", 4, 0);
-			Console_Lire(hOut, role + keyColor[1] + std::wstring(maxKeyLength - role.size(), L' ') + L" : " + valuesColor + nom + L"\r\n", 4);// , 0);
+			Console_Lire(hOut, role + keyColor[1] + std::wstring(maxKeyLength - role.size(), L' ') + L" : " + valuesColor + nom + L"\r\n", 4, L' ');// , 0);
 		}
 	}
 }
@@ -1537,7 +1536,7 @@ const void Cinema::PrintTitre()
 		// Note
 		wstr = PrintNote();
 		//Console_Lire(titre_str + wstr, 0, 0);
-		Console_Lire(hOut, titre_str + wstr + L"\r\n", 0);
+		Console_Lire(hOut, titre_str + wstr + L"\r\n", 0, L' ');
 	}
 }
 
@@ -1556,7 +1555,7 @@ const void Cinema::PrintTitre_sur_4()
 		if (titre.size() == 5)
 		{ // Titre[4]
 			//int i = Console_Lire_txt(titre[4], 4, 0);
-			Console_Lire(hOut, titre[4] + L"\r\n", 4);
+			Console_Lire(hOut, titre[4] + L"\r\n", 4, L' ');
 			Console_Lire_txt(L"-~- ");
 		}
 	}
