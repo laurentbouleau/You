@@ -36,7 +36,7 @@
     <ClCompile Include="titre.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="cinema.cpp">
+    <ClCompile Include="film.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
     <ClCompile Include="serie.cpp">
@@ -68,7 +68,7 @@
     <ClInclude Include="Utils.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="cinema.h">
+    <ClInclude Include="film.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
     <ClInclude Include="titre.h">

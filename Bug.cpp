@@ -6,7 +6,7 @@
 #include "titre.h"
 #include "You.h"
 //#include "you_txt.h"
-#include "cinema.h"
+#include "film.h"
 #include "serie.h"
 
 #include <windows.h>
@@ -26,7 +26,7 @@
 using namespace std;
 using namespace std::experimental::filesystem::v1;*/
 
-extern int Y;
+//extern int Y;
 
 //extern const int Console_Lire_txt(std::wstring, int, int);
 extern HANDLE hOut;

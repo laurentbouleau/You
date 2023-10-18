@@ -5,7 +5,7 @@
 #include "titre.h"
 #include "You.h"
 #include "you_txt.h"
-#include "cinema.h"
+#include "film.h"
 #include "serie.h"
 #include "erreur_ok.h"
 #include "Bug.h"

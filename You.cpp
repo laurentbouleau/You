@@ -8,7 +8,7 @@
 #include "titre.h"
 #include "You.h"
 #include "you_txt.h"
-#include "cinema.h"
+#include "film.h"
 #include "serie.h"
 #include "erreur_ok.h"
 #include "Bug.h"
@@ -25,6 +25,13 @@
 //#include <locale>
 #include <algorithm>
 #include <codecvt>
+
+// C :
+//#include <fcntl.h>
+//#include <io.h>
+//#include <stdio.h>
+
+
 #include <filesystem> // C++17 standard header file name
 #include <experimental/filesystem> // Header file for pre-standard implementation
 
@@ -150,6 +157,7 @@ DWORD dwMode = 0;
 CONSOLE_SCREEN_BUFFER_INFO csbiInfo;
 //_wsetlocale(LC_ALL, L"fr-FR");
 int X;
+//int originalConsoleMode = _setmode((int)GetStdHandle(STD_OUTPUT_HANDLE), _O_U16TEXT);
 
 /* www.developpez.net : kaitlyn
 
@@ -893,6 +901,17 @@ int wmain(int argc, wchar_t* argv[])
     //B.Ok_T(L"int wmain(int " + argc + ", wchar_t* argv[])");
 #endif
 
+
+    DWORD current_console_mode = 0;
+    GetConsoleMode(GetStdHandle(STD_OUTPUT_HANDLE), &current_console_mode);
+    SetConsoleMode(GetStdHandle(STD_OUTPUT_HANDLE)
+        , current_console_mode
+        | ENABLE_VIRTUAL_TERMINAL_PROCESSING
+        | ENABLE_PROCESSED_OUTPUT
+    );
+
+    //int originalConsoleMode = _setmode((int)GetStdHandle(STD_OUTPUT_HANDLE), _O_U16TEXT);
+
     int i;
     std::vector<std::wstring> v;
     if(argc != 0)
@@ -948,7 +967,7 @@ int wmain(int argc, wchar_t* argv[])
         wcout << GetLastError() << endl;
         return EXIT_FAILURE;
     }*/
-    SetConsoleTitle(u8"You");	// Réglage du titre
+    //SetConsoleTitle(u8"You");	// Réglage du titre
 
     //dwMode |= ENABLE_VIRTUAL_TERMINAL_PROCESSING;
     //CONSOLE_SCREEN_BUFFER_INFO csbiInfo;
