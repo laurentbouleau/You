@@ -6,7 +6,7 @@
 #include "Utils.h"
 #include "titre.h"
 #include "You.h"
-#include "you_txt.h"
+//////#include "you_txt.h"
 #include "serie.h"
 #include "console.h"
 #include "erreur_ok.h"
@@ -59,7 +59,7 @@ public:
 	const void afficher_Titre(std::wstring& t, std::wstring const& nomFichier);
 	const int afficher_pas_de_OK() const;
 	const int afficher(void);
-	const int Ok_C(bool C_Espace1, wchar_t C_H, bool C_Espace2, bool C_Espace3, std::wstring  C_MIN, std::wstring C_T, std::wstring C_t, std::wstring C_W, std::wstring C_w);
+	const int Ok_F(bool C_Espace1, wchar_t C_H, bool C_Espace2, bool C_Espace3, std::wstring  C_MIN, std::wstring C_T, std::wstring C_t, std::wstring C_W, std::wstring C_w);
 
 protected:
 	//std::wstring ad = L"";
@@ -83,11 +83,11 @@ private:
 
     std::wstring Titre__;
 
-	bool C_Espace1;
-	wchar_t C_H;
-	bool C_Espace2;
-	bool C_Espace3;
-	std::wstring C_MIN;
+	bool F_Espace1;
+	wchar_t F_H;
+	bool F_Espace2;
+	bool F_Espace3;
+	std::wstring F_MIN;
 	std::vector<std::wstring>keyColor; // keyColor[0] (bleu) et keyColor[1] (vert)
 	std::wstring valuesColor; // Blanc
 

@@ -1178,16 +1178,16 @@ const wstring Cinema::afficher_Temps_OK()
 	std::wstring h = t.substr(1, pos - 1);
 	std::wstring m = t.substr(pos + 1);
 	std::wstring wstr = h;
-	if (C_Espace1 == true)
+	if (F_Espace1 == true)
 		wstr += L' ';
-	wstr += keyColor[0] + C_H + valuesColor;
-	if (C_Espace2 == true)
+	wstr += keyColor[0] + F_H + valuesColor;
+	if (F_Espace2 == true)
 		wstr += L' ';
 	wstr += m;
-	if (C_Espace3 == true)
+	if (F_Espace3 == true)
 		wstr += L' ';
-	if (C_MIN != L"")
-		wstr += keyColor[0] + C_MIN + valuesColor;
+	if (F_MIN != L"")
+		wstr += keyColor[0] + F_MIN + valuesColor;
 #if Cinema_afficher_Temps_OK_ == 1
 #endif
 	return wstr;
@@ -1199,16 +1199,16 @@ const wstring Cinema::afficher_Temps_OK()
 // #                                                                                                                                                    #
 // ######################################################################################################################################################
 
-const int Cinema::Ok_C(bool P_C_Espace1, wchar_t P_C_H, bool P_C_Espace2, bool P_C_Espace3, std::wstring P_C_MIN, std::wstring P_C_T, std::wstring P_C_t, std::wstring P_C_W, std::wstring P_C_w)
+const int Cinema::Ok_F(bool P_F_Espace1, wchar_t P_F_H, bool P_F_Espace2, bool P_F_Espace3, std::wstring P_F_MIN, std::wstring P_F_T, std::wstring P_F_t, std::wstring P_F_W, std::wstring P_F_w)
 {
-	C_Espace1 = P_C_Espace1;
-	C_H = P_C_H;
-	C_Espace2 = P_C_Espace2;
-	C_Espace3 = P_C_Espace3;
-	C_MIN = P_C_MIN;
-	keyColor.push_back(P_C_T);
-	keyColor.push_back(P_C_W);
-	valuesColor = P_C_t;
+	F_Espace1 = P_F_Espace1;
+	F_H = P_F_H;
+	F_Espace2 = P_F_Espace2;
+	F_Espace3 = P_F_Espace3;
+	F_MIN = P_F_MIN;
+	keyColor.push_back(P_F_T);
+	keyColor.push_back(P_F_W);
+	valuesColor = P_F_t;
 
 	return EXIT_SUCCESS;
 }
@@ -1216,7 +1216,7 @@ const int Cinema::Ok_C(bool P_C_Espace1, wchar_t P_C_H, bool P_C_Espace2, bool P
 // ######################################################################################################################################################
 // #                                                                                                                                                    #
 // # PrintAvec                                                                                                                                          #
-// # const void Cinema::PrintAvec(std::vector<std::pair<std::wstring, std::wstring>>& avec)                                                                                                                     #
+// # const void Cinema::PrintAvec(std::vector<std::pair<std::wstring, std::wstring>>& avec)                                                             #
 // #                                                                                                                                                    #
 // ######################################################################################################################################################
 

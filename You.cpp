@@ -14,6 +14,11 @@
 #include "Bug.h"
 #include "console.h"
 
+// C :
+//#include <io.h>
+//#include <fcntl.h>
+#//include <stdio.h>
+
 #include <windows.h>
 #include <cassert>
 //#include <cstddef>
@@ -25,11 +30,6 @@
 //#include <locale>
 #include <algorithm>
 #include <codecvt>
-
-// C :
-//#include <fcntl.h>
-//#include <io.h>
-//#include <stdio.h>
 
 
 #include <filesystem> // C++17 standard header file name
@@ -157,7 +157,8 @@ DWORD dwMode = 0;
 CONSOLE_SCREEN_BUFFER_INFO csbiInfo;
 //_wsetlocale(LC_ALL, L"fr-FR");
 int X;
-//int originalConsoleMode = _setmode((int)GetStdHandle(STD_OUTPUT_HANDLE), _O_U16TEXT);
+//HANDLE xx = GetStdHandle(STD_OUTPUT_HANDLE);
+//int originalConsoleMode = _setmode(/*(int)*/hOut, _O_U16TEXT);
 
 /* www.developpez.net : kaitlyn
 
@@ -697,7 +698,7 @@ const int You_t(std::vector<std::wstring>&v)
 #endif
         return EXIT_FAILURE;
     }*/
-    if (v[2] == L"c")
+    if (v[2] == L"c" || v[2] == L"f")
     {
         if (v[3] != L"\0")
         {
@@ -707,7 +708,7 @@ const int You_t(std::vector<std::wstring>&v)
             B.Ok_W(L'{' + (std::wstring)c_.parent_path() + L'\\' + (std::wstring)c_.filename() + L'}');
 #endif
             Cinema C;
-            i = C.Ok_C(P.F_Espace1, P.F_H, P.F_Espace2, P.F_Espace3, P.F_MIN, P.F_T, P.F_t, P.F_W, P.F_w);
+            i = C.Ok_F(P.F_Espace1, P.F_H, P.F_Espace2, P.F_Espace3, P.F_MIN, P.F_T, P.F_t, P.F_W, P.F_w);
             i = C.afficher_dossier(c_.filename());
 #if You_t_ == 1
             //wcout << L"-- -- -- -- -- -- -- ------------------------" << endl;
@@ -910,7 +911,8 @@ int wmain(int argc, wchar_t* argv[])
         | ENABLE_PROCESSED_OUTPUT
     );
 
-    //int originalConsoleMode = _setmode((int)GetStdHandle(STD_OUTPUT_HANDLE), _O_U16TEXT);
+    fflush(stdout);
+    //int originalConsoleMode = _setmode(_fileno(output), _O_U16TEXT);
 
     int i;
     std::vector<std::wstring> v;
