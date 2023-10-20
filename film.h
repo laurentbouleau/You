@@ -59,8 +59,8 @@ public:
 	const void afficher_Titre(std::wstring& t, std::wstring const& nomFichier);
 	const int afficher_pas_de_OK() const;
 	const int afficher(void);
-	const int Ok_F(bool C_Espace1, wchar_t C_H, bool C_Espace2, bool C_Espace3, std::wstring  C_MIN, std::wstring C_T, std::wstring C_t, std::wstring C_W, std::wstring C_w);
-
+	//const int Ok_F(bool C_Espace1, wchar_t C_H, bool C_Espace2, bool C_Espace3, std::wstring  C_MIN, std::wstring C_T, std::wstring C_t, std::wstring C_W, std::wstring C_w);
+	const int Ok_F(bool F_Espace1, wchar_t F_H, bool C_Espace2, bool F_Espace3, std::wstring F_MIN, std::vector<std::wstring>F_keyColor, std::wstring F_valuesColor);
 protected:
 	//std::wstring ad = L"";
 	//bool ad_ = false;

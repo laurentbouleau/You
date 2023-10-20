@@ -91,7 +91,7 @@ public:
 
 	const int afficher_pas_de_OK() const;
 	const int afficher(void);
-	const int Ok_S(bool S_Espace, std::wstring S_MIN, std::wstring S_T, std::wstring S_t, std::wstring S_W, std::wstring S_w);
+	const int Ok_S(bool S_Espace, std::wstring S_MIN, std::vector<std::wstring>S_keyColor, std::wstring S_valuesColor);
 
 protected:
 	//std::wstring ad;// = L"";
@@ -104,7 +104,8 @@ private:
 
 	const std::wstring afficher_OK_Note();
 	const bool afficher_Titre_chiffre_et_point_ou_pas(std::wstring&);
-    const int afficher_OK_T(std::vector <std::wstring>&, std::wstring&, std::wstring&, bool, int y0, int y1, int y2);
+    //const int afficher_OK_T(std::vector <std::wstring>&, std::wstring&, std::wstring&, bool, int y0, int y1, int y2);
+	const int afficher_OK_T(std::vector <std::wstring>&, std::wstring&, std::wstring&, bool, int y0, int y1, int y2);
 	const std::wstring afficher_OK_Temps(std::wstring& v, std::wstring& S, std::wstring& s);
 	const std::wstring afficher_OK_Temps(std::tm& t, std::wstring &S, std::wstring &s);
 

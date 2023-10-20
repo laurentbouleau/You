@@ -2487,7 +2487,7 @@ const std::wstring Serie::afficher_OK_Temps(std::wstring& t, std::wstring& S, st
     B.Ok_T(L"const wstring Serie::afficher_OK_Temps(" + t + L", " + S + L", " + s + L") :");
 #endif
     std::wstring wstr = std::to_wstring(std::stoi(t));
-    if (S_Espace == true)
+    if (S_Espace)
         wstr += L' ';
     wstr += S + S_MIN + s;
 #if Serie_afficher_OK_Temps_ == 1
@@ -2515,7 +2515,7 @@ const std::wstring Serie::afficher_OK_Temps(std::tm &t, std::wstring &S, std::ws
 #endif
     int m = t.tm_hour * 1 + t.tm_min;
     std::wstring wstr = to_wstring(m);
-    if (S_Espace == true)
+    if (S_Espace)
         wstr += L' ';
     wstr += S + S_MIN + s;
 #if Serie_afficher_OK_Temps_ == 1
@@ -2533,13 +2533,14 @@ const std::wstring Serie::afficher_OK_Temps(std::tm &t, std::wstring &S, std::ws
 // #                                                                                                                                                    #
 // ######################################################################################################################################################
 
-const int Serie::Ok_S(bool P_S_Espace, std::wstring P_S_MIN, std::wstring P_S_T, std::wstring P_S_t, std::wstring P_S_W, std::wstring P_S_w)
+const int Serie::Ok_S(bool P_S_Espace, std::wstring P_S_MIN, std::vector<std::wstring> S_keyColor, std::wstring S_valuesColor)
 {
     S_Espace = P_S_Espace; // = false ou true;
     S_MIN = P_S_MIN; // = L"min";
-    keyColor.push_back(P_S_T);
-    keyColor.push_back(P_S_W);
-    valuesColor = P_S_t;
+    //keyColor.push_back(P_S_T);
+    //keyColor.push_back(P_S_W);
+    keyColor = S_keyColor;
+    valuesColor = S_valuesColor;
     return EXIT_SUCCESS;
 }
 

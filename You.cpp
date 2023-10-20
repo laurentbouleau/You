@@ -15,10 +15,10 @@
 #include "console.h"
 
 // C :
-//#include <io.h>
-//#include <fcntl.h>
-#//include <stdio.h>
-
+#include <io.h>
+#include <fcntl.h>
+#include <stdio.h>
+// C++
 #include <windows.h>
 #include <cassert>
 //#include <cstddef>
@@ -61,19 +61,22 @@ struct Person
     // XX
     bool F_Espace3 = false; // true ou false
     std::wstring F_MIN = L"min"; // = L"min" : MIN ou Min ou min
-    std::wstring F_T = L"\x1b[94;1m";
-    std::wstring F_t = L"\x1b[38;2;255;255;255m";
-    std::wstring F_W = L"\x1b[38;2;0;255;0m";
-    std::wstring F_w = L"\x1b[38;2;255;255;255m";
+    //std::wstring F_T = L"\x1b[94;1m";
+    //std::wstring F_t = L"\x1b[38;2;255;255;255m";
+    //std::wstring F_W = L"\x1b[38;2;0;255;0m";
+    //std::wstring F_w = L"\x1b[38;2;255;255;255m";
+    std::vector<std::wstring> F_keyColor{ L"\x1b[94;1m", L"\x1b[38;2;0;255;0m" };
+    std::wstring F_valuesColor = L"\x1b[38;2;255;255;255m";
 
     // min
     bool S_Espace = false; // true ou false
     std::wstring S_MIN = L"min"; // = L"min";
-    std::wstring S_T = L"\x1b[38;2;0;0;255m";
-    std::wstring S_t = L"\x1b[38;2;255;255;255m";
-    std::wstring S_W = L"\x1b[38;2;0;255;0m";
+    //std::wstring S_T = L"\x1b[38;2;0;0;255m";
+    //std::wstring S_t = L"\x1b[38;2;255;255;255m";
+    //std::wstring S_W = L"\x1b[38;2;0;255;0m";
     //std::wstring S_W = L"\x1b[92m";
-    std::wstring S_w = L"\x1b[38;2;255;255;255m";
+    std::vector<std::wstring> S_keyColor{ L"\x1b[94;1m", L"\x1b[38;2;0;255;0m" };
+    std::wstring S_valuesColor = L"\x1b[38;2;255;255;255m";
     //std::wstring S_w = L"\x1b[97m";
 
     // Bug
@@ -91,8 +94,8 @@ struct Person
     std::wstring R_t = L"\x1b[38;2;255;255;255m";
 
     //
-    std::wstring& P_T = F_T;
-    std::wstring& P_t = F_t;
+    std::wstring& P_T = F_keyColor[0];
+    std::wstring& P_t = F_valuesColor;
 } P;
 
 // // // // // //
@@ -157,8 +160,7 @@ DWORD dwMode = 0;
 CONSOLE_SCREEN_BUFFER_INFO csbiInfo;
 //_wsetlocale(LC_ALL, L"fr-FR");
 int X;
-//HANDLE xx = GetStdHandle(STD_OUTPUT_HANDLE);
-//int originalConsoleMode = _setmode(/*(int)*/hOut, _O_U16TEXT);
+int originalConsoleMode = _setmode(_fileno(stdout), _O_U16TEXT);
 
 /* www.developpez.net : kaitlyn
 
@@ -521,8 +523,10 @@ const int You_Rechercher(int c, wchar_t** v)
     if (v[2][0] == L's' && v[2][1] == L'\0')
     {
         P_cs = P_serie;
-        P.P_T = P.S_W;
-        P.P_t = P.S_w;
+        //P.P_T = P.S_W;
+        //P.P_t = P.S_w;
+        P.P_T = P.S_keyColor[0];
+        P.P_t = P.S_valuesColor;
     }
     else if (v[2][0] == L'c' && v[2][1] == L'\0')
     {
@@ -540,8 +544,8 @@ const int You_Rechercher(int c, wchar_t** v)
     }
     if (v[2][0] == L'c')
     {
-        P.P_T = P.F_T;
-        P.P_t = P.F_t;
+        P.P_T = P.F_keyColor[0];
+        P.P_t = P.F_valuesColor;
     }
     //
     int i = 0;
@@ -708,7 +712,8 @@ const int You_t(std::vector<std::wstring>&v)
             B.Ok_W(L'{' + (std::wstring)c_.parent_path() + L'\\' + (std::wstring)c_.filename() + L'}');
 #endif
             Cinema C;
-            i = C.Ok_F(P.F_Espace1, P.F_H, P.F_Espace2, P.F_Espace3, P.F_MIN, P.F_T, P.F_t, P.F_W, P.F_w);
+            //i = C.Ok_F(P.F_Espace1, P.F_H, P.F_Espace2, P.F_Espace3, P.F_MIN, P.F_T, P.F_t, P.F_W, P.F_w);
+            i = C.Ok_F(P.F_Espace1, P.F_H, P.F_Espace2, P.F_Espace3, P.F_MIN, P.F_keyColor, P.F_valuesColor);
             i = C.afficher_dossier(c_.filename());
 #if You_t_ == 1
             //wcout << L"-- -- -- -- -- -- -- ------------------------" << endl;
@@ -785,7 +790,8 @@ const int You_t(std::vector<std::wstring>&v)
 
             }
             Serie S;
-            i = S.Ok_S(P.S_Espace, P.S_MIN, P.S_T, P.S_t, P.S_W, P.S_w);
+            //i = S.Ok_S(P.S_Espace, P.S_MIN, P.S_T, P.S_t, P.S_W, P.S_w);
+            i = S.Ok_S(P.S_Espace, P.S_MIN, P.S_keyColor, P.S_valuesColor);
             i = S.afficher_dossier(s_.filename());
 #if You_t_ == 1
             //wcout << L"    " << L'{' << s.parent_path() << L'\\' << s.filename() << L'}' << endl;
@@ -912,7 +918,7 @@ int wmain(int argc, wchar_t* argv[])
     );
 
     fflush(stdout);
-    //int originalConsoleMode = _setmode(_fileno(output), _O_U16TEXT);
+    int originalConsoleMode = _setmode(_fileno(stdout), _O_U16TEXT);
 
     int i;
     std::vector<std::wstring> v;
@@ -1147,7 +1153,7 @@ int wmain(int argc, wchar_t* argv[])
                         L"aa bbb cccc ddddddd eee fffffff" + P.E_T + L" gggg" + P.E_t + L" hh ii jjjjjj kkkkkkkkkk ll mmmmmm. nnn oooooo, pp qqqqqq rrrrr ss ttttt uuu vv www xxx yy zzzzzz. AAAA BBB CC DDDDD EEEEEEEE F'GGGGG HHH II JJJJJ KKKK, LL MMMMMMM NNNN : OOOO PP QQQQ ! RR SS TTTTT, UU VVVV WWWWW XX YYYYYYY ZZZ ; aaaa bb ccccc (dd eeeeeeeee) fff ggg, hhh iiiiii jjjjjjjj " +
                         L"kk " + P.S_T + L'?' + P.S_t + L" ss."; */
                         //wstring textes = L"ccazertyuiopvvqsdfghjklm wxc";// +L"\n" + L"qsdfghjklm";
-                    wstring const textes = L"Ashley Walters" + P.S_W + L" (" + P.S_w + L"Dushane" + P.S_W + L"), " + P.S_w +
+                    /*wstring const textes = L"Ashley Walters" + P.S_W + L" (" + P.S_w + L"Dushane" + P.S_W + L"), " + P.S_w +
                         L"Kane Robinson" + P.S_W + L" (" + P.S_w + L"Sully" + P.S_W + L"), " + P.S_w +
                         L"Micheal Ward" + P.S_W + L" (" + P.S_w + L"Jamie" + P.S_W + L"), " + P.S_w +
                         L"Jasmine Jobson" + P.S_W + L" (" + P.S_w + L"Jaq" + P.S_W + L"), " + P.S_w +
@@ -1163,15 +1169,15 @@ int wmain(int argc, wchar_t* argv[])
                         L"Ashley Thomas" + P.S_W + L" (" + P.S_w + L"Jermaine" + P.S_W + L"), " + P.S_w +
                         L"Kadeem Ramsay" + P.S_W + L" (" + P.S_w + L"Kit" + P.S_W + L"), " + P.S_w +
                         L"Seraphina Beh" + P.S_W + L" (" + P.S_w + L"Farah" + P.S_W + L"), " + P.S_w +
-                        L"Hope Ikpoku Jnr" + P.S_W + L" (" + P.S_w + L"Aaron" + P.S_W + L")" + P.S_w;
+                        L"Hope Ikpoku Jnr" + P.S_W + L" (" + P.S_w + L"Aaron" + P.S_W + L")" + P.S_w;*/
 
-                    i = Console_Lire_txt(textes, y + 4, y);
+                    //i = Console_Lire_txt(textes, y + 4, y);
                     E.Ok();
 
                 }
                 if (input == L"w")
                     return 0;
-                if (input == L"\n")
+                if (input == L"\r\n")
                 {
                     usage();
                     return 0;
