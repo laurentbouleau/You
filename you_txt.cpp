@@ -27,16 +27,16 @@ extern const bool afficher_Path_Exists(std::wstring&);
 extern const std::wstring lire_fichierTxt(std::wstring const& t);
 extern std::wstring you_substr(std::wstring);
 extern std::wstring replace_all(std::wstring subject, const std::wstring& search, const std::wstring& replace);
-extern const int Console_Lire_txt(std::wstring, int, int);
+//extern const int Console_Lire_txt(std::wstring, int, int);
 
 // // // // // // // // // //
-struct P_CS
+struct P_FS
 {
-    std::wstring cs = L"";
+    std::wstring fs = L"";
     std::wstring note[6] = { L"", L"", L"", L"", L"", L"" };
-    int cs_{ 0 };
+    int fs_{ 0 };
 };
-extern struct P_CS P_cinema, P_serie, P_cinema_VOD, P_cinema_DVD, &P_cs;
+extern struct P_FS P_film, P_serie, P_film_VOD, P_film_DVD, &P_fs;
 // // // // // // // // // //
 
 // ######################################################################################################################################################
@@ -70,47 +70,47 @@ const int You_txt(int& v)
 
 // ######################################################################################################################################################
 // #                                                                                                                                                    #
-// # You_txt_cs                                                                                                                                         #
-// # const int You_txt_cs(wstring& t, wstring& p1)                                                                                                      #
+// # You_txt_fs                                                                                                                                         #
+// # const int You_txt_fs(wstring& t, wstring& p1)                                                                                                      #
 // #                                                                                                                                                    #
 // ######################################################################################################################################################
 
-const int You_txt_cs(std::wstring& t, std::wstring& p1)
+const int You_txt_fs(std::wstring& t, std::wstring& p1)
 {
 #if You_txt_cs_ == 1
-    B.Ok_T(L"const int You_txt_cs(wstring& t, " + p1 + L") :");
+    B.Ok_T(L"const int You_txt_fs(wstring& t, " + p1 + L") :");
 #endif
     int v;
     std::wstring p2, p3, p4;
     p4 = p1;
     size_t pos = 0;
-    if (p1 == L"<Cinéma>")
+    if (p1 == L"<Film>")
     {
-        p2 = L"</Cinéma>";
-        p3 = L"Cinéma=";
+        p2 = L"</Film>";
+        p3 = L"Film=";
     }
     else if (p1 == L"<Série>")
     {
         p2 = L"</Série>";
         p3 = L"Série=";
     }
-    else if (p1 == L"<Cinéma VOD>")
+    else if (p1 == L"<Film VOD>")
     {
-        p2 = L"</Cinéma VOD>";
-        p3 = L"Cinéma-VOD=";
+        p2 = L"</Film VOD>";
+        p3 = L"Film-VOD=";
     }
-    else if(p1 == L"<Cinéma DVD>")
+    else if(p1 == L"<Film DVD>")
     {
-        p2 = L"</Cinéma DVD>";
-        p3 = L"Cinéma-DVD=";
+        p2 = L"</Film DVD>";
+        p3 = L"Film-DVD=";
     }
     else
     {
-#if You_txt_cs_ == 1
+#if You_txt_fs_ == 1
         Console_Lire_txt(L"Impossible de pas (" + p1 + L") !", 4, 4);
 #endif
         //wcerr << L"Impossible pas de note (" << cs << L") !" << endl;
-        E.afficher_X(-3, L"Impossible de pas (" + p1 + L") !", L"Érreur (" + p1 + L") !!!");
+        E.afficher_X(-3, L"Impossible de pas (" + p1 + L") !", L"Erreur (" + p1 + L") !!!");
         return -3;
     }
     pos = t.find(L'\n');
@@ -121,24 +121,24 @@ const int You_txt_cs(std::wstring& t, std::wstring& p1)
         p1 = t.substr(0, pos);
         p1 = you_substr(p1);
         if (p1 == p2)
-            // </Cinéma> ou </Serie> ou </Cinéma VOD> ou </Cinéma DVD>
+            // </Film> ou </Serie> ou </Film VOD> ou </Film DVD>
         {
-#if You_txt_cs_ == 1
+#if You_txt_fs_ == 1
             //wcout << L'{' << p2 << L'}' << endl;
             Console_Lire_txt(L'{' + p2 + L'}', 4, 4);
-            B.Ok_T(L"const int You_txt_cs() : Ok !");
+            B.Ok_T(L"const int You_txt_fs() : Ok !");
 #endif
             //t = t.substr(pos + 1);
             p2 = L"";
             return 0;
         }
-        else if (p1.substr(0, 7) == L"Cinéma=" || p1.substr(0, 6) == L"Série=" || p1.substr(0, 11) == L"Cinéma-VOD=" || p1.substr(0, 11) == L"Cinéma-DVD=")
-            // Cinéma= ou Série= ou Cinéma-VOD ou Cinéma-DVD
+        else if (p1.substr(0, 5) == L"Film=" || p1.substr(0, 6) == L"Série=" || p1.substr(0, 9) == L"Film-VOD=" || p1.substr(0, 9) == L"Film-DVD=")
+            // Film= ou Série= ou Film-VOD ou Film-DVD
         {
             size_t pos2 = 0;
             pos2 = p1.find(L"=");
-            P_cs.cs = p1.substr(pos2 + 1);
-#if You_txt_cs_ == 1
+            P_fs.fs = p1.substr(pos2 + 1);
+#if You_txt_fs_ == 1
             //wcout << L'{' << p1.substr(0, pos2 + 1) << L'[' << P_cs.cs << L"]}" << endl;
             Console_Lire_txt(L'{' + p1.substr(0, pos2 + 1) + L'[' + P_cs.cs + L"]}", 4, 4);
 #endif
@@ -153,7 +153,7 @@ const int You_txt_cs(std::wstring& t, std::wstring& p1)
             v = std::stoi(p1.substr(5, 1));
             if(v >= 0 && v <= 5)
             { 
-                P_cs.note[v] = p1.substr(8);
+                P_fs.note[v] = p1.substr(8);
 #if You_txt_cs_ == 1
                 //wcout << L"{Note[" << v << L"]=[" << P_cs.note[v] << L"]}" << endl;
                 Console_Lire_txt(L"{Note[" + to_wstring(v) + L"]=[" + P_cs.note[v] + L"]}", 4, 4);
@@ -163,11 +163,11 @@ const int You_txt_cs(std::wstring& t, std::wstring& p1)
             }
             else
             {
-#if You_txt_cs_ == 1
+#if You_txt_fs_ == 1
                 B.Ok_W(L"Impossible pas de note (0-5) !");
                 B.Ok_T(L"const int You_txt_cs() : Attention !!!");
 #endif
-                E.afficher_X(-5, L"Impossible pas de note (0-5) !", L"Érreur (" + p1 + L") !!!");
+                E.afficher_X(-5, L"Impossible pas de note (0-5) !", L"Erreur (" + p1 + L") !!!");
                 return -5;
             }
         }
@@ -179,7 +179,7 @@ const int You_txt_cs(std::wstring& t, std::wstring& p1)
                 B.Ok_W(L"Impossible pas de '' '' et/ou ''\n'' !");
                 B.Ok_T(L"const int You_txt_cs() : Attention !!!");
 #endif
-                E.afficher_X(-3, L"Impossible " + p4 + L" ou \"Note[0-5]=\", pas de ' ' ou '\t' !", L"Érreur (" + p1 + L") !!!");
+                E.afficher_X(-3, L"Impossible " + p4 + L" ou \"Note[0-5]=\", pas de ' ' ou '\t' !", L"Erreur (" + p1 + L") !!!");
                 return -3;
             }
             //wcerr << L"Impossible (</Cinéma>) (2) !" << endl;
@@ -188,7 +188,7 @@ const int You_txt_cs(std::wstring& t, std::wstring& p1)
         }
         t = t.substr(pos + 1);
     }
-#if You_txt_cs_ == 1
+#if You_txt_fs_ == 1
     //wcout << L"::You_txt_cs() : Ok !" << endl;
     B.Ok_T(L"int You_txt_cs() : Ok !");
 #endif
@@ -207,24 +207,24 @@ const int You_txt_is_directory(std::wstring& t)
 #if You_txt_is_directory_ == 1
     B.Ok_T(L"const int You_txt_is_directory(" + t + L") :");
 #endif
-    if(afficher_Path_Exists(P_cs.cs) == false)
+    if(!afficher_Path_Exists(P_fs.fs))
     {
 #if You_txt_is_directory_ == 1
         B.Ok_T(L"const int You_txt_is_directory(" + t + L") : Erreur !!!");
 #endif
-        E.afficher_X(-8, t + L" pas de " + P_cs.cs + L" !", L"Erreur !!!");
+        E.afficher_X(-8, t + L" pas de " + P_fs.fs + L" !", L"Erreur !!!");
         return -8;
     }
 
-    if (is_directory(P_cs.cs))
+    if (is_directory(P_fs.fs))
     {
         int i;
         for (i = 0; i < 6; i++)
         {
 #if You_txt_is_directory_ == 1
-            Console_Lire_txt(L"{Note[" + to_wstring(i) + L"]=[" + P_cs.note[i] + L"] !}", 4, 4);
+            Console_Lire_txt(L"{Note[" + std::to_wstring(i) + L"]=[" + P_cs.note[i] + L"] !}", 4, 4);
 #endif
-            if (P_cs.note[i] == L"")
+            if (P_fs.note[i] == L"")
                 continue;
             else
             {
@@ -234,7 +234,7 @@ const int You_txt_is_directory(std::wstring& t)
                 if (std::error_code ec{}; !std::filesystem::exists(fpath, ec)) {
                     std::cerr << "File system returned the following for \"" << fpath.string() << "\":\nError: " << ec.value() << "\nMessage: " << ec.message();
                 }*/
-                path p{ P_cs.note[i] };
+                path p{ P_fs.note[i] };
                 //if (error_code ec{}; !/*filesystem::*/exists(p, ec))
                 if (error_code ec{}; experimental::filesystem::v1::exists(p, ec))
                 {
@@ -243,23 +243,23 @@ const int You_txt_is_directory(std::wstring& t)
 #if You_txt_is_directory_ == 1
                     B.Ok_W(L"Le système de fichiers a renvoyé ce qui suit pour [" + p.wstring() + L']' + L" {" + P_cs.cs + L'}');
 #endif
-                    E.afficher_X(-6, L"Le système de fichiers a renvoyé ce qui suit pour [" + p.wstring() + L']' + L" {" + P_cs.cs + L'}', L"Érreur !!!");
+                    E.afficher_X(-6, L"Le système de fichiers a renvoyé ce qui suit pour [" + p.wstring() + L']' + L" {" + P_fs.fs + L'}', L"Erreur !!!");
                     //E.afficher_X(-6, L"Le système de fichiers a renvoyé ce qui suit pour [" + p.wstring() + L']' + L" {" + P_cs.cs + L'}', L"Érreur !!!", L"ddddddd");
                     exit(6);
                 }
 
-                if (is_directory(P_cs.note[i]))
+                if (is_directory(P_fs.note[i]))
                 {
                     continue;
                 }
-                if (is_directory(P_cs.cs + P_cs.note[i]))
+                if (is_directory(P_fs.fs + P_fs.note[i]))
                 {
-                    P_cs.note[i] = P_cs.cs + P_cs.note[i];
+                    P_fs.note[i] = P_fs.fs + P_fs.note[i];
                     continue;
                 }
-                if (is_directory(P_cs.cs + L'\\' + P_cs.note[i]))
+                if (is_directory(P_fs.fs + L'\\' + P_fs.note[i]))
                 {
-                    P_cs.note[i] = P_cs.cs + L'\\' + P_cs.note[i];
+                    P_fs.note[i] = P_fs.fs + L'\\' + P_fs.note[i];
                     continue;
                 }
                 /*if (is_directory(P_cs.cs + L'\\' + P_cs.note[i]))
@@ -274,7 +274,7 @@ const int You_txt_is_directory(std::wstring& t)
                     B.Ok_W(t + L" pas de Note[" + to_wstring(i) + L"]=[" + P_cs.note[i] + L']');
                     B.Ok_T(L"const int You_txt_is_directory(" + t + L") : Erreur !!!");
 #endif
-                    E.afficher_X(-6, t + L" pas de Note[" + to_wstring(i) + L"]=[" + P_cs.note[i] + L']', L"Erreur !!!");
+                    E.afficher_X(-6, t + L" pas de Note[" + std::to_wstring(i) + L"]=[" + P_fs.note[i] + L']', L"Erreur !!!");
                     return -6;
                 }
             }
@@ -283,16 +283,13 @@ const int You_txt_is_directory(std::wstring& t)
     }
     else
     {
-        //wcerr.width(4);
-        //wcerr << t << L" pas de " << P_cs.cs << L" ! Érreur !!!" << endl;
 #if You_txt_is_directory_ == 1
-        Console_Lire_txt(t + L" pas de " + P_cs.cs + L" ! Érreur !!!", 4, 4);
+        Console_Lire_txt(t + L" pas de " + P_fs.fs + L" ! Erreur !!!", 4, 4);
 #endif
-        E.afficher_X(-6, t + L" pas de " + P_cs.cs + L" !", L"Érreur !!!");
+        E.afficher_X(-6, t + L" pas de " + P_fs.fs + L" !", L"Erreur !!!");
         return -6;
     }
 #if You_txt_is_directory_ == 1
-    //wcout << L"::You_txt_is_directory() : Ok !" << endl;
     B.Ok_T(L"const int You_txt_is_directory() : Ok !");
 #endif
     return 0;
@@ -313,13 +310,13 @@ const int You_txt_OK()
     const wchar_t* p{ L"../" };
     path filePath(p);
 
-    filePath /= L"you.txt";
+    filePath /= L"you2.txt";
     std::wstring t;
     try
     {
         // Dans le try, on est assuré que toute exception levée
         // pourra être traitée dans le bloc catch situé après.
-        t = lire_fichierTxt(L"you.txt");
+        t = lire_fichierTxt(L"you2.txt");
     }
     // Notez qu'une exception s'attrape par référence constante.
     catch (runtime_error const& exception)
@@ -348,36 +345,36 @@ const int You_txt_OK()
             continue;
         }
 
-        if (t1 == L"<Cinéma>" || t1 == L"<Série>" || t1 == L"<Cinéma DVD>" || t1 == L"<Cinéma VOD>")
+        if (t1 == L"<Film>" || t1 == L"<Série>" || t1 == L"<Film DVD>" || t1 == L"<Film VOD>")
         {
 #if You_txt_OK_ == 1
             //wcout << L"    " << L'{' + t1 + L'}' << endl;
             B.Ok_W(L"{" + t1 + L'}');
 #endif
-            if (t1 == L"<Cinéma>")
-                P_cs = P_cinema;
+            if (t1 == L"<Film>")
+                P_fs = P_film;
             else if (t1 == L"<Série>")
-                P_cs = P_serie;
-            else if (t1 == L"<Cinéma VOD>")
-                P_cs = P_cinema_VOD;
-            else if(t1 == L"<Cinéma DVD>")
-                P_cs = P_cinema_DVD;
+                P_fs = P_serie;
+            else if (t1 == L"<Film VOD>")
+                P_fs = P_film_VOD;
+            else if(t1 == L"<Film DVD>")
+                P_fs = P_film_DVD;
             else
             {
                 E.afficher_X(-6, L"!!!", t1 + L" erreur [" + t1 + L"] !!!");
                 return -6;
             }
             //
-            P_cs.cs_++;
+            P_fs.fs_++;
             //
-            if (P_cs.cs_ > 1)
+            if (P_fs.fs_ > 1)
             {
-                E.afficher_X(-5, L"Trouvez de " + t1 + L" !", t1 + L" erreur [" + P_cs.cs + + L"] !!!");
+                E.afficher_X(-5, L"Trouvez de " + t1 + L" !", t1 + L" erreur [" + P_fs.fs + + L"] !!!");
                 return -5;
             }
             i = -1;
             temps = t1;
-            j = You_txt_cs(t, temps);//, 1);
+            j = You_txt_fs(t, temps);//, 1);
             if (j != 0)
             {
                 E.afficher_X(-7, L"Impossible pas de hhhhhhhhh !!!", t1 + L" erreur (" + t1 + L") !!!");
@@ -390,21 +387,21 @@ const int You_txt_OK()
                 E.afficher_X(-7, L"Impossible pas de " + t1 + L" !!!", t1 + L" erreur (" + t1 + L") !!!");
                 return -7;
             }
-            if (j == 0 && t1 == L"<Cinéma>")
-                P_cinema = P_cs;
+            if (j == 0 && t1 == L"<Film>")
+                P_film = P_fs;
             else if (j == 0 && t1 == L"<Série>")
-                P_serie = P_cs;
-            else if (j == 0 && t1 == L"<Cinéma VOD>")
-                 P_cinema_VOD = P_cs;
-            else if (j == 0 && t1 == L"<Cinéma DVD>")
-                P_cinema_DVD = P_cs;
+                P_serie = P_fs;
+            else if (j == 0 && t1 == L"<Film VOD>")
+                 P_film_VOD = P_fs;
+            else if (j == 0 && t1 == L"<Film DVD>")
+                P_film_DVD = P_fs;
             else
             {
                 //
                 E.afficher_X(-7, L"Impossible pas de qqqqqq !!!", t1 + L" erreur (" + t1 + L") !!!");
                 return -7;
             }
-            P_cs.cs_ = 0;
+            P_fs.fs_ = 0;
             i = 0;
         }
         else
@@ -418,21 +415,21 @@ const int You_txt_OK()
         t = t.substr(pos + 1);
     }
 #if You_txt_OK_ == 1
-    if (P_cinema.cs != L"")
+    if (P_film.fs != L"")
     {
-        std::wcout << L"    " << L"Cinéma = [" << P_cinema.cs << L"]" << std::endl;
+        std::wcout << L"    " << L"Film = [" << P_film.fs << L"]" << std::endl;
         std::wcout << L"\t";
-        std::wcout << L"note[" << 0 << L"]=[" << P_cinema.note[0] << L"], "
-            << L"note[" << 1 << L"]=[" << P_cinema.note[1] << L"], "
-            << L"note[" << 2 << L"]=[" << P_cinema.note[2] << L"], "
-            << L"note[" << 3 << L"]=[" << P_cinema.note[3] << L"], "
-            << L"note[" << 4 << L"]=[" << P_cinema.note[4] << L"], "
-            << L"note[" << 5 << L"]=[" << P_cinema.note[5] << L"]."
+        std::wcout << L"note[" << 0 << L"]=[" << P_film.note[0] << L"], "
+            << L"note[" << 1 << L"]=[" << P_film.note[1] << L"], "
+            << L"note[" << 2 << L"]=[" << P_film.note[2] << L"], "
+            << L"note[" << 3 << L"]=[" << P_film.note[3] << L"], "
+            << L"note[" << 4 << L"]=[" << P_film.note[4] << L"], "
+            << L"note[" << 5 << L"]=[" << P_film.note[5] << L"]."
             << std::endl;
     }
-    if (P_serie.cs != L"")
+    if (P_serie.fs != L"")
     {
-        std::wcout << L"    " << L"Série=[" << P_serie.cs << L"]" << std::endl;
+        std::wcout << L"    " << L"Série=[" << P_serie.fs << L"]" << std::endl;
         std::wcout << L"\t";
         std::wcout << L"note[" << 0 << L"]=[" << P_serie.note[0] << L"], "
             << L"note[" << 1 << L"]=[" << P_serie.note[1] << L"], "
@@ -442,28 +439,28 @@ const int You_txt_OK()
             << L"note[" << 5 << L"]=[" << P_serie.note[5] << L"]."
             << std::endl;
     }
-    if (P_cinema_VOD.cs != L"")
+    if (P_film_VOD.fs != L"")
     {
-        std::wcout << L"    " << L"Cinéma VOD=[" << P_cinema_VOD.cs << L"]" << std::endl;
+        std::wcout << L"    " << L"Film VOD=[" << P_film_VOD.fs << L"]" << std::endl;
         std::wcout << L"\t";
-        std::wcout << L"note[" << 0 << L"]=[" << P_cinema_VOD.note[0] << L"], "
-            << L"note[" << 1 << L"]=[" << P_cinema_VOD.note[1] << L"], "
-            << L"note[" << 2 << L"]=[" << P_cinema_VOD.note[2] << L"], "
-            << L"note[" << 3 << L"]=[" << P_cinema_VOD.note[3] << L"], "
-            << L"note[" << 4 << L"]=[" << P_cinema_VOD.note[4] << L"], "
-            << L"note[" << 5 << L"]=[" << P_cinema_VOD.note[5] << L"]."
+        std::wcout << L"note[" << 0 << L"]=[" << P_film_VOD.note[0] << L"], "
+            << L"note[" << 1 << L"]=[" << P_film_VOD.note[1] << L"], "
+            << L"note[" << 2 << L"]=[" << P_film_VOD.note[2] << L"], "
+            << L"note[" << 3 << L"]=[" << P_film_VOD.note[3] << L"], "
+            << L"note[" << 4 << L"]=[" << P_film_VOD.note[4] << L"], "
+            << L"note[" << 5 << L"]=[" << P_film_VOD.note[5] << L"]."
             << std::endl;
     }
-    if (P_cinema_DVD.cs != L"")
+    if (P_film_DVD.fs != L"")
     {
-        std::wcout << L"    " << L"Cinéma DVD=[" << P_cinema_DVD.cs << L"]" << std::endl;
+        std::wcout << L"    " << L"Film DVD=[" << P_film_DVD.fs << L"]" << std::endl;
         std::wcout << L"\t";
-        std::wcout << L"note[" << 0 << L"]=[" << P_cinema_DVD.note[0] << L"], "
-            << L"note[" << 1 << L"]=[" << P_cinema_DVD.note[1] << L"], "
-            << L"note[" << 2 << L"]=[" << P_cinema_DVD.note[2] << L"], "
-            << L"note[" << 3 << L"]=[" << P_cinema_DVD.note[3] << L"], "
-            << L"note[" << 4 << L"]=[" << P_cinema_DVD.note[4] << L"], "
-            << L"note[" << 5 << L"]=[" << P_cinema_DVD.note[5] << L"]."
+        std::wcout << L"note[" << 0 << L"]=[" << P_film_DVD.note[0] << L"], "
+            << L"note[" << 1 << L"]=[" << P_film_DVD.note[1] << L"], "
+            << L"note[" << 2 << L"]=[" << P_film_DVD.note[2] << L"], "
+            << L"note[" << 3 << L"]=[" << P_film_DVD.note[3] << L"], "
+            << L"note[" << 4 << L"]=[" << P_film_DVD.note[4] << L"], "
+            << L"note[" << 5 << L"]=[" << P_film_DVD.note[5] << L"]."
             << std::endl;
     }
 #endif

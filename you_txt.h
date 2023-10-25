@@ -2,7 +2,7 @@
 #include "pch.h"
 // you_txt
 #define You_txt_                          1
-#define You_txt_cs_                       0
+#define You_txt_fs_                       0
 #define You_txt_is_directory_             0
 #define You_txt_OK_                       1
 
