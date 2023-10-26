@@ -99,19 +99,19 @@ struct Person
 } P;
 
 // // // // // //
-typedef struct P_CS P_CS;// cinema, serie, cinema_VOD, cinema_DVD,
+typedef struct P_FS P_FS;// cinema, serie, cinema_VOD, cinema_DVD,
 /*P_cinema, P_serie, P_cinema_VOD, P_cinema_DVD,*/
 //& P_C, & P_S ;
 
-struct P_CS
+struct P_FS
 {
-    std::wstring cs = L"";
+    std::wstring fs = L"";
     std::wstring note[6] = { L"", L"", L"", L"", L"", L"" };
-    int cs_{ 0 };
-}cinema, serie, cinema_VOD, cinema_DVD,
-P_cinema, P_serie, P_cinema_VOD, P_cinema_DVD,
-&P_cs = P_cinema, 
-&P_C = cinema, &P_S = serie, &P_C_VOD = cinema_VOD, &P_C_DVD = cinema_DVD;
+    int fs_{ 0 };
+}film, serie, film_VOD, film_DVD,
+P_film, P_serie, P_film_VOD, P_film_DVD,
+&P_fs = P_film,
+&P_F = film, &P_S = serie, &P_F_VOD = film_VOD, &P_F_DVD = film_DVD;
 // // // // // //
 
 //
@@ -154,13 +154,11 @@ extern const vector<wstring> AZERTYUIOP;
 //extern const class E;
 //_P_;
 
-//HANDLE hOut;
-HANDLE hOut = GetStdHandle(STD_OUTPUT_HANDLE);
-DWORD dwMode = 0;
-CONSOLE_SCREEN_BUFFER_INFO csbiInfo;
+//HANDLE hOut = GetStdHandle(STD_OUTPUT_HANDLE);
+//DWORD dwMode = 0;
+//CONSOLE_SCREEN_BUFFER_INFO csbiInfo;
 //_wsetlocale(LC_ALL, L"fr-FR");
 int X;
-int originalConsoleMode = _setmode(_fileno(stdout), _O_U16TEXT);
 
 /* www.developpez.net : kaitlyn
 
@@ -198,11 +196,11 @@ nw::cout << use_red_color_text << "ééééé" << use_default_color_text;
 
 void init()
 {
-    dwMode |= ENABLE_VIRTUAL_TERMINAL_PROCESSING;
-    GetConsoleScreenBufferInfo(hOut, &csbiInfo);
+    //dwMode |= ENABLE_VIRTUAL_TERMINAL_PROCESSING;
+    //GetConsoleScreenBufferInfo(hOut, &csbiInfo);
     _wsetlocale(LC_ALL, L"fr");
     std::locale("fr_FR.utf8");
-    X = csbiInfo.srWindow.Right + 1;
+    //X = csbiInfo.srWindow.Right + 1;
     //
 }
 
@@ -217,26 +215,26 @@ const int You_txt_ok(void)
 #if You_txt_ok_ == true
     std::wcout << L"const int You_txt_ok(void)" << std::endl;
 #endif
-//    ::P_CS cinema;
-    cinema.cs = L"..\\Films.()\\";
-    cinema.note[0] = L"-";
-    cinema.note[1] = L"+";
-    cinema.note[2] = L"++";
-    cinema.note[3] = L"+++";
-    cinema.note[4] = L"++++";
-    cinema.note[5] = L"+++++";
-//    ::P_CS serie;
-    serie.cs = L"..\\Séries.[]\\";
+//    ::P_FS film;
+    film.fs = L"..\\Films.()\\";
+    film.note[0] = L"-";
+    film.note[1] = L"+";
+    film.note[2] = L"++";
+    film.note[3] = L"+++";
+    film.note[4] = L"++++";
+    film.note[5] = L"+++++";
+//    ::P_FS serie;
+    serie.fs = L"..\\Séries.[]\\";
     serie.note[0] = L"-";
     serie.note[1] = L"+";
     serie.note[2] = L"++";
     serie.note[3] = L"+++";
     serie.note[4] = L"++++";
     serie.note[5] = L"+++++";
-//    ::P_CS cinema_VOD;
-    cinema_VOD.cs = L"";
-//    ::P_CS cinema_DVD;
-    cinema_DVD.cs = L"";
+//    ::P_FS cinema_VOD;
+    film_VOD.fs = L"";
+//    ::P_FS cinema_DVD;
+    film_DVD.fs = L"";
     // // // // //
     //::P_CS* P_C = &cinema;
     //::P_CS* P_S = &serie;
@@ -247,7 +245,7 @@ const int You_txt_ok(void)
 //HANDLE hOut = GetStdHandle(STD_OUTPUT_HANDLE);
 //DWORD dwMode = 0;
 //(HANDLE hOut, CONSOLE_SCREEN_BUFFER_INFO& csbiInfo)
-void usage(std::wstring t = L"")
+void usage(HANDLE hOut, std::wstring t = L"")
 {
     int const y1 = 4, y2 = 8;
     //int i;
@@ -257,13 +255,13 @@ void usage(std::wstring t = L"")
     //
     Textes += L"You :";
     Console_Lire(hOut, Textes, 0, L' ');
-    std::wcout << L"\n";
+    std::wcout << L"\r\n";
     //
     Textes = L"azereezrttertretrtert";
     Console_Lire(hOut, Textes, 0, L' ');
-    std::wcout << L"\n";
+    std::wcout << L"\r\n";
     //
-    Textes = L"/t c {dossier}\n";
+    Textes = L"/t c {dossier}\r\n";
     Textes += L"/t s {dossier}";
     Console_Lire(hOut, Textes, y1, L' ');
     std::wcout << L"\n";
@@ -272,11 +270,11 @@ void usage(std::wstring t = L"")
     //wcout << L"\n";
     Textes = L"aa bbb cccc ddddddd eee fffffff gggg hh ii jjjjjj kkkkkkkkkk ll mmmmmm nnn oooooo, pp.  qqqqqq rrrrr ss ttt uuu vvv wwwwww xxx yy ";
     Console_Lire(hOut, Textes, y1, L' ');
-    std::wcout << L"\n";
+    std::wcout << L"\r\n";
     //
     Textes = L"/Gense gense c {dossier}";
     Console_Lire(hOut, Textes, y1, L' ');
-    std::wcout << L"\n";
+    std::wcout << L"\r\n";
 }
 
 //#define setC 1
@@ -522,20 +520,20 @@ const int You_Rechercher(int c, wchar_t** v)
     //
     if (v[2][0] == L's' && v[2][1] == L'\0')
     {
-        P_cs = P_serie;
+        P_fs = P_serie;
         //P.P_T = P.S_W;
         //P.P_t = P.S_w;
         P.P_T = P.S_keyColor[0];
         P.P_t = P.S_valuesColor;
     }
-    else if (v[2][0] == L'c' && v[2][1] == L'\0')
+    else if ((v[2][0] == L'c'|| v[2][0] == L'f') && v[2][1] == L'\0')
     {
-        P_cs = P_cinema;
+        P_fs = P_film;
     }
-    else if (v[2][0] == L'c' && v[2][1] == L'v' && v[2][2] == L'\0')
-        P_cs = P_cinema_VOD;
+    else if ((v[2][0] == L'c' || v[2][0] == L'f') && v[2][1] == L'v' && v[2][2] == L'\0')
+        P_fs = P_film_VOD;
     else if (v[2][0] == L'c' && v[2][1] == L'd' && v[2][2] == L'\0')
-        P_cs = P_cinema_DVD;
+        P_fs = P_film_DVD;
     else
     {
         std::wcerr << L"Erreur !!!" << std::endl;
@@ -551,13 +549,13 @@ const int You_Rechercher(int c, wchar_t** v)
     int i = 0;
     std::vector<std::wstring>r;
     //r.push_back(P_cs.cs + L"\\");
-    r.push_back(P_cs.cs + L"\\" + r_r);
-    r.push_back(P_cs.cs + L"\\-" + r_r);
-    r.push_back(P_cs.cs + L"\\+\\" + r_r);
-    r.push_back(P_cs.cs + L"\\++\\" + r_r);
-    r.push_back(P_cs.cs + L"\\+++\\" + r_r);
-    r.push_back(P_cs.cs + L"\\++++\\" + r_r);
-    r.push_back(P_cs.cs + L"\\+++++\\" + r_r);
+    r.push_back(P_fs.fs + L"\\" + r_r);
+    r.push_back(P_fs.fs + L"\\-" + r_r);
+    r.push_back(P_fs.fs + L"\\+\\" + r_r);
+    r.push_back(P_fs.fs + L"\\++\\" + r_r);
+    r.push_back(P_fs.fs + L"\\+++\\" + r_r);
+    r.push_back(P_fs.fs + L"\\++++\\" + r_r);
+    r.push_back(P_fs.fs + L"\\+++++\\" + r_r);
     std::vector<std::wstring>::iterator iter;
     std::wstring TT;
     std::wstring rr;
@@ -711,7 +709,7 @@ const int You_t(std::vector<std::wstring>&v)
             //wcout << L"    " << L'{' << c.parent_path() << L'\\' << c.filename() << L'}' << endl;
             B.Ok_W(L'{' + (std::wstring)c_.parent_path() + L'\\' + (std::wstring)c_.filename() + L'}');
 #endif
-            Cinema C;
+            Film C;
             //i = C.Ok_F(P.F_Espace1, P.F_H, P.F_Espace2, P.F_Espace3, P.F_MIN, P.F_T, P.F_t, P.F_W, P.F_w);
             i = C.Ok_F(P.F_Espace1, P.F_H, P.F_Espace2, P.F_Espace3, P.F_MIN, P.F_keyColor, P.F_valuesColor);
             i = C.afficher_dossier(c_.filename());
@@ -720,7 +718,7 @@ const int You_t(std::vector<std::wstring>&v)
             B.Ok_T(L"-- -- -- -- -- -- -- ------------------------");
 #endif
             //for (directory_iterator next(path(P_C.cs + v[3])), end; next != end; ++next)
-            for (directory_iterator next(path(cinema.cs + v[3])), end; next != end; ++next)
+            for (directory_iterator next(path(film.fs + v[3])), end; next != end; ++next)
             {
                 //wcout << L"qqqqq" << next->path() << endl;
                 t = next->path();
@@ -774,10 +772,10 @@ const int You_t(std::vector<std::wstring>&v)
             temps = temps.substr(pos + 1);
 #if You_t_ == 1
             B.Ok_T(L'{' + v[3] + L'}');
-            B.Ok_W(L'{' + P_S.cs + L"} {" + temps + L'}');
+            B.Ok_W(L'{' + P_S.fs + L"} {" + temps + L'}');
 #endif
             //std::wcout << L"ffff" << std::endl;
-            P_cs = P_S;
+            P_fs = P_S;
             //j = compare_path(/*P_cs,*/ s_, temps);
 
             if (j == 0)
@@ -919,6 +917,11 @@ int wmain(int argc, wchar_t* argv[])
 
     fflush(stdout);
     int originalConsoleMode = _setmode(_fileno(stdout), _O_U16TEXT);
+ 
+    HANDLE hOut = GetStdHandle(STD_OUTPUT_HANDLE);
+    DWORD dwMode = 0;
+    CONSOLE_SCREEN_BUFFER_INFO csbiInfo;
+
 
     int i;
     std::vector<std::wstring> v;
@@ -943,6 +946,7 @@ int wmain(int argc, wchar_t* argv[])
     //int i;
     // Set output mode to handle virtual terminal sequences
     //hOut = GetStdHandle(STD_OUTPUT_HANDLE);
+ 
     if (hOut == INVALID_HANDLE_VALUE)
     {
         return GetLastError();
@@ -1007,7 +1011,7 @@ int wmain(int argc, wchar_t* argv[])
 
 
 
-    std::wcout << L"…" << std::endl;
+    //std::wcout << L"…" << std::endl;
 
 
     i = 0;
@@ -1017,7 +1021,7 @@ int wmain(int argc, wchar_t* argv[])
         //P_C = P_cinema;
         P_S = P_serie;
 #if wmain_ == 1
-        std::wcout << L"\tP_S.cs=[" << P_S.cs << L']' << std::endl;
+        std::wcout << L"\tP_S.fs=[" << P_S.fs << L']' << std::endl;
 #endif
         //P_C_VOD = P_cinema_VOD;
        //P_C_DVD = P_cinema_DVD;
@@ -1131,12 +1135,12 @@ int wmain(int argc, wchar_t* argv[])
                 if (input.substr(0, 5) == L"usage")
                 {
                     std::wcout << L"usage :" << std::endl;
-                    usage();
+                    usage(hOut, t);
                 }
                 if (input.substr(0,1) == L"/h" || input.substr(0, 2) == L"-h")
                 {
                     std::wcout << L"usage :" << std::endl;
-                    usage();
+                    usage(hOut, t);
                 }
                 /*if (input.substr(0, 3) == L"-R " || input.substr(0, 2) == L"/R ")
                 {
@@ -1179,7 +1183,7 @@ int wmain(int argc, wchar_t* argv[])
                     return 0;
                 if (input == L"\r\n")
                 {
-                    usage();
+                    usage(hOut, t);
                     return 0;
                 }
                 if (input.empty())
@@ -1255,7 +1259,7 @@ const int compare_path(path& t, std::wstring& t2)
     B.Ok_W(L"Compare_Path(t.compare(P_cs.cs + t2), t, P_cs.cs + t2)");
 #endif
     int i;
-    i = Compare_Path(t.compare(P_cs.cs + t2), t, P_cs.cs + t2);
+    i = Compare_Path(t.compare(P_fs.fs + t2), t, P_fs.fs + t2);
     if (i == 0)
     {
 #if compare_path_ == 1
@@ -1267,7 +1271,7 @@ const int compare_path(path& t, std::wstring& t2)
     }
     for (i = 0; i < 6; i++)
     {
-        int j = Compare_Path(t.compare(P_cs.note[i] + L'\\' + t2), t, P_cs.cs + L'\\' + t2);
+        int j = Compare_Path(t.compare(P_fs.note[i] + L'\\' + t2), t, P_fs.fs + L'\\' + t2);
         if (j == 0)
         {
 #if compare_path_ == 1
@@ -1280,7 +1284,7 @@ const int compare_path(path& t, std::wstring& t2)
         std::wstring wstr;
         for (iter = ::AZERTYUIOP.begin(); iter != ::AZERTYUIOP.end(); iter++)
         {
-            wstr = P_cs.note[i] + L'\\' + *iter;// +t2;
+            wstr = P_fs.note[i] + L'\\' + *iter;// +t2;
             if (afficher_Path_Exists(wstr) == false)
                 continue;
             wstr += L'\\' + t2;
