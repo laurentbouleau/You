@@ -61,7 +61,7 @@ extern const void Console_Lire_txt(std::wstring);
 //extern const int Console_Lire_txt(std::wstring, int, int);
 //extern const void Console_Lire(std::wstring, int, int);
 //extern const int Console_Lire_txt3(std::wstring, int, int);
-extern HANDLE hOut;
+//extern HANDLE hOut;
 extern void Console_Lire(HANDLE hOut, const std::wstring& wstr, int taille_indentation, wchar_t);
 
 extern std::wstring replace_all(std::wstring subject, const std::wstring& search, const std::wstring& replace);

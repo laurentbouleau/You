@@ -46,7 +46,7 @@ extern const std::wstring lire_fichierTxt(std::wstring const& nomFichier);
 
 extern const void Console_Lire_txt(std::wstring);
 //extern const void Console_Lire(std::wstring, int, int);
-extern HANDLE hOut;
+//extern HANDLE hOut;
 extern void Console_Lire(HANDLE hOut, const std::wstring& wstr, int taille_indentation, wchar_t);
 
 extern std::tm ParseDate(std::wstring& str);
@@ -156,12 +156,12 @@ void test_date_tire_sp_etc(wchar_t d)
 
 
 
-Cinema::Cinema()
+Film::Film()
 {
 	//std::vector<std::wstring>Titre{};
 }
 
-Cinema::~Cinema()
+Film::~Film()
 {
 }
 
@@ -171,9 +171,9 @@ Cinema::~Cinema()
 // #                                                                                                                                                    #
 // ######################################################################################################################################################
 
-const int Cinema::afficher_dossier(std::wstring const& t)
+const int Film::afficher_dossier(std::wstring const& t)
 {
-#if Cinema_afficher_dossier_ == true
+#if Film_afficher_dossier_ == true
 	B.Ok_T(L"const int Cinema::afficher_dossier(" + t + L") :");
 #endif
 	int i = 0;
@@ -237,11 +237,11 @@ const int Cinema::afficher_dossier(std::wstring const& t)
 // ######################################################################################################################################################
 // #                                                                                                                                                    #
 // # afficher_fichier                                                                                                                                   #
-// # const int Cinema::afficher_fichier(wstring const& _T, int const& _T_ = _TXT_)                                                                      #
+// # const int Film::afficher_fichier(wstring const& _T, int const& _T_ = _TXT_)                                                                      #
 // #                                                                                                                                                    #
 // ######################################################################################################################################################
 
-const int Cinema::afficher_fichier(std::wstring const& nomFichier, int const& nomImage = TXT_)
+const int Film::afficher_fichier(std::wstring const& nomFichier, int const& nomImage = TXT_)
 {
 	int i = 0;
 	std::size_t pos;
@@ -370,7 +370,7 @@ const int Cinema::afficher_fichier(std::wstring const& nomFichier, int const& no
 	else if (nomImage == JGP_ || nomImage == PNG_ || nomImage == WEBP_)
 	{
 		afficher_Image(nomFichier, image);
-		B.Ok_T(L"const int Cinema::afficher_fichier() : Ok !");
+		B.Ok_T(L"const int Film::afficher_fichier() : Ok !");
 		return EXIT_SUCCESS;
 	}
 	else
@@ -385,11 +385,11 @@ const int Cinema::afficher_fichier(std::wstring const& nomFichier, int const& no
 // ######################################################################################################################################################
 // #                                                                                                                                                    #
 // # Date                                                                                                                                               #
-// # const void Cinema::afficher_Date(std::wstring& d)                                                                                                  #
+// # const void Film::afficher_Date(std::wstring& d)                                                                                                  #
 // #                                                                                                                                                    #
 // ######################################################################################################################################################
 
-const void Cinema::afficher_Date(std::wstring& d)
+const void Film::afficher_Date(std::wstring& d)
 { // Date
 	std::size_t pos = 0;
 	// year
@@ -463,12 +463,12 @@ const void Cinema::afficher_Date(std::wstring& d)
 // ######################################################################################################################################################
 // #                                                                                                                                                    #
 // # afficher_Date_de_reprise_ou_de_sortie                                                                                                              #
-// # const void Cinema::afficher_Date_de_reprise_ou_de_sortie(std::wstring& d_filename, const std::wstring& nomFichier)                                 #
+// # const void Film::afficher_Date_de_reprise_ou_de_sortie(std::wstring& d_filename, const std::wstring& nomFichier)                                 #
 // #                                                                                                                                                    #
 // ######################################################################################################################################################
 
 
-const void Cinema::afficher_Date_de_reprise_ou_de_sortie(std::wstring& d_filename, const std::wstring& nomFichier)
+const void Film::afficher_Date_de_reprise_ou_de_sortie(std::wstring& d_filename, const std::wstring& nomFichier)
 { // Date de reprise
 	//assert((d_filename == createdBy_filename) && L"Erreur !!! Date de reprise... !");
 	std::wstring d = lire_fichierTxt(nomFichier);
@@ -562,11 +562,11 @@ void Cinema::afficherDate(const& myDate date)
 // ######################################################################################################################################################
 // #                                                                                                                                                    #
 // # afficher_De                                                                                                                                        #
-// # void Cinema::afficher_De(std::wstring& d_filename, std::wstring const& nomFichier, std::vector<std::wstring>&de) const                             #
+// # void Film::afficher_De(std::wstring& d_filename, std::wstring const& nomFichier, std::vector<std::wstring>&de) const                             #
 // #                                                                                                                                                    #
 // ######################################################################################################################################################
 
-void Cinema::afficher_De(std::wstring& d_filename, std::wstring const& nomFichier, std::vector<std::wstring>&de) const
+void Film::afficher_De(std::wstring& d_filename, std::wstring const& nomFichier, std::vector<std::wstring>&de) const
 {
 	assert((d_filename == createdBy_filename) && L"Erreur !!! De... !");
 	de = lire_fichierTxt(nomFichier, { L"\n", L", " });
@@ -576,11 +576,11 @@ void Cinema::afficher_De(std::wstring& d_filename, std::wstring const& nomFichie
 // ######################################################################################################################################################
 // #                                                                                                                                                    #
 // # afficher_Distributeur                                                                                                                              #
-// # const int Cinema::afficher_Distributeur(std::wstring& d_filename, std::wstring const& nomFichier)                                                  #
+// # const int Film::afficher_Distributeur(std::wstring& d_filename, std::wstring const& nomFichier)                                                  #
 // #                                                                                                                                                    #
 // ######################################################################################################################################################
 
-const void Cinema::afficher_Distributeur(std::wstring& d_filename, std::wstring const& nomFichier)
+const void Film::afficher_Distributeur(std::wstring& d_filename, std::wstring const& nomFichier)
 { // Distributeur
 	assert((d_filename == createdBy_filename) && L"Erreur !!! Distributeur... !");
 	distributeur = lire_fichierTxt(nomFichier);
@@ -590,11 +590,11 @@ const void Cinema::afficher_Distributeur(std::wstring& d_filename, std::wstring 
 // ######################################################################################################################################################
 // #                                                                                                                                                    #
 // # afficher_Par                                                                                                                                       #
-// # void Cinema::afficher_Par(std::wstring& p_filename, std::wstring const& nomFichier, std::vector<std::wstring>& par) const                          #
+// # void Film::afficher_Par(std::wstring& p_filename, std::wstring const& nomFichier, std::vector<std::wstring>& par) const                          #
 // #                                                                                                                                                    #
 // ######################################################################################################################################################
 
-void Cinema::afficher_Par(std::wstring& p_filename, std::wstring const& nomFichier, std::vector<std::wstring>& par) const
+void Film::afficher_Par(std::wstring& p_filename, std::wstring const& nomFichier, std::vector<std::wstring>& par) const
 {
 	assert((p_filename == createdBy_filename) && L"Erreur !!! Par... !");
 	par = lire_fichierTxt(nomFichier, { L"\n", L", " });
@@ -604,11 +604,11 @@ void Cinema::afficher_Par(std::wstring& p_filename, std::wstring const& nomFichi
 // ######################################################################################################################################################
 // #                                                                                                                                                    #
 // # afficher_Note                                                                                                                                      #
-// # const void Cinema::afficher_Note(std::wstring& n_filename, std::wstring const& nomFichier)                                                         #
+// # const void Film::afficher_Note(std::wstring& n_filename, std::wstring const& nomFichier)                                                         #
 // #                                                                                                                                                    #
 // ######################################################################################################################################################
 
-const void Cinema::afficher_Note(std::wstring& n_filename, std::wstring const& nomFichier)
+const void Film::afficher_Note(std::wstring& n_filename, std::wstring const& nomFichier)
 { // 0...5 ou -1
     std::wstring n = lire_fichierTxt(nomFichier);
 	std::size_t pos = n.length();
@@ -661,7 +661,7 @@ const void Cinema::afficher_Note(std::wstring& n_filename, std::wstring const& n
 // #                                                                                                                                                    #
 // ######################################################################################################################################################
 
-const void Cinema::afficher_Soundtrack(std::wstring& s_filename, const std::wstring& nomFichier)
+const void Film::afficher_Soundtrack(std::wstring& s_filename, const std::wstring& nomFichier)
 {
 	// utiliser les fonctions plus générique ("de plus bas niveau") pour avoir un code simple pour les fonction de plus "haut" niveau
 	// Il y a peut-être un peu de customisation pour gérer les "rôles" mais rien d'insurmontable
@@ -676,9 +676,9 @@ const void Cinema::afficher_Soundtrack(std::wstring& s_filename, const std::wstr
 	//par = lire_fichierTxt(nomFichier, { L"\n", L", " });
 	
 	//std::vector<std::wstring> qqq = lire_fichierTxt(nomFichier, { L"\n", L", " });
-	std::wcout << L"soundtrack :" << std::endl;
+	//std::wcout << L"soundtrack :" << std::endl;
 	m_soundtrack = lire_paireCleValeur_depuisFichierTxt(nomFichier, L" : ");
-	std::wcout << L"soundtrack : ok !" << std::endl;
+	//std::wcout << L"soundtrack : ok !" << std::endl;
 	assert((soundtrack.size() != 0));
 }
 
@@ -688,7 +688,7 @@ const void Cinema::afficher_Soundtrack(std::wstring& s_filename, const std::wstr
 // #                                                                                                                                                    #
 // ######################################################################################################################################################
 
-const void Cinema::afficher_Titre(std::wstring& t_filename, std::wstring const& nomFichier)
+const void Film::afficher_Titre(std::wstring& t_filename, std::wstring const& nomFichier)
 { // Titre_1
 	assert((t_filename == createdBy_filename) && L"Erreur !!! Titre... !");
 	std::vector<std::wstring>t = lire_fichierTxt(nomFichier, { L"\n"});
@@ -731,14 +731,14 @@ const void Cinema::afficher_Titre(std::wstring& t_filename, std::wstring const& 
 // #                                                                                                                                                    #
 // ######################################################################################################################################################
 
-const int Cinema::afficher_Date_1(std::wstring& d, std::wstring const& nomFichier)
+const int Film::afficher_Date_1(std::wstring& d, std::wstring const& nomFichier)
 {
-#if Cinema_afficher_Date_1_ == 1
+#if Film_afficher_Date_1_ == 1
 	//wcout << B_T << L"const int Cinema::afficher_Date_1(" << d << L", " << nomFichier << L") :" << B_t << endl;
 #endif
 	if (d == L"")
 	{
-#if Cinema_afficher_Date_1_ == 1
+#if Film_afficher_Date_1_ == 1
 		std::wcerr << L"    " << L"date=[???]" << std::endl;
 		E.afficher_X(-1, nomFichier, L"Date=[???] erreur !!!");
 #endif
@@ -750,7 +750,7 @@ const int Cinema::afficher_Date_1(std::wstring& d, std::wstring const& nomFichie
 
 	if (pos < 10)
 	{
-#if Cinema_afficher_Date_1_ == 1
+#if Film_afficher_Date_1_ == 1
 		std::wcerr << L"    " << L"Date={" << d << L"} erreur !!!" << std::endl;
 #endif
 		E.afficher_X(-1, nomFichier, L"Date={" + d + L"} erreur !!!");
@@ -761,7 +761,7 @@ const int Cinema::afficher_Date_1(std::wstring& d, std::wstring const& nomFichie
 	int i = 0, j = 0, k = 0;
 	int J = 0;
 	int Y = 0, M = 0, D = 0;
-#if Cinema_afficher_Date_1_ == 1
+#if Film_afficher_Date_1_ == 1
 	std::wcout << L"    " << L"Date=[" << d << L"]" << std::endl;
 #endif
 	while (
@@ -867,7 +867,7 @@ stop:
 	}
 	wchar_t date_string[15];
 	D_J[D_I] = J - 1;
-#if Cinema_afficher_Date_1_ == 1
+#if Film_afficher_Date_1_ == 1
 	std::wcout << L"    " << L'(';
 	for (i = 0; i < J; i++)
 	{
@@ -885,11 +885,11 @@ stop:
 	for (i = 0; i < J; i++)
 		wcsftime(date_string, 15, L"%d/%m/%Y", &Date_1[D_I][i]);
 #endif
-#if Cinema_afficher_Date_1_ == 1
+#if Film_afficher_Date_1_ == 1
 	std::wcout << L"    " << L"D_J[" << D_I << L"]=[" << J - 1 << L"]" << std::endl;
 #endif
 	D_I++;
-#if Cinema_afficher_Date_1_ == 1
+#if Film_afficher_Date_1_ == 1
 #endif
 	return EXIT_SUCCESS;
 }
@@ -898,26 +898,26 @@ stop:
 // ######################################################################################################################################################
 // #                                                                                                                                                    #
 // # pas de OK                                                                                                                                          #
-// # const int Cinema::afficher_pas_de_OK()                                                                                                             #
+// # const int Film::afficher_pas_de_OK()                                                                                                             #
 // #                                                                                                                                                    #
 // ######################################################################################################################################################
 
-const int Cinema::afficher_pas_de_OK() const
+const int Film::afficher_pas_de_OK() const
 {
-#if Cinema_afficher_pas_de_OK_ == 1
+#if Film_afficher_pas_de_OK_ == 1
 	B.Ok_T(L"const int Cinema::afficher_pas_de_OK() :");
 #endif
 	if (!affichage_genres_actif)
 	{
 		E.afficher_X(-1, L"Attention !", L"Erreur de Genre !!!");
-#if Cinema_afficher_pas_de_OK_ == 1
+#if Film_afficher_pas_de_OK_ == 1
 		B.Ok_W(L"Attention : Erreur de Genre !!!");
 #endif
 	}
 	if (!affichage_nationalite_actif)
 	{
 		E.afficher_X(-1, L"Attention !", L"Erreur de Nationalité !!!");
-#if Cinema_afficher_pas_de_OK_ == 1
+#if Film_afficher_pas_de_OK_ == 1
 		B.Ok_W(L"Attention : Erreur de Nationalité !!!");
 #endif
 	}
@@ -925,7 +925,7 @@ const int Cinema::afficher_pas_de_OK() const
 	if (!affichage_note_actif)
 	{
 		E.afficher_X(-1, L"Attention !", L"Erreur de Note !!!");
-#if Cinema_afficher_pas_de_OK_ == 1
+#if Film_afficher_pas_de_OK_ == 1
 		B.Ok_W(L"Attention : Erreur de Note !!!");
 #endif
 	}
@@ -933,11 +933,11 @@ const int Cinema::afficher_pas_de_OK() const
 	if (!Titre_)
 	{
 		E.afficher_X(-1, L"Attention !", L"Erreur de Titre !!!");
-#if Cinema_afficher_pas_de_OK_ == 1
+#if Film_afficher_pas_de_OK_ == 1
 		B.Ok_W(L"Attention : Erreur de Titre !!!");
 #endif
 	}
-#if Cinema_afficher_pas_de_OK_ == 1
+#if Film_afficher_pas_de_OK_ == 1
 	B.Ok_T(L"const int Cinema::afficher_pas_de_OK() : Ok !");
 #endif
 	return EXIT_SUCCESS;
@@ -946,13 +946,13 @@ const int Cinema::afficher_pas_de_OK() const
 // ######################################################################################################################################################
 // #                                                                                                                                                    #
 // # afficher                                                                                                                                           #
-// # const int Cinema::afficher()                                                                                                                       #
+// # const int Film::afficher()                                                                                                                       #
 // #                                                                                                                                                    #
 // ######################################################################################################################################################
 
-const int Cinema::afficher()
+const int Film::afficher()
 { // OK !
-#if Cinema_afficher_OK_ == 1
+#if Film_afficher_OK_ == 1
 	B.Ok_T(L"const int Cinema::afficher_OK() :");
 #endif
 	int i = 0, j, I;
@@ -962,7 +962,7 @@ const int Cinema::afficher()
 	std::wstring Textes;
 	wchar_t date_string[22];
 	//
-#if Cinema_afficher_OK_ == 1
+#if Film_afficher_OK_ == 1
 	Console_Lire_txt(L"-~- ");
 	if (Ok != L"Titre.txt")
 		std::wcout << L"    " << C_T << L'{' << C_t << Ok << C_T << L'}' << C_t << std::endl;
@@ -1155,7 +1155,7 @@ const int Cinema::afficher()
     // ???
 	//Console_Lire_txt(L"---------- ");
 	i = E.Ok();
-#if Cinema_afficher_OK_ == 1
+#if Film_afficher_OK_ == 1
 	B.Ok_T(L"const int Cinema::afficher_OK() : Ok !");
 #endif
 	return EXIT_SUCCESS;
@@ -1167,9 +1167,9 @@ const int Cinema::afficher()
 // #                                                                                                                                                    #
 // ######################################################################################################################################################
 
-const wstring Cinema::afficher_Temps_OK()
+const wstring Film::afficher_Temps_OK()
 { // h:mm
-#if Cinema_afficher_Temps_OK_ == 1
+#if Film_afficher_Temps_OK_ == 1
 #endif
 	wchar_t date_string[22];
 	wcsftime(date_string, 20, L"%H:%M", &temps);
@@ -1188,7 +1188,7 @@ const wstring Cinema::afficher_Temps_OK()
 		wstr += L' ';
 	if (F_MIN != L"")
 		wstr += keyColor[0] + F_MIN + valuesColor;
-#if Cinema_afficher_Temps_OK_ == 1
+#if Film_afficher_Temps_OK_ == 1
 #endif
 	return wstr;
 }
@@ -1199,7 +1199,7 @@ const wstring Cinema::afficher_Temps_OK()
 // #                                                                                                                                                    #
 // ######################################################################################################################################################
 
-const int Cinema::Ok_F(bool P_F_Espace1, wchar_t P_F_H, bool P_F_Espace2, bool P_F_Espace3, std::wstring P_F_MIN, std::vector<std::wstring> F_keyColor, std::wstring F_valuesColor)
+const int Film::Ok_F(bool P_F_Espace1, wchar_t P_F_H, bool P_F_Espace2, bool P_F_Espace3, std::wstring P_F_MIN, std::vector<std::wstring> F_keyColor, std::wstring F_valuesColor)
 {
 	F_Espace1 = P_F_Espace1;
 	F_H = P_F_H;
@@ -1217,11 +1217,11 @@ const int Cinema::Ok_F(bool P_F_Espace1, wchar_t P_F_H, bool P_F_Espace2, bool P
 // ######################################################################################################################################################
 // #                                                                                                                                                    #
 // # PrintAvec                                                                                                                                          #
-// # const void Cinema::PrintAvec(std::vector<std::pair<std::wstring, std::wstring>>& avec)                                                             #
+// # const void Film::PrintAvec(std::vector<std::pair<std::wstring, std::wstring>>& avec)                                                             #
 // #                                                                                                                                                    #
 // ######################################################################################################################################################
 
-const void Cinema::PrintAvec(std::vector<std::pair<std::wstring, std::wstring>>& avec)
+const void Film::PrintAvec(std::vector<std::pair<std::wstring, std::wstring>>& avec)
 {
 	if (affichage_avec_actif && avec.size())
 	{
@@ -1252,11 +1252,11 @@ const void Cinema::PrintAvec(std::vector<std::pair<std::wstring, std::wstring>>&
 // ######################################################################################################################################################
 // #                                                                                                                                                    #
 // # PrintAvec                                                                                                                                          #
-// # const void Cinema::PrintAvec()                                                                                                                     #
+// # const void Film::PrintAvec()                                                                                                                     #
 // #                                                                                                                                                    #
 // ######################################################################################################################################################
 
-const void Cinema::PrintAvec()
+const void Film::PrintAvec()
 {
 	if (affichage_avec_actif && avec.size())
 	{
@@ -1299,11 +1299,11 @@ const void Cinema::PrintAvec()
 // ######################################################################################################################################################
 // #                                                                                                                                                    #
 // # PrintDatedeReprise()                                                                                                                               #
-// # const void Cinema::PrintDatedeReprise()                                                                                                            #
+// # const void Film::PrintDatedeReprise()                                                                                                            #
 // #                                                                                                                                                    #
 // ######################################################################################################################################################
 
-const void  Cinema::PrintDatedeReprise()
+const void  Film::PrintDatedeReprise()
 {
 	if (affichage_date_de_reprise_actif && date_de_reprise.tm_year != 0)
 	{
@@ -1319,11 +1319,11 @@ const void  Cinema::PrintDatedeReprise()
 // ######################################################################################################################################################
 // #                                                                                                                                                    #
 // # PrintDatedeReprise()                                                                                                                               #
-// # const void Cinema::PrintDatedeReprise()                                                                                                            #
+// # const void Film::PrintDatedeReprise()                                                                                                            #
 // #                                                                                                                                                    #
 // ######################################################################################################################################################
 
-const void Cinema::PrintDatedeSortie()
+const void Film::PrintDatedeSortie()
 {
 	if (affichage_date_de_sortie_actif && date_de_sortie.tm_year != 0)
 	{
@@ -1339,11 +1339,11 @@ const void Cinema::PrintDatedeSortie()
 // ######################################################################################################################################################
 // #                                                                                                                                                    #
 // # PrintDe                                                                                                                                            #
-// # const void Cinema::PrintDe(const std::vector<std::wstring>&de)                                                                                     #
+// # const void Film::PrintDe(const std::vector<std::wstring>&de)                                                                                     #
 // #                                                                                                                                                    #
 // ######################################################################################################################################################
 
-const void Cinema::PrintDe(const std::vector<std::wstring>&de)
+const void Film::PrintDe(const std::vector<std::wstring>&de)
 {
 	if (affichage_de_actif && de.size() > 0)
 	{
@@ -1370,11 +1370,11 @@ const void Cinema::PrintDe(const std::vector<std::wstring>&de)
 // ######################################################################################################################################################
 // #                                                                                                                                                    #
 // # PrintDistributeur                                                                                                                                  #
-// # const void Cinema::PrintDistributeur()                                                                                     #
+// # const void Film::PrintDistributeur()                                                                                     #
 // #                                                                                                                                                    #
 // ######################################################################################################################################################
 
-const void Cinema::PrintDistributeur()
+const void Film::PrintDistributeur()
 {
 	if (affichage_distributeur_actif && distributeur.size() > 0)
 	{
@@ -1389,11 +1389,11 @@ const void Cinema::PrintDistributeur()
 // ######################################################################################################################################################
 // #                                                                                                                                                    #
 // # PrintPar                                                                                                                                           #
-// # const void Cinema::PrintPar(const std::vector<std::wstring>&par)                                                                                   #
+// # const void Film::PrintPar(const std::vector<std::wstring>&par)                                                                                   #
 // #                                                                                                                                                    #
 // ######################################################################################################################################################
 
-const void Cinema::PrintPar(const std::vector<std::wstring>&par)
+const void Film::PrintPar(const std::vector<std::wstring>&par)
 {
 	if (affichage_par_actif && par.size() > 0)
 	{
@@ -1420,11 +1420,11 @@ const void Cinema::PrintPar(const std::vector<std::wstring>&par)
 // ######################################################################################################################################################
 // #                                                                                                                                                    #
 // # PrintNote                                                                                                                                          #
-// # const std::wstring Cinema::PrintNote()                                                                                                             #
+// # const std::wstring Film::PrintNote()                                                                                                             #
 // #                                                                                                                                                    #
 // ######################################################################################################################################################
 
-const std::wstring Cinema::PrintNote()
+const std::wstring Film::PrintNote()
 {
 	if (affichage_distributeur_actif)
 	{
@@ -1459,11 +1459,11 @@ const std::wstring Cinema::PrintNote()
 // ######################################################################################################################################################
 // #                                                                                                                                                    #
 // # PrintSoundtracks                                                                                                                                   #
-// # const void Cinema::PrintSoundtracks()                                                                                                              #
+// # const void Film::PrintSoundtracks()                                                                                                              #
 // #                                                                                                                                                    #
 // ######################################################################################################################################################
 
-const void Cinema::PrintSoundtracks()
+const void Film::PrintSoundtracks()
 {
 	if (affichage_soundtraks_actif && m_soundtrack.size() > 0)
 	{
@@ -1491,11 +1491,11 @@ const void Cinema::PrintSoundtracks()
 // ######################################################################################################################################################
 // #                                                                                                                                                    #
 // # PrintTitre                                                                                                                                         #
-// # const void Cinema::PrintTitre()                                                                                                                    #
+// # const void Film::PrintTitre()                                                                                                                    #
 // #                                                                                                                                                    #
 // ######################################################################################################################################################
 
-const void Cinema::PrintTitre()
+const void Film::PrintTitre()
 {
 	if (affichage_titre_actif)
 	{
@@ -1545,11 +1545,11 @@ const void Cinema::PrintTitre()
 // ######################################################################################################################################################
 // #                                                                                                                                                    #
 // # PrintTitre4                                                                                                                                        #
-// # const void Cinema::PrintTitre4()                                                                                                                   #
+// # const void Film::PrintTitre4()                                                                                                                   #
 // #                                                                                                                                                    #
 // ######################################################################################################################################################
 
-const void Cinema::PrintTitre_sur_4()
+const void Film::PrintTitre_sur_4()
 {
 	if (affichage_titre_actif)
 	{

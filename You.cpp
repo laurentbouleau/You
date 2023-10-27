@@ -684,9 +684,9 @@ const int You_t(std::wstring t)
 
 const int You_t(std::vector<std::wstring>&v)
 {
-#if You_t_ == 1
-    B.Ok_T(L"const int You_t(std::vector<std::wstring>&v) :");
-#endif
+//#if You_t_ == 1
+//    B.Ok_T(L"const int You_t(std::vector<std::wstring>&v) :");
+//#endif
     int i = 0;
     std::size_t pos = 0;
     static const basic_string <wchar_t>::size_type npos = -1;

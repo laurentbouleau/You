@@ -1,6 +1,6 @@
 ﻿#pragma once
 
-#define Cinema_afficher_Date_1_              1
+#define Film_afficher_Date_1_              1
 
 
 #include "Utils.h"
@@ -35,12 +35,12 @@ extern const std::vector<std::wstring> Soundtrack;
 
 class Titre;
 //class Console;
-class Cinema
+class Film
 {
 	friend class Titre;
 public:
-	Cinema(void);
-	~Cinema();
+	Film(void);
+	~Film();
 
 	const int afficher_dossier(std::wstring const& t);
 	const int afficher_fichier(std::wstring const& t, int const& _T_);
@@ -67,7 +67,7 @@ protected:
 
 private:
 	const int afficher_Date_1(std::wstring& d, std::wstring const& nomFichier);
-	const wstring afficher_Temps_OK();
+	const std::wstring afficher_Temps_OK();
 
 	const void PrintAvec(std::vector<std::pair<std::wstring, std::wstring>>& avec);
 	const void PrintAvec();
@@ -76,7 +76,7 @@ private:
 	const void PrintDe(const std::vector<std::wstring>&);
 	const void PrintDistributeur();
 	const void PrintPar(const std::vector<std::wstring>&);
-	const wstring PrintNote();
+	const std::wstring PrintNote();
     const void PrintSoundtracks();
 	const void PrintTitre();
 	const void PrintTitre_sur_4();

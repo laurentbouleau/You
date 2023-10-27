@@ -33,7 +33,7 @@ extern const std::vector<std::wstring> AZERTYUIOP;
 extern class Erreur E;
 extern class Bug B;
 
-extern HANDLE hOut;
+//extern HANDLE /hOut;
 
 //extern const std::vector<std::wstring> Audiodescription;
 
@@ -342,7 +342,6 @@ const std::wstring lire_fichierTxt(std::wstring const& nomFichier)
 const bool afficher_Path_Exists(std::wstring& t)
 {
 #if afficher_Path_Exists_ == 1
-    //wcout << L"::afficher_Path_Exists(" << t << L')' << endl;
     B.Ok_T(L"const bool afficher_Path_Exists(" + t + L") :");
 #endif
     path p{ t };
