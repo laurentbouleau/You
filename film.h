@@ -142,10 +142,11 @@ private:
 	std::tm Date_1[_X_][_X_];
 	std::wstring Date_1_t[_X_];
 
-	// 2023-01-01 TF1
-	// 2023-01-02_03 Netflix
-	// 2023-01-04_02-01 Netflix
-	// 2023-03-01_02_03_ Netflix
+	// 2022-05-19_20 Netflix.txt
+	// 2022-08-01_01_01_05_05_08.txt
+	// 2022-08-20_20_ Netflix.txt
+	// 2023-08-30_09-05.txt
+	// 2023-09-04 TF1.txt
 	std::pair<std::vector<std::pair<std::tm, bool>>, std::wstring> date_1;
 
 	std::wstring D[_X_];
