@@ -33,7 +33,7 @@ using namespace std;
 using namespace std::experimental::filesystem::v1;*/
 
 extern int X;
-
+extern HANDLE hOut;
 extern class Erreur E;
 //extern class Bug B;
 
@@ -761,6 +761,15 @@ const int Film::afficher_Date_1(std::wstring& d, std::wstring const& nomFichier)
 	int i = 0, j = 0, k = 0;
 	int J = 0;
 	int Y = 0, M = 0, D = 0;
+
+	//std::pair<std::vector<std::pair<std::tm, bool>>, std::wstring> date_1;
+	// 2023-01-01 TF1
+	// 2023-01-02_03 Netflix
+	// 2023-01-04_02-01 Netflix
+	// 2023-03-01_02_03_ Netflix
+
+	
+	
 #if Film_afficher_Date_1_ == 1
 	std::wcout << L"    " << L"Date=[" << d << L"]" << std::endl;
 #endif
