@@ -1155,7 +1155,7 @@ const bool Film::PrintDate_ou_Dates()
 					if (pos != string::npos)
 						k[j] = keyColor[1] + L", " + valuesColor + k[j];
 				}
-				k.back() = L" et " + k.back();
+				k.back() = keyColor[1] + L" et " + valuesColor + k.back();
 				for (j = 0; j < taille2; j++)
 					wstr2 += k[j];
 				wstr += wstr2;
