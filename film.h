@@ -33,6 +33,7 @@ extern const std::vector<std::wstring> Sur;
 extern const std::vector<std::wstring> Nationalite;
 extern const std::vector<std::wstring> Soundtrack;
 
+struct DateRecord;
 class Titre;
 //class Console;
 class Film
@@ -46,10 +47,11 @@ public:
 	const int afficher_fichier(std::wstring const& t, int const& _T_);
 	//const int afficher_Date(std::wstring& d, const std::wstring& nomFichier);
 	const void afficher_Date(std::wstring& d);
-	const void afficher_Date_de_reprise_ou_de_sortie(std::wstring& d, const std::wstring& nomFichier);
 	//void afficherDateRepriseOuSortie();
 	void afficherDateRepriseOuSortie(std::wstring& d, const std::wstring& nomFichier);
 	//void afficherDate(const& myDate date);
+	const void afficher_Date_de_reprise_ou_de_sortie(std::wstring& d, const std::wstring& nomFichier);
+	void afficher_Date_ou_Dates(std::wstring const& nomFichiers);
 
 	void afficher_De(std::wstring& d, std::wstring const& nomFichier, std::vector<std::wstring>& de) const;
 	const void afficher_Distributeur(std::wstring&, std::wstring const&);
@@ -59,20 +61,17 @@ public:
 	const void afficher_Titre(std::wstring& t, std::wstring const& nomFichier);
 	const int afficher_pas_de_OK() const;
 	const int afficher(void);
-	//const int Ok_F(bool C_Espace1, wchar_t C_H, bool C_Espace2, bool C_Espace3, std::wstring  C_MIN, std::wstring C_T, std::wstring C_t, std::wstring C_W, std::wstring C_w);
 	const int Ok_F(bool F_Espace1, wchar_t F_H, bool C_Espace2, bool F_Espace3, std::wstring F_MIN, std::vector<std::wstring>F_keyColor, std::wstring F_valuesColor);
-protected:
-	//std::wstring ad = L"";
-	//bool ad_ = false;
 
 private:
-	const int afficher_Date_1(std::wstring& d, std::wstring const& nomFichier);
 	const std::wstring afficher_Temps_OK();
 
 	const void PrintAvec(std::vector<std::pair<std::wstring, std::wstring>>& avec);
 	const void PrintAvec();
-	const void PrintDatedeReprise();
+	//const void PrintDate_ou_Dates(const std::vector<std::pair<std::vector<DateRecord>, std::wstring>>& dates);
+    const void PrintDatedeReprise();
 	const void PrintDatedeSortie();
+	const bool PrintDate_ou_Dates();
 	const void PrintDe(const std::vector<std::wstring>&);
 	const void PrintDistributeur();
 	const void PrintPar(const std::vector<std::wstring>&);
@@ -95,6 +94,7 @@ private:
 	std::vector<std::pair<std::wstring, std::wstring>> avec;
  	std::vector<std::wstring> de;
 	std::tm date{ 0 }, date_de_reprise{ 0 }, date_de_sortie{ 0 }, temps{ 0 };
+	std::vector<std::pair<std::vector<DateRecord>, std::wstring>>date_ou_dates;
 	std::wstring distributeur;
 	std::vector<std::wstring> image;
 	std::vector<std::wstring> genre{};
@@ -118,6 +118,7 @@ private:
 	bool affichage_date_actif = true;
 	bool affichage_date_de_reprise_actif = true;
 	bool affichage_date_de_sortie_actif = true;
+	bool affichage_date_ou_dates = true;
 	bool affichage_distributeur_actif = true;
 	bool affichage_image_actif = true;
 	bool affichage_genres_actif = true;
@@ -139,22 +140,22 @@ private:
 	std::wstring Titre_1 = L"";
 	bool Titre_1_ = false;
 
-	std::tm Date_1[_X_][_X_];
-	std::wstring Date_1_t[_X_];
+	//std::tm Date_1[_X_][_X_];
+	//std::wstring Date_1_t[_X_];
 
 	// 2022-05-19_20 Netflix.txt
 	// 2022-08-01_01_01_05_05_08.txt
 	// 2022-08-20_20_ Netflix.txt
 	// 2023-08-30_09-05.txt
 	// 2023-09-04 TF1.txt
-	std::pair<std::vector<std::pair<std::tm, bool>>, std::wstring> date_1;
+	//std::pair<std::vector<std::pair<std::tm, bool>>, std::wstring> date_1;
 
-	std::wstring D[_X_];
-	std::wstring D_t[_X_][_X_] = { L"" };
-	int D_I = 0;
-	int D_J[_X_] = { -1 };
-	bool D_1_[_X_] = { false };
-	std::wstring X[_X_];
-	std::wstring X_T[_X_];
+	//std::wstring D[_X_];
+	//std::wstring D_t[_X_][_X_] = { L"" };
+	//int D_I = 0;
+	//int D_J[_X_] = { -1 };
+	//bool D_1_[_X_] = { false };
+	//std::wstring X[_X_];
+	//std::wstring X_T[_X_];
 };
 

@@ -22,7 +22,20 @@
 
 extern int X;
 
-extern const int Console_Lire_txt(std::wstring, int, int);
+//extern const int Console_Lire_txt(std::wstring, int, int);
+extern void Console_Lire(HANDLE hOut, const std::wstring& wstr, int taille_indentation, wchar_t);
+
+class exception_test_sp_et_npos_ou_pas_isblank;
+extern void test_sp_et_npos_ou_pas_isblank(wchar_t sp, bool t);
+
+class exception_date_year;
+extern bool checkyear(int y);
+
+class exception_date_month;
+extern bool checkmonth(int m);
+
+class exception_date_day;
+extern bool checkday(int m, int d, int y);
 
 
 class Bug

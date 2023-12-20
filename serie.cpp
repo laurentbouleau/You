@@ -27,6 +27,7 @@
 #include <codecvt>
 
 extern int X;
+extern HANDLE hOut;
 
 extern class Erreur E;
 extern class Bug B;

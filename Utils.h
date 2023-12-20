@@ -69,8 +69,62 @@ const std::vector<std::wstring> lire_fichierTxt(std::wstring const& nomFichier, 
 const std::vector<std::pair<std::wstring, std::wstring>>lire_paireCleValeur_depuisFichierTxt(std::wstring const& nomFichier, std::wstring separeteur); 
 const std::wstring lire_fichierTxt(std::wstring const& nomFichier);
 
-//void PrintNationalites(const std::vector<std::wstring>& nationalites, bool nationalite_, std::wstring& titre_T, std::wstring& titre_t);
+class exception_date_year
+{
+	std::wstring message;
+public:
+	exception_date_year() : message(L"L'année illégale doit être l'année numérique - entre 1900 et 3001") {}
+	std::wstring get_message() const { return message; }
+};
 
-//bool checkyear(int y);
-//bool checkmonth(int m);
-//bool checkday(int m, int d, int y);
+class exception_date_month
+{
+	std::wstring message;
+public:
+	exception_date_month() : message(L"Le mois illégal doit être un mois numérique - entre 1 et 12") {}
+	std::wstring get_message() const { return message; }
+};
+
+class exception_date_day
+{
+	std::wstring message;
+public:
+	exception_date_day() : message(L"Le jour illégal doit être un jour numérique - entre 1 et 31") {}
+	std::wstring get_message() const { return message; }
+};
+
+class exception_date_tiret
+{
+	std::wstring message;
+public:
+	exception_date_tiret() : message(L"aaaaaaaaaa") {}
+	std::wstring get_message() const { return message; }
+};
+
+class exception_date_tiret_sp_etc
+{
+	std::wstring message;
+public:
+	exception_date_tiret_sp_etc() : message(L"bbbbbbbbbbb") {}
+	std::wstring get_message() const { return message; }
+};
+
+class exception_test_sp_et_npos_ou_pas_isblank
+{
+	std::wstring message;
+public:
+	exception_test_sp_et_npos_ou_pas_isblank() : message(L"Espace invalide !!!") {}
+	std::wstring get_message() const { return message; }
+};
+
+// ######################################################################################################################################################
+// #                                                                                                                                                    #
+// # struct DateRecord                                                                                                                                  #
+// #                                                                                                                                                    #
+// ######################################################################################################################################################
+
+struct DateRecord
+{
+	std::tm date{ 0 };
+	bool someFlag{ false };
+};

@@ -45,16 +45,9 @@ extern const std::vector<std::pair<std::wstring, std::wstring>>lire_paireCleVale
 extern const std::wstring lire_fichierTxt(std::wstring const& nomFichier);
 
 extern const void Console_Lire_txt(std::wstring);
-//extern const void Console_Lire(std::wstring, int, int);
-//extern HANDLE hOut;
 extern void Console_Lire(HANDLE hOut, const std::wstring& wstr, int taille_indentation, wchar_t);
 
-extern std::tm ParseDate(std::wstring& str);
-
-//extern bool checkyear(int y);
-extern int ParseYear(int y);
-extern int ParseMonth(int m);
-extern int ParseDay(int m, int d, int y);
+//extern std::tm ParseDate(std::wstring& str);
 
 extern void PrintAudiodescription(const std::wstring& ad, bool ad_, std::wstring& titre_T, std::wstring& titre_t);
 extern void PrintGenres(const std::vector<std::wstring>& genres, bool genre_, const std::wstring& sous_genre, bool sous_genre_, std::wstring& titre_T, std::wstring& titre_t);
@@ -63,96 +56,17 @@ extern void PrintNationalites(const std::vector<std::wstring>& nationalites, boo
 extern void PrintNetflixokounon(bool netflix_ok_ou_non, bool affichage_sur_actif, std::wstring& keyColor, std::wstring& valuesColor);
 extern void PrintTitreOriginal(const std::vector<std::wstring>& titre_original, bool affichage_titre_original_actif, std::wstring& keyColor, std::wstring& valuesColor, std::wstring& keyColor2, std::wstring& valuesColor2);
 
-//extern class exception_date_year;
-//extern void test_date_year(int&);
-//extern class exception_date_month;
-//extern void test_date_month(int&);
-//extern class exception_date_day;
-//extern void test_date_day(int&);
-class exception_date_year
-{
-	std::wstring message;
-public:
-	exception_date_year() : message(L"L'année illégale doit être l'année numérique - entre 1900 et 3001") {}
-	std::wstring get_message() const { return message; }
-};
 
-void test_date_year(int& year)
-{
-	if (year <= 1900 || year >= 3001)
-	{
-		throw exception_date_year();
-	}
-	return;
-}
+extern bool checkyear(int y);
+extern bool checkmonth(int m);
+extern bool checkday(int m, int d, int y);
 
-class exception_date_month
-{
-	std::wstring message;
-public:
-	exception_date_month() : message(L"Le mois illégal doit être un mois numérique - entre 1 et 12") {}
-	std::wstring get_message() const { return message; }
-};
+extern void test_date_year(int& year);
+extern void test_date_month(int& month);
+extern void test_date_day(int& day);
+extern void test_date_tire(wchar_t d);
+extern void test_date_tiret_sp_etc(wchar_t d);
 
-void test_date_month(int& month)
-{
-	if (month <= 0 || month >= 13)
-	{
-		throw exception_date_month();
-	}
-	return;
-}
-
-class exception_date_day
-{
-	std::wstring message;
-public:
-	exception_date_day() : message(L"Le jour illégal doit être un jour numérique - entre 1 et 31") {}
-	std::wstring get_message() const { return message; }
-};
-
-void test_date_day(int& day)
-{
-	if (day <= 0 || day >= 32)
-	{
-		throw exception_date_day();
-	}
-	return;
-}
-
-class exception_date_tire
-{
-	std::wstring message;
-public:
-	exception_date_tire() : message(L"aaaaaaaaaa") {}
-	std::wstring get_message() const { return message; }
-};
-
-void test_date_tire(wchar_t d)
-{
-	if (d != L'-')
-	{
-		throw exception_date_tire();
-	}
-	return;
-}
-
-class exception_date_tire_sp_etc
-{
-	std::wstring message;
-public:
-	exception_date_tire_sp_etc() : message(L"bbbbbbbbbbb") {}
-	std::wstring get_message() const { return message; }
-};
-
-void test_date_tire_sp_etc(wchar_t d)
-{
-	if (d != L'-' && d != L'/' && d != L'.' && d != L' ')
-	{
-		throw exception_date_tire_sp_etc();
-	}
-	return;
-}
 
 
 
@@ -252,18 +166,11 @@ const int Film::afficher_fichier(std::wstring const& nomFichier, int const& nomI
 	std::wstring t = nomFichier.substr(pos);
 	if (nomImage == TXT_)
 	{
-		if (std::isdigit(t[0]))
+		/*          0 1 2 3 4 5 6 7 8 9                   */
+		if (t[0] == L'1' || t[0] == L'2' || t[0] == L'3')
 		{
-			/*          0 1 2 3 4 5 6 7 8 9                   */
-			// Date
-			if ((t[0] == L'1' || t[0] == L'2' || t[0] == L'3'))
-			{
-				if (int j = std::stoi(t, 0) /*&& (t[4] == L'-' || t[4] == L'_')*/)
-				{
-					i = afficher_Date_1(t, nomFichier);
-					return i;
-				}
-			}
+			afficher_Date_ou_Dates(t);
+			return EXIT_SUCCESS;
 		}
 		/*          A B C D E F G H I J K L M N O P Q R S T U V W Y Z            */
 		else
@@ -350,8 +257,6 @@ const int Film::afficher_fichier(std::wstring const& nomFichier, int const& nomI
 			if (t == L"Titre.txt")
 			{
 				afficher_Titre(t, nomFichier);
-				//	if (Ok == L"")
-				//Ok = nomFichier.substr(0, pos);
 				return EXIT_SUCCESS;
 			}
 			// Titre original
@@ -385,7 +290,7 @@ const int Film::afficher_fichier(std::wstring const& nomFichier, int const& nomI
 // ######################################################################################################################################################
 // #                                                                                                                                                    #
 // # Date                                                                                                                                               #
-// # const void Film::afficher_Date(std::wstring& d)                                                                                                  #
+// # const void Film::afficher_Date(std::wstring& d)                                                                                                    #
 // #                                                                                                                                                    #
 // ######################################################################################################################################################
 
@@ -410,7 +315,7 @@ const void Film::afficher_Date(std::wstring& d)
 	{
 		test_date_tire(d[0]);
 	}
-	catch (exception_date_tire e2)
+	catch (exception_date_tiret e2)
 	{
 		std::wcout << L"Exception a été capturée : " << e2.get_message() << std::endl;
 		exit(1);
@@ -435,7 +340,7 @@ const void Film::afficher_Date(std::wstring& d)
 	{
 		test_date_tire(d[0]);
 	}
-	catch (exception_date_tire e2)
+	catch (exception_date_tiret e2)
 	{
 		std::wcout << L"Exception a été capturée : " << e2.get_message() << std::endl;
 		exit(1);
@@ -459,14 +364,12 @@ const void Film::afficher_Date(std::wstring& d)
 	date.tm_mday = mday;
 }
 
-
 // ######################################################################################################################################################
 // #                                                                                                                                                    #
 // # afficher_Date_de_reprise_ou_de_sortie                                                                                                              #
-// # const void Film::afficher_Date_de_reprise_ou_de_sortie(std::wstring& d_filename, const std::wstring& nomFichier)                                 #
+// # const void Film::afficher_Date_de_reprise_ou_de_sortie(std::wstring& d_filename, const std::wstring& nomFichier)                                   #
 // #                                                                                                                                                    #
 // ######################################################################################################################################################
-
 
 const void Film::afficher_Date_de_reprise_ou_de_sortie(std::wstring& d_filename, const std::wstring& nomFichier)
 { // Date de reprise
@@ -490,9 +393,9 @@ const void Film::afficher_Date_de_reprise_ou_de_sortie(std::wstring& d_filename,
 	// date_tire_sp_etc
 	try
 	{
-		test_date_tire_sp_etc(d[0]);
+		test_date_tiret_sp_etc(d[0]);
 	}
-	catch (exception_date_tire_sp_etc e2)
+	catch (exception_date_tiret_sp_etc e2)
 	{
 		std::wcout << L"Exception a été capturée : " << e2.get_message() << std::endl;
 		exit(1);
@@ -515,9 +418,9 @@ const void Film::afficher_Date_de_reprise_ou_de_sortie(std::wstring& d_filename,
 	// date_tire_sp_etc
 	try
 	{
-		test_date_tire_sp_etc(d[0]);
+		test_date_tiret_sp_etc(d[0]);
 	}
-	catch (exception_date_tire_sp_etc e2)
+	catch (exception_date_tiret_sp_etc e2)
 	{
 		std::wcout << L"Exception a été capturée : " << e2.get_message() << std::endl;
 		exit(1);
@@ -558,6 +461,152 @@ void Cinema::afficherDate(const& myDate date)
 	//mise en forme d'une date selon les règles d'affichage ad hoc
 	//	PrintTmp(...);
 }*/
+// ######################################################################################################################################################
+// #                                                                                                                                                    #
+// # afficher_Date_ou_Dates                                                                                                                             #
+// # void Film::afficher_Date_ou_Dates()                                                                                                                #
+// #                                                                                                                                                    #
+// ######################################################################################################################################################
+
+void Film::afficher_Date_ou_Dates(std::wstring const& wstr)
+{
+	assert(nomFichier.length() > 0 && L"Nom de fichier vide");
+
+	std::size_t pos;
+	pos = wstr.length();
+	std::wstring strRestant = wstr.substr(0, pos - 4);
+	assert(strRestant.length() > 9 && L"Nom de fichier trop court pour avoir au moins une date");
+
+	std::vector<DateRecord> dr;
+	std::wstring streaming = L"";
+
+	wchar_t sp = L' ', tiret = L'-', tiret_bas = L'_';
+	int y, m, d;
+	int firstYear = 0, firstMon = 0, firstDay = 0;
+	int i = 0;
+	do
+	{
+		if (strRestant[0] == sp)
+		{
+			if (strRestant[1] == std::wstring::npos || strRestant[1] == sp)
+			{
+				// try cath !!!
+				// Explique-moi ??? 
+				// ou : 
+				exit(1);
+			}
+			strRestant = strRestant.substr(1);
+			// try cath !!!
+			// Explique-moi ??? 
+			// ou : 
+			try // Erreur !!!
+			{
+				test_sp_et_npos_ou_pas_isblank(strRestant[0], isblank(strRestant[1]));
+			}
+			catch (exception_test_sp_et_npos_ou_pas_isblank e)
+			{
+				exit(1);
+			}
+			if (strRestant.length() > 0)
+			{
+				streaming = strRestant;
+			}
+			strRestant = L"";
+			break;
+		}
+		if (!isdigit(strRestant[0]))
+		{
+			// try cath !!!
+			// Explique-moi ??? 
+			// ou : 
+			exit(1);
+		}
+		// year + mon + mday
+		if ((y = stoi(strRestant.substr(0, 4))) && checkyear(y)
+			&&
+			strRestant[4] == tiret
+			&&
+			(m = std::stoi(strRestant.substr(5, 2))) && checkmonth(m)
+			&&
+			strRestant[7] == tiret
+			&&
+			(d = std::stoi(strRestant.substr(8, 2))) && checkday(m, d, y)
+			&&
+			firstYear < y)
+		{
+			assert(firstYear < y && L"L'année aaaaa");
+			firstYear = y;
+			assert(firstMon < m && L"Le mois aaaaa");
+			firstMon = m;
+			assert(firstDay <= d && L"Le jours aaaaa");
+			firstDay = d;
+			dr.push_back(DateRecord{ 0 });
+			dr[i].date.tm_year = y - 1900;
+			dr[i].date.tm_mon = m - 1;
+			dr[i].date.tm_mday = d;
+			strRestant = strRestant.substr(10);
+			if (strRestant[0] == tiret_bas)
+			{
+				dr[i].someFlag = true;
+				strRestant = strRestant.substr(1);
+			}
+			i++;
+			continue;
+		}
+		// mon + mday
+		if ((m = std::stoi(strRestant.substr(0, 2))) && checkmonth(m)
+			&&
+			strRestant[2] == tiret
+			&&
+			(d = std::stoi(strRestant.substr(3, 2))) && checkday(m, d, firstYear)
+			&&
+			firstMon < m)
+		{
+			assert(firstMon < m && L"Le mois aaaaa");
+			firstMon = m;
+			dr.push_back(DateRecord{ 0 });
+			dr[i].date.tm_year = firstYear - 1900;
+			dr[i].date.tm_mon = m - 1;
+			dr[i].date.tm_mday = d;
+			assert(firstDay <= d && L"Le jours aaaaa");
+			firstDay = d;
+			strRestant = strRestant.substr(5);
+			if (strRestant[0] == tiret_bas)
+			{
+				dr[i].someFlag = true;
+				strRestant = strRestant.substr(1);
+			}
+			i++;
+			continue;
+		}
+		// mday
+		if ((d = std::stoi(strRestant.substr(0, 2))) && checkday(firstMon, d, firstYear)
+			&&
+			firstDay <= d)
+		{
+			firstDay = d;
+			assert(firstDay <= d && L"Le jours aaaaa");
+			dr.push_back(DateRecord{ 0 });
+			dr[i].date.tm_year = firstYear - 1900;
+			dr[i].date.tm_mon = firstMon - 1;
+			dr[i].date.tm_mday = d;
+			strRestant = strRestant.substr(2);
+			if (strRestant[0] == tiret_bas)
+			{
+				dr[i].someFlag = true;
+				strRestant = strRestant.substr(1);
+			}
+			i++;
+			continue;
+		}
+		// try cath !!!
+		// Explique-moi ???
+		// ou : 
+		exit(1);
+	} while (strRestant.length() > 0);
+	date_ou_dates.push_back(make_pair(dr, streaming));
+}
+
 
 // ######################################################################################################################################################
 // #                                                                                                                                                    #
@@ -727,185 +776,6 @@ const void Film::afficher_Titre(std::wstring& t_filename, std::wstring const& no
 
 // ######################################################################################################################################################
 // #                                                                                                                                                    #
-// # afficher_Date_1                                          #
-// #                                                                                                                                                    #
-// ######################################################################################################################################################
-
-const int Film::afficher_Date_1(std::wstring& d, std::wstring const& nomFichier)
-{
-#if Film_afficher_Date_1_ == 1
-	//wcout << B_T << L"const int Cinema::afficher_Date_1(" << d << L", " << nomFichier << L") :" << B_t << endl;
-#endif
-	if (d == L"")
-	{
-#if Film_afficher_Date_1_ == 1
-		std::wcerr << L"    " << L"date=[???]" << std::endl;
-		E.afficher_X(-1, nomFichier, L"Date=[???] erreur !!!");
-#endif
-		return -1;
-	}
-	std::size_t pos;
-	pos = d.length();
-	d = d.substr(0, pos - 4);
-
-	if (pos < 10)
-	{
-#if Film_afficher_Date_1_ == 1
-		std::wcerr << L"    " << L"Date={" << d << L"} erreur !!!" << std::endl;
-#endif
-		E.afficher_X(-1, nomFichier, L"Date={" + d + L"} erreur !!!");
-		return -1;
-	}
-	int year[_X_] = { 0 }, month[_X_] = { 0 }, day[_X_] = { 0 };
-	int w = 0;
-	int i = 0, j = 0, k = 0;
-	int J = 0;
-	int Y = 0, M = 0, D = 0;
-
-	//std::pair<std::vector<std::pair<std::tm, bool>>, std::wstring> date_1;
-	// 2023-01-01 TF1
-	// 2023-01-02_03 Netflix
-	// 2023-01-04_02-01 Netflix
-	// 2023-03-01_02_03_ Netflix
-
-	
-	
-#if Film_afficher_Date_1_ == 1
-	std::wcout << L"    " << L"Date=[" << d << L"]" << std::endl;
-#endif
-	while (
-		d[0] != std::wstring::npos &&
-		!(d[0] == L'_' && (pos = d.length()) == 1) &&
-		!(d[0] == L'_' && d[1] == L' ' && (pos = d.length()) > 2) &&
-		!(d[0] == L' ')
-		)
-	{
-		// year[i] + month[j] + day[k]
-		if (
-			(d[0] == L'1' || d[0] == L'2' || d[0] == L'3') &&
-			ParseYear(Y = std::stoi(d.substr(0, 4))) &&
-			(d[4] == L'-') &&
-			ParseMonth(M = std::stoi(d.substr(5, 2))) &&
-			(d[7] == L'-') &&
-			ParseDay(M, D = std::stoi(d.substr(8, 2)), Y)
-			)
-		{
-			year[i] =Y;
-			//d = d.substr(4);
-			//d = d.substr(1);
-			month[j] = M;
-			//d = d.substr(2);
-			///d = d.substr(1);
-			day[k] = D;
-			//d = d.substr(2);
-			d = d.substr(10);
-			Date_1[D_I][J].tm_year = year[i] - 1900;
-			Date_1[D_I][J].tm_mon = month[j] - 1;
-			Date_1[D_I][J].tm_mday = day[k];
-			J++;
-			if ((pos = d.length()) == 0)
-				goto stop;
-			continue;
-		}
-		// month[j] + day[k]
-		if (
-			d[0] == L'_' &&
-			ParseMonth(M = std::stoi(d.substr(1, 2))) &&
-			d[3] == L'-' &&
-			ParseDay(M, D = std::stoi(d.substr(4, 2)), Y)
-			)
-		{
-			j++;
-			k = 0;
-			d = d.substr(1);
-			month[j] = M;
-			d = d.substr(2);
-			d = d.substr(1);
-			day[k] = D;
-			d = d.substr(2);
-			Date_1[D_I][J].tm_year = year[i] - 1900;
-			Date_1[D_I][J].tm_mon = month[j] - 1;
-			Date_1[D_I][J].tm_mday = day[k];
-			J++;
-			if ((pos = d.length()) == 0)
-				goto stop;
-			continue;
-		}
-		// '_'
-		if (
-			d[0] == L'_' &&
-			ParseYear(std::stoi(d.substr(1, 4)))
-			)
-		{
-			i++;
-			j = 0;
-			k = 0;
-			d = d.substr(1);
-			continue;
-		}
-		// day[k]
-		if (
-			d[0] == L'_' &&
-			ParseDay(M, D = std::stoi(d.substr(1, 2)), Y)
-			)
-		{
-			k++;
-			d = d.substr(1);
-			day[k] = D;
-			d = d.substr(2);
-			Date_1[D_I][J].tm_year = year[i] - 1900;
-			Date_1[D_I][J].tm_mon = month[j] - 1;
-			Date_1[D_I][J].tm_mday = day[k];
-			J++;
-			if ((pos = d.length()) == 0)
-				goto stop;
-			continue;
-		}
-	}
-	// Ok !
-stop:
-	if (d[0] == L'_')
-	{
-		D_1_[D_I] = true;
-		d = d.substr(1);
-	}
-	if (d[0] == L' ')
-	{
-		d = d.substr(1);
-		Date_1_t[D_I] = d;
-	}
-	wchar_t date_string[15];
-	D_J[D_I] = J - 1;
-#if Film_afficher_Date_1_ == 1
-	std::wcout << L"    " << L'(';
-	for (i = 0; i < J; i++)
-	{
-		wcsftime(date_string, 15, L"%d/%m/%Y", &Date_1[D_I][i]);
-		std::wcout << date_string;
-		if (i < J - 1)
-			std::wcout << L", ";
-	}
-	if (D_1_[D_I] == true)
-		std::wcout << L"(_)";
-	if (w == 1)
-		std::wcout << L' ' << Date_1_t[D_I];
-	std::wcout << L')' << std::endl;
-#else
-	for (i = 0; i < J; i++)
-		wcsftime(date_string, 15, L"%d/%m/%Y", &Date_1[D_I][i]);
-#endif
-#if Film_afficher_Date_1_ == 1
-	std::wcout << L"    " << L"D_J[" << D_I << L"]=[" << J - 1 << L"]" << std::endl;
-#endif
-	D_I++;
-#if Film_afficher_Date_1_ == 1
-#endif
-	return EXIT_SUCCESS;
-}
-
-
-// ######################################################################################################################################################
-// #                                                                                                                                                    #
 // # pas de OK                                                                                                                                          #
 // # const int Film::afficher_pas_de_OK()                                                                                                             #
 // #                                                                                                                                                    #
@@ -964,12 +834,12 @@ const int Film::afficher()
 #if Film_afficher_OK_ == 1
 	B.Ok_T(L"const int Cinema::afficher_OK() :");
 #endif
-	int i = 0, j, I;
-	std::vector <wstring>::iterator iter;
+	int i = 0;// , j, I;
+	//std::vector <wstring>::iterator iter;
 	std::size_t pos = 0;
 	std::wstring wstr;
 	std::wstring Textes;
-	wchar_t date_string[22];
+	//wchar_t date_string[22];
 	//
 #if Film_afficher_OK_ == 1
 	Console_Lire_txt(L"-~- ");
@@ -1022,139 +892,9 @@ const int Film::afficher()
 	//
 	Console_Lire_txt(L"-~- ");
 	PrintTitre_sur_4();
-	// Date_1
-	I = 0;
-	//wstr = L"";
-//			size_t pos = 0;
-//			int j;
-	while (I < D_I)
-	{
-		Textes = L"";
-		if (D_J[I] == 0)
-		{
-			wcsftime(date_string, 15, L"%d/%m/%Y", &Date_1[I][0]);
-			wstr = date_string;
-			Textes += L' ' + wstr.substr(0, 2) + keyColor[1] + L'/' + valuesColor + wstr.substr(3, 2) + keyColor[1] + L'/' + valuesColor + wstr.substr(6, 4);
-			if (D_1_[I] == true)
-				//Textes += keyColor2 + L'(' + valuesColor2 + L'_' + keyColor2 + L')' + valuesColor2;
-			    Textes += keyColor[1] + L" (" + valuesColor + L"préquel" + keyColor[1] + L')' + valuesColor;
-			if (Date_1_t[I] != L"")
-				Textes += keyColor[1] + L" : " + valuesColor + Date_1_t[I];
-			//Console_Lire(Textes, 4, 4);
-			Console_Lire(hOut, Textes + L"\r\n", 4, L' ');
-		}
-		else if (D_J[I] > 0)
-		{
-			wstr = L"";
-			pos = 0;
-			std::wstring m[10] = { L"" };
-			for (j = 0; j < D_J[I] + 1; j++)
-			{
-				wcsftime(date_string, 15, L"%d/%m/%Y", &Date_1[I][j]);
-				std::wstring wstr2 = date_string;
-				m[j] = wstr2.substr(0, 2) + keyColor[1] + L'/' + valuesColor + wstr2.substr(3, 2) + keyColor[1] + L'/' + valuesColor + wstr2.substr(6, 4);
-			}
-			std::wstring n = m[0];
-			int o = 0, p = 0;
-			for (j = 1; j < D_J[I] + 1; j++)
-			{
-				if (n == m[j])
-				{
-					m[j] = L'(' + std::to_wstring(o + 2) + L')';
-					if (m[j - 1] == n && o == 0)
-						m[j - 1] += L" (1)";
-					o++;
-				}
-				else
-				{
-					n = m[j];
-					o = 0;
-				}
-			}
-			j = 1;
-			p = 0;
-			o = D_J[I] + 1;
-			while (j < o)
-			{
-				if (m[j][2] == L')')
-				{
-					m[p] += m[j];
-					m[j].clear();
-				}
-				else
-					p++;
-				j++;
-			}
-			j = 0;
-			p = 0;
-			std::wstring q[10] = { L"" };
-			while (j < o)
-			{
-				if (m[j] != L"")
-				{
-					q[p] = m[j];
-					p++;
-				}
-				j++;
-			}
-			o = p;
-			p = 0;
-			while (p < o)
-			{
-				pos = q[p].find_last_of(L")(");
-				if (pos != std::wstring::npos)
-				{
-					q[p] = q[p].substr(0, pos - 2) + L" et " + q[p].substr(pos - 2);
-					wstr += q[p];
-				}
-				else
-					wstr += q[p];
-				if (p < o - 2)
-					wstr += L", ";
-				else if (p < o - 1)
-				{
-					if (pos != std::wstring::npos)
-					{
-						wstr += L", ";
-						pos = 0;
-					}
-					else
-						wstr += L" et ";
-				}
-				p++;
-			}
-			if (pos = wstr.find(L" et "))
-				wstr = replace_all(wstr, L" et ", keyColor[1] + L" et " + valuesColor);
-			if (pos = wstr.find(L")("))
-				wstr = replace_all(wstr, L")(", keyColor[1] + L")(" + valuesColor);
-			if (pos = wstr.find(L"("))
-				wstr = replace_all(wstr, L"(", keyColor[1] + L"(" + valuesColor);
-			if (pos = wstr.find(L")"))
-				wstr = replace_all(wstr, L")", keyColor[1] + L")" + valuesColor);
-			if (pos = wstr.find(L", "))
-				wstr = replace_all(wstr, L", ", keyColor[1] + L", " + valuesColor);
-			Textes += wstr;
-
-			Textes += L' ' + keyColor[1] + L'[' + valuesColor + L"pas-à-pas" + keyColor[1] + L']' + valuesColor;
-
-			if (D_1_[I] == true)
-				Textes += keyColor[1] + L" (" + valuesColor + L" préquel" + keyColor[1] + L')' + valuesColor;
-
-			if (Date_1_t[I] != L"")
-				Textes += keyColor[1] + L" : " + valuesColor + Date_1_t[I];
-
-			//Console_Lire(Textes, 4, 8);
-			Console_Lire(hOut, Textes + L"\r\n", 4, L' ');
-		}
-		else
-		{
-			E.afficher_X(-1, L"D_I()", L"Cinema::afficher_OK() D_J erreur !!!");
-			return -1;
-		}
-		I++;
-	}
-	if(I != 0)
-        Console_Lire_txt(L"-~- ");
+	// Date_ou_dates
+	if (PrintDate_ou_Dates())
+		Console_Lire_txt(L"-~- ");
 	// Avec
 	PrintAvec();
 	// Soundtrack
@@ -1343,6 +1083,93 @@ const void Film::PrintDatedeSortie()
 		//Console_Lire(keyColor[0] + L"Date de sortie : " + valuesColor + wstr.substr(0, 2) + keyColor[0] + L'/' + valuesColor + wstr.substr(3, 2) + keyColor[0] + L'/' + valuesColor + wstr.substr(6, 4), 0, 18);
 		Console_Lire(hOut, keyColor[0] + L"Date de sortie : " + valuesColor + wstr.substr(0, 2) + keyColor[0] + L'/' + valuesColor + wstr.substr(3, 2) + keyColor[0] + L'/' + valuesColor + wstr.substr(6, 4) + L"\r\n", 0, L' ');// , 18);
 	}
+}
+
+// ######################################################################################################################################################
+// #                                                                                                                                                    #
+// # PrintDatedeReprise()                                                                                                                               #
+// # const void Film::PrintDatedeReprise()                                                                                                            #
+// #                                                                                                                                                    #
+// ######################################################################################################################################################
+
+const bool Film::PrintDate_ou_Dates()
+{
+	if (affichage_date_ou_dates && date_ou_dates.size() > 0)
+	{
+		std::vector<std::wstring>keyColor{ L"\x1b[94;1m", L"\x1b[38;2;0;255;0m" }; // keyColor[0] (bleu) et keyColor[1] (vert)
+		std::wstring valuesColor = L"\x1b[38;2;255;255;255m"; // Blanc
+		std::size_t taille, taille2;
+		wchar_t date_string[15];
+		taille = std::size(date_ou_dates);
+		std::wstring wstr;
+		for (int i = 0; i < taille; i++)
+		{
+			taille2 = std::size(date_ou_dates[i].first);
+			if (taille2 == 1)
+			{
+				wcsftime(date_string, 15, L"%d/%m/%Y", &date_ou_dates[i].first[0].date);
+				wstr = date_string;
+				wstr = wstr.substr(0, 2) + keyColor[1] + L'/' + valuesColor + wstr.substr(3, 2) + keyColor[1] + L'/' + valuesColor + wstr.substr(6, 4);
+				if (date_ou_dates[i].second != L"")
+					wstr += keyColor[1] + L" : " + valuesColor + date_ou_dates[i].second;
+				if (date_ou_dates[i].first[0].someFlag)
+					wstr += keyColor[1] + L" (" + valuesColor + L"préquel ou pas !" + keyColor[1] + L')' + valuesColor;
+				Console_Lire(hOut, wstr + L"\r\n", 4, L' ');
+				return true;
+			}
+			else
+			{
+				int j;
+				wstr = L"";
+				std::wstring wstr2;
+				std::size_t pos = 0;
+				std::vector<wstring>k(taille2);
+				std::tm temp{ 0 };
+				int temp2 = 1;
+				for (j = 0; j < taille2; j++)
+				{
+					if (date_ou_dates[i].first[j].date.tm_year == temp.tm_year && date_ou_dates[i].first[j].date.tm_mon == temp.tm_mon && date_ou_dates[i].first[j].date.tm_mday == temp.tm_mday)
+						// dates[i].first[j].date == temp : Marche pas !!!
+					{
+						k[j] = keyColor[1] + L'(' + valuesColor + std::to_wstring(temp2 + 1) + keyColor[1] + L')' + valuesColor;
+						if (temp2 == 1)
+							k[j - 1] += L' ' + keyColor[1] + L'(' + valuesColor + std::to_wstring(temp2) + keyColor[1] + L')' + valuesColor;
+						temp2++;
+					}
+					else
+					{
+						wcsftime(date_string, 15, L"%d/%m/%Y", &date_ou_dates[i].first[j].date);
+						wstr2 = date_string;
+						k[j] = wstr2.substr(0, 2) + keyColor[1] + L'/' + valuesColor + wstr2.substr(3, 2) + keyColor[1] + L'/' + valuesColor + wstr2.substr(6, 4);
+						temp.tm_year = date_ou_dates[i].first[j].date.tm_year;
+						temp.tm_mon = date_ou_dates[i].first[j].date.tm_mon;
+						temp.tm_mday = date_ou_dates[i].first[j].date.tm_mday;
+						temp2 = 1;
+					}
+
+				}
+				wstr2 = L"";
+				for (j = 1; j < taille2 - 1; j++)
+				{
+					pos = k[j].find(L"/");
+					if (pos != string::npos)
+						k[j] = keyColor[1] + L", " + valuesColor + k[j];
+				}
+				k.back() = L" et " + k.back();
+				for (j = 0; j < taille2; j++)
+					wstr2 += k[j];
+				wstr += wstr2;
+				wstr += L' ' + keyColor[1] + L'[' + valuesColor + L"pas-à-pas" + keyColor[1] + L']' + valuesColor;
+				if (date_ou_dates[i].first.back().someFlag == true)
+					wstr += keyColor[1] + L" (" + valuesColor + L"préquel" + keyColor[1] + L')' + valuesColor;
+				if (date_ou_dates[i].second != L"")
+					wstr += keyColor[1] + L" : " + valuesColor + date_ou_dates[i].second;
+				Console_Lire(hOut, wstr + L"\r\n", 4, L' ');
+				return true;
+			}
+		}
+	}
+	return false;
 }
 
 // ######################################################################################################################################################

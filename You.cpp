@@ -155,6 +155,7 @@ extern const vector<wstring> AZERTYUIOP;
 //_P_;
 
 //HANDLE hOut = GetStdHandle(STD_OUTPUT_HANDLE);
+HANDLE hOut;
 //DWORD dwMode = 0;
 //CONSOLE_SCREEN_BUFFER_INFO csbiInfo;
 //_wsetlocale(LC_ALL, L"fr-FR");
@@ -245,9 +246,9 @@ const int You_txt_ok(void)
 //HANDLE hOut = GetStdHandle(STD_OUTPUT_HANDLE);
 //DWORD dwMode = 0;
 //(HANDLE hOut, CONSOLE_SCREEN_BUFFER_INFO& csbiInfo)
-void usage(HANDLE hOut, std::wstring t = L"")
+void usage(HANDLE hOu , std::wstring t = L"")
 {
-    int const y1 = 4, y2 = 8;
+    int const x1 = 4;// , x2 = 8;
     //int i;
     //
     std::wstring Textes;
@@ -263,17 +264,17 @@ void usage(HANDLE hOut, std::wstring t = L"")
     //
     Textes = L"/t c {dossier}\r\n";
     Textes += L"/t s {dossier}";
-    Console_Lire(hOut, Textes, y1, L' ');
-    std::wcout << L"\n";
+    Console_Lire(hOut, Textes, x1, L' ');
+    std::wcout << L"\r\n";
 
     //::Console_Lire_txt(Textes, textes, y1, y2, Y, in, out);
     //wcout << L"\n";
     Textes = L"aa bbb cccc ddddddd eee fffffff gggg hh ii jjjjjj kkkkkkkkkk ll mmmmmm nnn oooooo, pp.  qqqqqq rrrrr ss ttt uuu vvv wwwwww xxx yy ";
-    Console_Lire(hOut, Textes, y1, L' ');
+    Console_Lire(hOut, Textes, x1, L' ');
     std::wcout << L"\r\n";
     //
     Textes = L"/Gense gense c {dossier}";
-    Console_Lire(hOut, Textes, y1, L' ');
+    Console_Lire(hOut, Textes, x1, L' ');
     std::wcout << L"\r\n";
 }
 
@@ -532,7 +533,7 @@ const int You_Rechercher(int c, wchar_t** v)
     }
     else if ((v[2][0] == L'c' || v[2][0] == L'f') && v[2][1] == L'v' && v[2][2] == L'\0')
         P_fs = P_film_VOD;
-    else if (v[2][0] == L'c' && v[2][1] == L'd' && v[2][2] == L'\0')
+    else if ((v[2][0] == L'c' || v[2][0] == L'f') && v[2][1] == L'd' && v[2][2] == L'\0')
         P_fs = P_film_DVD;
     else
     {
@@ -704,15 +705,14 @@ const int You_t(std::vector<std::wstring>&v)
     {
         if (v[3] != L"\0")
         {
-            path c_(v[3]);
+            path f_(v[3]);
 #if You_t_ == 1
             //wcout << L"    " << L'{' << c.parent_path() << L'\\' << c.filename() << L'}' << endl;
-            B.Ok_W(L'{' + (std::wstring)c_.parent_path() + L'\\' + (std::wstring)c_.filename() + L'}');
+            B.Ok_W(L'{' + (std::wstring)f_.parent_path() + L'\\' + (std::wstring)f_.filename() + L'}');
 #endif
-            Film C;
-            //i = C.Ok_F(P.F_Espace1, P.F_H, P.F_Espace2, P.F_Espace3, P.F_MIN, P.F_T, P.F_t, P.F_W, P.F_w);
-            i = C.Ok_F(P.F_Espace1, P.F_H, P.F_Espace2, P.F_Espace3, P.F_MIN, P.F_keyColor, P.F_valuesColor);
-            i = C.afficher_dossier(c_.filename());
+            Film F;
+            i = F.Ok_F(P.F_Espace1, P.F_H, P.F_Espace2, P.F_Espace3, P.F_MIN, P.F_keyColor, P.F_valuesColor);
+            i = F.afficher_dossier(f_.filename());
 #if You_t_ == 1
             //wcout << L"-- -- -- -- -- -- -- ------------------------" << endl;
             B.Ok_T(L"-- -- -- -- -- -- -- ------------------------");
@@ -730,7 +730,7 @@ const int You_t(std::vector<std::wstring>&v)
                         pos = t.find(L"\\_");
                         if (pos != std::wstring::npos)
                             continue;
-                        i = C.afficher_fichier(t, TXT_);
+                        i = F.afficher_fichier(t, TXT_);
                         continue;
                     }
                     //pos = t.find(L".jpg");
@@ -742,22 +742,22 @@ const int You_t(std::vector<std::wstring>&v)
                     pos = t.find(L".jpg");
                     if (pos != std::wstring::npos)
                     {
-                        i = C.afficher_fichier(t, JGP_);
+                        i = F.afficher_fichier(t, JGP_);
                     }
                     pos = t.find(L".png");
                     if (pos != std::wstring::npos)
                     {
-                        i = C.afficher_fichier(t, PNG_);
+                        i = F.afficher_fichier(t, PNG_);
                     }
                     pos = t.find(L".webp");
                     if (pos != std::wstring::npos)
                     {
-                        i = C.afficher_fichier(t, WEBP_);
+                        i = F.afficher_fichier(t, WEBP_);
                     }
                 }
             }
             //wcout << L"aaa" << endl;
-            i = C.afficher();
+            i = F.afficher();
         }
     }
     else if (v[2] == L"s")
@@ -918,7 +918,7 @@ int wmain(int argc, wchar_t* argv[])
     fflush(stdout);
     int originalConsoleMode = _setmode(_fileno(stdout), _O_U16TEXT);
  
-    HANDLE hOut = GetStdHandle(STD_OUTPUT_HANDLE);
+    /*HANDLE*/ hOut = GetStdHandle(STD_OUTPUT_HANDLE);
     DWORD dwMode = 0;
     CONSOLE_SCREEN_BUFFER_INFO csbiInfo;
 

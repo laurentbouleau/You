@@ -29,6 +29,7 @@ using namespace std;
 using namespace std::experimental::filesystem::v1;
 
 extern const std::vector<std::wstring> AZERTYUIOP;
+extern HANDLE hOut;
 
 extern class Erreur E;
 extern class Bug B;
@@ -1486,21 +1487,21 @@ bool checkdate(int m, int d, int y)
         return false;
     if ((m == 2) && (d == 29) && (y % 4 == 0))
         return true;
-
     return true;
 }
 
-// year[i] + month[j] + day[k]
-
 bool checkyear(int y)
 {
-    if (!(1582 <= y))//comment these 2 lines out if it bothers you
-        return false;
-    return true;
+    return 1582 <= y;
 }
 
 int ParseYear(int y)
 {
+    // ???
+    //if (year <= 1900 || year >= 3001)
+    //{
+    //    throw exception_date_year();
+    //}
     if (checkyear(y))
         return y;
     return 0;
@@ -1508,9 +1509,7 @@ int ParseYear(int y)
 
 bool checkmonth(int m)
 {
-    if (!(1 <= m && m <= 12))
-        return false;
-    return true;
+    return (1 <= m && m <= 12);
 }
 
 int ParseMonth(int m)
@@ -1522,21 +1521,31 @@ int ParseMonth(int m)
 
 bool checkday(int m, int d, int y)
 {
-    if (!(1 <= d && d <= 31))
-        return false;
-    if ((d == 31) && (m == 2 || m == 4 || m == 6 || m == 9 || m == 11))
-        return false;
-    if ((d == 30) && (m == 2))
-        return false;
-    if ((m == 2) && (d == 29) && (y % 4 != 0))
-        return false;
-    if ((m == 2) && (d == 29) && (y % 400 == 0))
-        return true;
-    if ((m == 2) && (d == 29) && (y % 100 == 0))
-        return false;
-    if ((m == 2) && (d == 29) && (y % 4 == 0))
-        return true;
-    return true;
+    bool retVal = false;
+
+    if (checkyear(y))
+    {
+        if (checkmonth(m))
+        {
+            if (d > 0)
+            {
+                if (d <= 28)
+                    retVal = true;
+                else if (d == 29)
+                {
+                    if (m != 2)
+                        retVal = true;
+                    else
+                        retVal = (y % 4 == 0) && ((y % 100 != 0) || (y % 400 == 0));
+                }
+                else if (d == 30)
+                    retVal = m != 2;
+                else if (d == 31)
+                    retVal = (m != 2 && m != 4 && m != 6 && m != 9 && m != 11);
+            }
+        }
+    }
+    return retVal;
 }
 
 int ParseDay(int m, int d, int y)
@@ -1544,6 +1553,60 @@ int ParseDay(int m, int d, int y)
     if (checkday(m, d, y))
         return d;
     return 0;
+}
+
+void test_date_year(int& year)
+{
+    if (year <= 1900 || year >= 3001)
+    {
+        throw exception_date_year();
+    }
+    return;
+}
+
+void test_date_month(int& month)
+{
+    if (month <= 0 || month >= 13)
+    {
+        throw exception_date_month();
+    }
+    return;
+}
+
+void test_date_day(int& day)
+{
+    if (day <= 0 || day >= 32)
+    {
+        throw exception_date_day();
+    }
+    return;
+}
+
+void test_date_tire(wchar_t d)
+{
+    if (d != L'-')
+    {
+        throw exception_date_tiret();
+    }
+    return;
+}
+
+void test_date_tiret_sp_etc(wchar_t d)
+{
+    if (d != L'-' && d != L'/' && d != L'.' && d != L' ')
+    {
+        throw exception_date_tiret_sp_etc();
+    }
+    return;
+}
+
+void test_sp_et_npos_ou_pas_isblank(wchar_t sp, bool t)
+{
+    if (sp != L' ' && t)
+    {
+        throw exception_test_sp_et_npos_ou_pas_isblank();
+    }
+    return;
 }
 
 // ######################################################################################################################################################

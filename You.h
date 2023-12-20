@@ -98,5 +98,5 @@ const int You_Rechercher(int c, wchar_t** v);
 //const int console_OK(void);
 //int qqqqq();
 //int qsdfg();
-
+void usage(HANDLE hOut, std::wstring t);
 const int You_txt_ok(void);

@@ -6,18 +6,18 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LocalDebuggerAmpDefaultAccelerator>{ADEFF70D-84BF-47A1-91C3-FF6B0FC71218}</LocalDebuggerAmpDefaultAccelerator>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
-    <LocalDebuggerCommandArguments>/t s "e:\Séries.[]\++++\T\The Sinner.[2017-]"</LocalDebuggerCommandArguments>
+    <LocalDebuggerCommandArguments>/t c "e:\Films.()\+++\L\Last Night in Soho.(2021-10-27)"</LocalDebuggerCommandArguments>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <LocalDebuggerCommandArguments>/t s "e:\Séries.[]\++++\T\The Sinner.[2017-]"</LocalDebuggerCommandArguments>
+    <LocalDebuggerCommandArguments>/t c "e:\Films.()\+++\L\Last Night in Soho.(2021-10-27)"</LocalDebuggerCommandArguments>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <LocalDebuggerCommandArguments>/t s "e:\Séries.[]\++++\T\The Sinner.[2017-]"</LocalDebuggerCommandArguments>
+    <LocalDebuggerCommandArguments>/t c "e:\Films.()\+++\L\Last Night in Soho.(2021-10-27)"</LocalDebuggerCommandArguments>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <LocalDebuggerCommandArguments>/t s "e:\Séries.[]\++++\T\The Sinner.[2017-]"</LocalDebuggerCommandArguments>
+    <LocalDebuggerCommandArguments>/t c "e:\Films.()\+++\L\Last Night in Soho.(2021-10-27)"</LocalDebuggerCommandArguments>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
   </PropertyGroup>
 </Project>
