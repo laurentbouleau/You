@@ -636,22 +636,10 @@ const int You_t(std::wstring t)
 
 const int You_t(std::vector<std::wstring>&v)
 {
-//#if You_t_ == 1
-//    B.Ok_T(L"const int You_t(std::vector<std::wstring>&v) :");
-//#endif
     int i = 0;
     std::size_t pos = 0;
     static const basic_string <wchar_t>::size_type npos = -1;
     std::wstring t;
-    /*if (v[3][0] == L'\0')
-    {
-        std::wcerr << L"    " << L"Erreur !!! (v[3][0] == L'\0')" << std::endl;
-        E.afficher_X(-3, L"v[3][0] == L'\0' erreur !!!", L"Erreur !!!");
-#if You_t_ == 1
-        B.Ok_W(L"v[3][0] == L''\\0''");
-#endif
-        return EXIT_FAILURE;
-    }*/
     if (v[2] == L"c" || v[2] == L"f")
     {
         if (v[3] != L"\0")
@@ -665,13 +653,10 @@ const int You_t(std::vector<std::wstring>&v)
             i = F.Ok_F(P.F_Espace1, P.F_H, P.F_Espace2, P.F_Espace3, P.F_MIN, P.F_keyColor, P.F_valuesColor);
             i = F.afficher_dossier(f_.filename());
 #if You_t_ == 1
-            //wcout << L"-- -- -- -- -- -- -- ------------------------" << endl;
             B.Ok_T(L"-- -- -- -- -- -- -- ------------------------");
 #endif
-            //for (directory_iterator next(path(P_C.cs + v[3])), end; next != end; ++next)
             for (directory_iterator next(path(film.fs + v[3])), end; next != end; ++next)
             {
-                //wcout << L"qqqqq" << next->path() << endl;
                 t = next->path();
                 if (is_regular_file(t))
                 {
@@ -684,12 +669,6 @@ const int You_t(std::vector<std::wstring>&v)
                         i = F.afficher_fichier(t, TXT_);
                         continue;
                     }
-                    //pos = t.find(L".jpg");
-                    //if (pos != wstring::npos)
-                    //    i = C.afficher_Image(t);
-                    //pos = t.find(L".png");
-                    //if (pos != wstring::npos)
-                    //    i = C.afficher_Image(t);
                     pos = t.find(L".jpg");
                     if (pos != std::wstring::npos)
                     {
@@ -707,7 +686,6 @@ const int You_t(std::vector<std::wstring>&v)
                     }
                 }
             }
-            //wcout << L"aaa" << endl;
             i = F.afficher();
         }
     }
@@ -739,15 +717,11 @@ const int You_t(std::vector<std::wstring>&v)
 
             }
             Serie S;
-            //i = S.Ok_S(P.S_Espace, P.S_MIN, P.S_T, P.S_t, P.S_W, P.S_w);
             i = S.Ok_S(P.S_Espace, P.S_MIN, P.S_keyColor, P.S_valuesColor);
             i = S.afficher_dossier(s_.filename());
 #if You_t_ == 1
-            //wcout << L"    " << L'{' << s.parent_path() << L'\\' << s.filename() << L'}' << endl;
             B.Ok_W(L'{' + (wstring)s_.parent_path() + L'\\' + (wstring)s_.filename() + L'}');
 #endif
-            //for (directory_iterator next(path(serie.cs + v[3])), end; next != end; ++next)
-            //for (directory_iterator next(path(P_S.cs + v[3])), end; next != end; ++next)
             for (directory_iterator next(s_), end; next != end; ++next)
             {
                 //assert(P_S->cs && "L'index ne doit pas être négatif.");
@@ -758,8 +732,6 @@ const int You_t(std::vector<std::wstring>&v)
                     if (pos != npos)
                     {
                         pos = t.find(L"\\_you_.txt");
-                        //pos = t.find(L"\\_");
-                        //pos = t.find(L"\\_");
                         if (pos != npos)
                             continue;
                         i = S.afficher_fichier(t, TXT_);
@@ -782,7 +754,6 @@ const int You_t(std::vector<std::wstring>&v)
                 }
                 if (is_directory(t))
                 {
-                    //i = You_t_directory(t);
                     path ss_(t + L'\\');
                     std::wstring t2;
                     t2 = t + L'\\';
@@ -792,7 +763,6 @@ const int You_t(std::vector<std::wstring>&v)
                         next2 != end2;
                         ++next2)
                     {
-                        //wcout << next->path() << endl;
                         t2 = next2->path();
                         if (is_regular_file(t2))
                         {
@@ -833,7 +803,6 @@ const int You_t(std::vector<std::wstring>&v)
         wcout << L"hacnnnn" << endl;
     }
 #if You_t_ == 1
-    //wcout << B_T << L"const int You_t() : Ok !" << B_t << endl;
     B.Ok_T(L"const int You_t() : Ok !");
 #endif
     return i;
@@ -881,7 +850,7 @@ int wmain(int argc, wchar_t* argv[])
         for (i = 0; i < argc; i++)
         {
             v.push_back(argv[i]);
-            std::wcout << L"argv[" << i << L"]= {" << argv[i] << L'}' << std::endl;
+            //std::wcout << L"argv[" << i << L"]= {" << argv[i] << L'}' << std::endl;
         }
     }
 

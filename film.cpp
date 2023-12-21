@@ -72,7 +72,6 @@ extern void test_date_tiret_sp_etc(wchar_t d);
 
 Film::Film()
 {
-	//std::vector<std::wstring>Titre{};
 }
 
 Film::~Film()
@@ -160,8 +159,6 @@ const int Film::afficher_fichier(std::wstring const& nomFichier, int const& nomI
 	int i = 0;
 	std::size_t pos;
 	pos = nomFichier.find_last_of(L"\\");
-//	if (Ok == L"")
-//		Ok = nomFichier.substr(0, pos);
 	pos++;
 	std::wstring t = nomFichier.substr(pos);
 	if (nomImage == TXT_)
@@ -275,7 +272,6 @@ const int Film::afficher_fichier(std::wstring const& nomFichier, int const& nomI
 	else if (nomImage == JGP_ || nomImage == PNG_ || nomImage == WEBP_)
 	{
 		afficher_Image(nomFichier, image);
-		B.Ok_T(L"const int Film::afficher_fichier() : Ok !");
 		return EXIT_SUCCESS;
 	}
 	else
@@ -754,13 +750,11 @@ const void Film::afficher_Titre(std::wstring& t_filename, std::wstring const& no
 	if (!h_min_)
 	{
 		E.afficher_X(-1, t[1], t[1] + L" érreur (" + t[1] + L") !!!");
-		return;// EXIT_FAILURE;
+		return;
 	}
 	titre.push_back(t[1]);
 	temps.tm_hour = std::stoi(t[1]);
 	temps.tm_min = std::stoi(t[1].substr(2));
-	//if (!Temps_)
-	//	Temps_ = true;
 	t.erase(t.begin());
 	t.erase(t.begin());
 
@@ -768,7 +762,7 @@ const void Film::afficher_Titre(std::wstring& t_filename, std::wstring const& no
 	for (auto&& ti : t)
 		wstr += ti + L'\n';
 	titre.push_back(wstr);
-	return;// EXIT_SUCCESS;
+	return;
 }
 
 /////////////////
@@ -831,31 +825,9 @@ const int Film::afficher_pas_de_OK() const
 
 const int Film::afficher()
 { // OK !
-#if Film_afficher_OK_ == 1
-	B.Ok_T(L"const int Cinema::afficher_OK() :");
-#endif
-	int i = 0;// , j, I;
-	//std::vector <wstring>::iterator iter;
 	std::size_t pos = 0;
 	std::wstring wstr;
 	std::wstring Textes;
-	//wchar_t date_string[22];
-	//
-#if Film_afficher_OK_ == 1
-	Console_Lire_txt(L"-~- ");
-	if (Ok != L"Titre.txt")
-		std::wcout << L"    " << C_T << L'{' << C_t << Ok << C_T << L'}' << C_t << std::endl;
-	else
-	{
-		std::wcout << L"    " << C_T << L'{' << C_t << Titre[0];
-		if (Titre[1] != L"")
-		{
-			std::wcout << C_T << Titre[1] << C_t;
-			std::wcout << Titre[2];
-		}
-		std::wcout << C_T << L'}' << C_t << std::endl;
-	}
-#endif
 	Console_Lire_txt(L"-~- ");
 	if (titre_ok == L"")
 	{
@@ -901,12 +873,7 @@ const int Film::afficher()
 	PrintSoundtracks();
 	if(affichage_avec_actif || affichage_soundtraks_actif)
 	    Console_Lire_txt(L"-~- ");
-    // ???
-	//Console_Lire_txt(L"---------- ");
-	i = E.Ok();
-#if Film_afficher_OK_ == 1
-	B.Ok_T(L"const int Cinema::afficher_OK() : Ok !");
-#endif
+	int i = E.Ok();
 	return EXIT_SUCCESS;
 }
 

@@ -1,29 +1,3 @@
-
-<Cinéma>
-Cinéma="E:/Films.()/"
-Note[0]="-"
-Note[1]="+"
-Note[2]="++"
-Note[3]="+++"
-Note[4]="++++"
-Note[5]="+++++"
-</Cinéma>
-
-<Cinéma DVD>
-Cinéma-DVD="E:/Films.()/Films - DVD.()"
-Note[2]="++"
-Note[4]="++++"
-Note[3]="+++"
-</Cinéma DVD>
-
-<Cinéma VOD>
-Cinéma-VOD="E:/Films.()/Films - VOD.()"
-Note[2]="++"
-Note[3]="+++"
-Note[4]="++++"
-</Cinéma VOD>
-
-
 <Série>
 Série="E:/Séries.[]/"
 Note[0]="-"
@@ -33,4 +7,30 @@ Note[3]="+++"
 Note[4]="++++"
 Note[5]="+++++"
 </Série>
+
+
+<Film DVD>
+Film-DVD="E:/Films.()/Films - DVD.()"
+Note[2]="++"
+Note[4]="++++"
+Note[3]="+++"
+</Film DVD>
+
+<Film VOD>
+Film-VOD="E:/Films.()/Films - VOD.()"
+Note[2]="++"
+Note[3]="+++"
+Note[4]="++++"
+</Film VOD>
+
+
+<Film>
+Film="E:/Films.()/"
+Note[0]="-"
+Note[1]="+"
+Note[2]="++"
+Note[3]="+++"
+Note[4]="++++"
+Note[5]="+++++"
+</Film>
 

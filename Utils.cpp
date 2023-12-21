@@ -505,19 +505,9 @@ const void afficher_Genre(std::wstring& genre_filename, std::wstring const& nomF
 const void afficher_Image(const std::wstring& nomFichier, std::vector<std::wstring>& images)
 {
     std::size_t pos_txt = nomFichier.find_last_of(L"\\");
-#if afficher_Image_ == true
-    B.Ok_T(L"const int Serie::afficher_Image(" + nomFichier + L") :");
-    //B.Ok_W(L"Image={" + i + L'}');
-#endif
     assert((pos_txt != std::wstring::npos) && L"Erreur Image(s) !!!");
     pos_txt++;
     images.push_back(nomFichier.substr(pos_txt));
-
-    //std::wcout << L"image={" << nomFichier << L"}" << std::endl;
-#if afficher_Image_ == true
-    //wcout << B_T << L"const int Serie::afficher_Image(" << i << L") : Ok !" << B_t << endl;
-    B.Ok_T(L"const int Serie::afficher_Image() : Ok !");
-#endif
 }
 
 // ######################################################################################################################################################
@@ -1060,10 +1050,6 @@ const void afficher_Temps_OK(std::wstring& v, bool v_)
 
 const int afficher_Titre(std::wstring t, std::vector<std::wstring>& titre, bool& titre_)
 {
-#if afficher_Titre_ == 1
-    //wcout << B_T << L"const int ::afficher_Titre(" << t << L", vector<wstring>&titre, bool& titre) :" << B_t << endl;
-    B.Ok_T(L"const int afficher_Titre(" + t + L", vector<wstring>&titre, bool& titre) :");
-#endif
     if (titre_ == true)
     {
         E.afficher_X(-1, L"::afficher_Titre(wstring t, vector<wstring>& titre, bool titre_ = false)", L"Érreur !!!");
@@ -1106,25 +1092,6 @@ const int afficher_Titre(std::wstring t, std::vector<std::wstring>& titre, bool&
         titre.push_back(L"");
         titre_ = true;
     }
-#if afficher_Titre_ == 1
-    /*wcout << L"    " << L"1 : [" << titre[0] << L']' << endl;
-    wcout << L"    " << L"2 : [" << titre[1] << L']' << endl;
-    wcout << L"    " << L"3 : [" << titre[2] << L']' << endl;
-    wcout << L"    " << L"Titre_ = ";
-    if (titre_ == true)
-        wcout << L"true";
-    else
-        wcout << L"false";
-    wcout << endl;*/
-    B.Ok_W(L"1={" + titre[0] + L'}');
-    B.Ok_W(L"2={" + titre[1] + L'}');
-    B.Ok_W(L"3={" + titre[2] + L'}');
-    B.Ok_W(L"Titre_={" + std::to_wstring(titre_) + L'}');
-#endif
-#if afficher_Titre_ == 1
-    //wcout << B_T << L"const int ::afficher_Titre() : Ok !" << B_t << endl;
-    B.Ok_T(L"const int :afficher_Titre() : Ok !");
-#endif
     return EXIT_SUCCESS;
 }
 
@@ -1136,10 +1103,6 @@ const int afficher_Titre(std::wstring t, std::vector<std::wstring>& titre, bool&
 
 const void afficher_Titre(std::wstring t, std::vector<std::wstring>& Titre)
 {
-#if afficher_Titre_1_ == 1
-    //wcout << B_T << L"const void ::afficher_Titre(vector<wstring>& Titre, " << t << L") :" << B_t << endl;
-    B.Ok_T(L"const void afficher_Titre(" + t + L", vector<wstring>&Titre) :");
-#endif
     std::size_t pos;
     pos = t.find(L" : ");
     static const basic_string <wchar_t>::size_type npos = -1;
@@ -1148,11 +1111,6 @@ const void afficher_Titre(std::wstring t, std::vector<std::wstring>& Titre)
         Titre[0] = t.substr(0, pos);
         Titre[1] = L" : ";
         Titre[2] = t.substr(pos + 3, t.length());
-#if	afficher_Titre_1_ == 1
-        //wcout << L"    " << L'{' << Titre[0] << L" : " << Titre[2] << L'}' << endl;
-        B.Ok_W(L'{' + Titre[0] + L" : " + Titre[2] + L'}');
-        B.Ok_T(L"const void afficher_Titre() : Ok !");
-#endif
         return;
     }
     pos = t.find(L": ");
@@ -1161,11 +1119,6 @@ const void afficher_Titre(std::wstring t, std::vector<std::wstring>& Titre)
         Titre[0] = t.substr(0, pos);
         Titre[1] = L": ";
         Titre[2] = t.substr(pos + 2, t.length());
-#if	afficher_Titre_1_ == 1
-        //wcout << L"    " << L'{' << Titre[0] << L": " << Titre[2] << L'}' << endl;
-        B.Ok_W(L'{' + Titre[0] + L": " + Titre[2] + L'}');
-        B.Ok_T(L"const void afficher_Titre() : Ok !");
-#endif
         return;
     }
     pos = t.find(L'/');
@@ -1174,11 +1127,6 @@ const void afficher_Titre(std::wstring t, std::vector<std::wstring>& Titre)
         Titre[0] = t.substr(0, pos);
         Titre[1] = L'/';
         Titre[2] = t.substr(pos + 1, t.length());
-#if	afficher_Titre_1_ == 1
-        //wcout << L"    " << L'{' << Titre[0] << L'/' << Titre[2] << L'}' << endl;
-        B.Ok_W(L'{' + Titre[0] + L"/" + Titre[2] + L'}');
-        B.Ok_T(L"const void afficher_Titre() : Ok !");
-#endif
         return;
     }
     else
@@ -1186,15 +1134,7 @@ const void afficher_Titre(std::wstring t, std::vector<std::wstring>& Titre)
         Titre[0] = t;
         Titre[1] = L"";
         Titre[2] = L"";
-#if	afficher_Titre_1_ == 1
-        //wcout << L"    " << L'{' << Titre[0] << L'}' << endl;
-        B.Ok_W(L'{' + Titre[0] + L'}');
-#endif
     }
-#if	afficher_Titre_1_ == 1
-    //wcout << B_T << L"const void ::afficher_Titre() : Ok !" << B_t << endl;
-    B.Ok_T(L"const void afficher_Titre() : Ok !");
-#endif
     return;
 }
 

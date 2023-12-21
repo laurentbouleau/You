@@ -1,8 +1,5 @@
 ﻿#pragma once
 
-#define Film_afficher_Date_1_              1
-
-
 #include "Utils.h"
 #include "titre.h"
 #include "You.h"
@@ -69,7 +66,6 @@ private:
 
 	const void PrintAvec(std::vector<std::pair<std::wstring, std::wstring>>& avec);
 	const void PrintAvec();
-	//const void PrintDate_ou_Dates(const std::vector<std::pair<std::vector<DateRecord>, std::wstring>>& dates);
     const void PrintDatedeReprise();
 	const void PrintDatedeSortie();
 	const bool PrintDate_ou_Dates();

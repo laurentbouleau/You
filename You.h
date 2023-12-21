@@ -10,14 +10,14 @@
 //#define B_W                               L"\x1b[38;2;155;155;155m"
 //#define B_w                               L"\x1b[38;2;255;255;255m"
 
-#define wmain_                            1
-#define wmain_C_S_CV_CD_                  1
+#define wmain_                            0
+#define wmain_C_S_CV_CD_                  0
 #define you_substr_                       0
 #define You_txt_ok_                       0
 #define You_txt_C_S_CV_CD_                1
 #define You_you_                          1
 #define You_                              1
-#define You_t_                            1
+#define You_t_                            0
 #define You_Genre_                        1
 #define You_Rechercher_                   1
 #define compare_path_                     1

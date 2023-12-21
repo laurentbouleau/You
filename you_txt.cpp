@@ -304,13 +304,13 @@ const int You_txt_OK()
     const wchar_t* p{ L"../" };
     path filePath(p);
 
-    filePath /= L"you2.txt";
+    filePath /= L"you.txt";
     std::wstring t;
     try
     {
         // Dans le try, on est assuré que toute exception levée
         // pourra être traitée dans le bloc catch situé après.
-        t = lire_fichierTxt(L"you2.txt");
+        t = lire_fichierTxt(L"you.txt");
     }
     // Notez qu'une exception s'attrape par référence constante.
     catch (runtime_error const& exception)
