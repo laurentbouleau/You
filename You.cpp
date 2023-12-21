@@ -51,52 +51,7 @@ extern const int Compare_Path(int rc, path p1, path p2);
 extern void Console_Lire(HANDLE hOut, const std::wstring& wstr, int taille_indentation, wchar_t caractere_indentation = L' ');
 //extern void PrintStringW(HANDLE hOut, const std::wstring& str);
 
-struct Person
-{
-    // _ h __ min
-    // X
-    bool F_Espace1 = false; // true ou false
-    wchar_t F_H = L'h'; // = L'h' : h ou H
-    bool F_Espace2 = false; // true ou false
-    // XX
-    bool F_Espace3 = false; // true ou false
-    std::wstring F_MIN = L"min"; // = L"min" : MIN ou Min ou min
-    //std::wstring F_T = L"\x1b[94;1m";
-    //std::wstring F_t = L"\x1b[38;2;255;255;255m";
-    //std::wstring F_W = L"\x1b[38;2;0;255;0m";
-    //std::wstring F_w = L"\x1b[38;2;255;255;255m";
-    std::vector<std::wstring> F_keyColor{ L"\x1b[94;1m", L"\x1b[38;2;0;255;0m" };
-    std::wstring F_valuesColor = L"\x1b[38;2;255;255;255m";
-
-    // min
-    bool S_Espace = false; // true ou false
-    std::wstring S_MIN = L"min"; // = L"min";
-    //std::wstring S_T = L"\x1b[38;2;0;0;255m";
-    //std::wstring S_t = L"\x1b[38;2;255;255;255m";
-    //std::wstring S_W = L"\x1b[38;2;0;255;0m";
-    //std::wstring S_W = L"\x1b[92m";
-    std::vector<std::wstring> S_keyColor{ L"\x1b[94;1m", L"\x1b[38;2;0;255;0m" };
-    std::wstring S_valuesColor = L"\x1b[38;2;255;255;255m";
-    //std::wstring S_w = L"\x1b[97m";
-
-    // Bug
-    //wstring B_T = L"\x1b[38;2;200;200;0m";
-    //wstring B_t = L"\x1b[38;2;255;255;255m";
-    //wstring B_W = L"\x1b[38;2;155;155;155m";
-    //wstring B_w = L"\x1b[38;2;255;255;255m";
-
-    // Erreur
-    std::wstring E_T = L"\x1b[38;2;255;0;0m";
-    std::wstring E_t = L"\x1b[38;2;255;255;255m";
-
-    // Rechercher
-    std::wstring R_T = L"\x1b[38;2;255;255;0m";
-    std::wstring R_t = L"\x1b[38;2;255;255;255m";
-
-    //
-    std::wstring& P_T = F_keyColor[0];
-    std::wstring& P_t = F_valuesColor;
-} P;
+struct Person P;
 
 // // // // // //
 typedef struct P_FS P_FS;// cinema, serie, cinema_VOD, cinema_DVD,
@@ -104,11 +59,7 @@ typedef struct P_FS P_FS;// cinema, serie, cinema_VOD, cinema_DVD,
 //& P_C, & P_S ;
 
 struct P_FS
-{
-    std::wstring fs = L"";
-    std::wstring note[6] = { L"", L"", L"", L"", L"", L"" };
-    int fs_{ 0 };
-}film, serie, film_VOD, film_DVD,
+film, serie, film_VOD, film_DVD,
 P_film, P_serie, P_film_VOD, P_film_DVD,
 &P_fs = P_film,
 &P_F = film, &P_S = serie, &P_F_VOD = film_VOD, &P_F_DVD = film_DVD;

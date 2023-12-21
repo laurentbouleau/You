@@ -30,12 +30,6 @@ extern std::wstring replace_all(std::wstring subject, const std::wstring& search
 //extern const int Console_Lire_txt(std::wstring, int, int);
 
 // // // // // // // // // //
-struct P_FS
-{
-    std::wstring fs = L"";
-    std::wstring note[6] = { L"", L"", L"", L"", L"", L"" };
-    int fs_{ 0 };
-};
 extern struct P_FS P_film, P_serie, P_film_VOD, P_film_DVD, &P_fs;
 // // // // // // // // // //
 

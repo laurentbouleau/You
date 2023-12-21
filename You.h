@@ -100,3 +100,50 @@ const int You_Rechercher(int c, wchar_t** v);
 //int qsdfg();
 void usage(HANDLE hOut, std::wstring t);
 const int You_txt_ok(void);
+
+struct Person
+{
+    // _ h __ min
+    // X
+    bool F_Espace1 = false; // true ou false
+    wchar_t F_H = L'h'; // = L'h' : h ou H
+    bool F_Espace2 = false; // true ou false
+    // XX
+    bool F_Espace3 = false; // true ou false
+    std::wstring F_MIN = L"min"; // = L"min" : MIN ou Min ou min
+    //std::wstring F_T = L"\x1b[94;1m";
+    //std::wstring F_t = L"\x1b[38;2;255;255;255m";
+    //std::wstring F_W = L"\x1b[38;2;0;255;0m";
+    //std::wstring F_w = L"\x1b[38;2;255;255;255m";
+    std::vector<std::wstring> F_keyColor{ L"\x1b[94;1m", L"\x1b[38;2;0;255;0m" };
+    std::wstring F_valuesColor = L"\x1b[38;2;255;255;255m";
+
+    // min
+    bool S_Espace = false; // true ou false
+    std::wstring S_MIN = L"min"; // = L"min";
+    //std::wstring S_T = L"\x1b[38;2;0;0;255m";
+    //std::wstring S_t = L"\x1b[38;2;255;255;255m";
+    //std::wstring S_W = L"\x1b[38;2;0;255;0m";
+    //std::wstring S_W = L"\x1b[92m";
+    std::vector<std::wstring> S_keyColor{ L"\x1b[94;1m", L"\x1b[38;2;0;255;0m" };
+    std::wstring S_valuesColor = L"\x1b[38;2;255;255;255m";
+    //std::wstring S_w = L"\x1b[97m";
+
+    // Bug
+    //wstring B_T = L"\x1b[38;2;200;200;0m";
+    //wstring B_t = L"\x1b[38;2;255;255;255m";
+    //wstring B_W = L"\x1b[38;2;155;155;155m";
+    //wstring B_w = L"\x1b[38;2;255;255;255m";
+
+    // Erreur
+    std::wstring E_T = L"\x1b[38;2;255;0;0m";
+    std::wstring E_t = L"\x1b[38;2;255;255;255m";
+
+    // Rechercher
+    std::wstring R_T = L"\x1b[38;2;255;255;0m";
+    std::wstring R_t = L"\x1b[38;2;255;255;255m";
+
+    //
+    std::wstring& P_T = F_keyColor[0];
+    std::wstring& P_t = F_valuesColor;
+};

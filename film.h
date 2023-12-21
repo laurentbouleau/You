@@ -34,8 +34,9 @@ extern const std::vector<std::wstring> Nationalite;
 extern const std::vector<std::wstring> Soundtrack;
 
 struct DateRecord;
+
 class Titre;
-//class Console;
+class Console;
 class Film
 {
 	friend class Titre;

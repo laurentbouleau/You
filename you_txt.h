@@ -21,5 +21,13 @@
 #include <stdio.h>
 #include <locale>
 
+struct P_FS
+{
+    std::wstring fs = L"";
+    std::wstring note[6] = { L"", L"", L"", L"", L"", L"" };
+    int fs_{ 0 };
+}; 
+
 const int You_txt(int&);
 const int You_txt_OK();
+
