@@ -1082,7 +1082,6 @@ const bool Film::PrintDate_ou_Dates()
 				if (date_ou_dates[i].first[0].someFlag)
 					wstr += keyColor[1] + L" (" + valuesColor + L"préquel ou pas !" + keyColor[1] + L')' + valuesColor;
 				Console_Lire(hOut, wstr + L"\r\n", 4, L' ');
-				return true;
 			}
 			else
 			{
@@ -1132,9 +1131,9 @@ const bool Film::PrintDate_ou_Dates()
 				if (date_ou_dates[i].second != L"")
 					wstr += keyColor[1] + L" : " + valuesColor + date_ou_dates[i].second;
 				Console_Lire(hOut, wstr + L"\r\n", 4, L' ');
-				return true;
 			}
 		}
+		return true;
 	}
 	return false;
 }
