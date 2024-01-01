@@ -66,7 +66,6 @@ const std::vector<wchar_t> Exception_des_elements
     L'|'
 };
 
-//const std::vector<std::wstring>
 const std::vector<std::wstring>Genre
 {
     L"Action",
@@ -82,6 +81,7 @@ const std::vector<std::wstring>Genre
 
     L"Docu-séries",
     L"Documentaire",
+    L"Drama",
     L"Drame",
     L"Espionnage",
     L"Epouvante-horreur",
@@ -89,8 +89,8 @@ const std::vector<std::wstring>Genre
     L"Expérimental",
     L"Famille",
     L"Fantastique",
-    L"Guerre",
 
+    L"Guerre",
     L"Judiciaire",
     L"Historique",
     L"Manga",
@@ -100,8 +100,8 @@ const std::vector<std::wstring>Genre
     L"Opéra",
     L"Romance",
     L"Science fiction",
+
     L"Show",
- 
     L"Survival",
     L"Thriller",
     L"Western"
