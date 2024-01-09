@@ -593,7 +593,7 @@ const void afficher_Nationalite(std::wstring& nationalite_filename,
 // ######################################################################################################################################################
 
 const void afficher_Netflix_SJ(std::wstring& n, std::wstring const& nomFichier, std::wstring& n_sj)
-{ // Netflix SJ
+{ // Netflix SJ :Catégorie d'âge 
 #if	afficher_Netflix_SJ_ == 1
     //wcout << B_T << L"const int afficher_Netflix(" << n << L", wstring _T, " << N_SJ << L") :" << B_t << endl;
     B.Ok_T(L"const void afficher_Netflix_SJ(" + n + L", " + nomFichier + L", wstring &n_sj) :");
@@ -1749,7 +1749,7 @@ void PrintNationalites(const std::vector<std::wstring>& nationalites, bool affic
 
 void PrintNetflixokounon(bool netflix_ok_ou_non, bool affichage_sur_actif, std::wstring& keyColor, std::wstring& valuesColor)
 {
-    if (affichage_sur_actif)
+     if (affichage_sur_actif)
         if (!netflix_ok_ou_non)
             //Console_Lire(keyColor + L"Netflix : " + valuesColor + L"Oui" + keyColor + L" !" + valuesColor, 0, 10);
             //Console_Lire(hOut, keyColor + L"Netflix : " + valuesColor + L"Oui" + keyColor + L" !" + valuesColor + L"\r\n", 0);// , 0);

@@ -1063,8 +1063,6 @@ const bool Film::PrintDate_ou_Dates()
 {
 	if (affichage_date_ou_dates && date_ou_dates.size() > 0)
 	{
-		std::vector<std::wstring>keyColor{ L"\x1b[94;1m", L"\x1b[38;2;0;255;0m" }; // keyColor[0] (bleu) et keyColor[1] (vert)
-		std::wstring valuesColor = L"\x1b[38;2;255;255;255m"; // Blanc
 		std::size_t taille, taille2;
 		wchar_t date_string[15];
 		taille = std::size(date_ou_dates);
