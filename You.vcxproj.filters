@@ -80,6 +80,5 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="Texte.txt" />
-    <Text Include="you.txt" />
   </ItemGroup>
 </Project>
